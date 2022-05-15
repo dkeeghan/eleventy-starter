@@ -1,0 +1,68 @@
+// ==========================================================================
+// DD A11Y HELPERS
+// ==========================================================================
+
+// DISABLE PAGE SCROLLING
+// ==========================================================================
+
+@mixin has-no-scroll {
+	position: fixed;
+	overflow: hidden;
+	width: 100%;
+	min-height: 100%;
+	overflow-y: scroll;
+}
+
+// VISUALLY HIDDEN
+// ==========================================================================
+
+// Hide only visually, but have it available for screenreaders: h5bp.com/v
+@mixin vh {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	white-space: nowrap;
+}
+
+@mixin undo-vh {
+	clip: auto;
+	height: auto;
+	margin: 0;
+	overflow: visible;
+	position: static;
+	width: auto;
+	white-space: inherit;
+}
+
+@mixin get-vh-classes {
+	.vh {
+		@include vh();
+
+		// Extends the .vhidden class to allow the element to be focusable
+		// when navigated to via the keyboard: h5bp.com/p
+		&.focusable:active,
+		&.focusable:focus {
+			@include undo-vh();
+		}
+	}
+}
+
+// BROWSER FOCUS
+// ==========================================================================
+
+// Passable mimic of default browser focus styles, to apply to non-anchor elements
+// Ref: https://ghinda.net/article/mimic-native-focus-css/
+@mixin mimic-default-browser-focus() {
+	outline: 2px solid Highlight;
+
+	/* WebKit gets its native focus styles. */
+	@media (-webkit-min-device-pixel-ratio: 0) {
+		outline-color: -webkit-focus-ring-color;
+		outline-style: auto;
+	}
+}

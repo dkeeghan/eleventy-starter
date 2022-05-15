@@ -1,0 +1,11 @@
+{# SVG render #}
+{% macro render(name, title=false, desc=false, uniqueid=false) -%}
+	{% set svgId %}{{ uniqueid | GuidIfFalse }}{% endset %}
+
+	<svg role="img"{% if title %} aria-labelledby="{{ svgId }}-title{% if desc %} {{ svgId }}-desc{% endif %}"{% endif %}>
+		{% if title %}<title id="{{ svgId }}-title">{{ title }}</title>{% endif %}
+		{% if desc %}<desc id="{{ svgId }}-desc">{{ desc }}</desc>{% endif %}
+		<use xlink:href="/assets/img/icons.svg#svg-{{ name }}" href="/assets/img/icons.svg#svg-{{ name }}"></use>
+	</svg>
+
+{%- endmacro %}

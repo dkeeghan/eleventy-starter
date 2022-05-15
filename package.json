@@ -1,0 +1,91 @@
+{
+  "name": "eleventy-starter",
+  "version": "1.0.0",
+  "description": "A small static microsite starter project using Eleventy JS with NJK, Parcel 2 with SCSS and JS.",
+  "license": "BSD-3-Clause",
+  "author": {
+    "name": "Damian Keeghan",
+    "url": "https://github.com/dkeeghan/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dkeeghan/eleventy-starter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dkeeghan/eleventy-starter/issues",
+    "email": "damian@keeghan.com.au"
+  },
+  "engines": {
+    "node": ">= 16"
+  },
+  "browserslist": [
+    "> 2%",
+    "last 2 Edge versions",
+    "last 2 Safari versions",
+    "last 2 Firefox versions",
+    "last 2 Chrome versions",
+    "last 2 iOS versions",
+    "last 3 Android versions",
+    "last 2 ChromeAndroid versions",
+    "last 2 Samsung versions",
+    "not ie 11",
+    "not ie 10",
+    "not ie 9",
+    "not ie 8",
+    "not dead"
+  ],
+  "scripts": {
+    "clean": "run-s clean:*",
+    "clean:cache": "rimraf ./.parcel-cache",
+    "clean:site": "rimraf ./dist",
+    "icons": "npm run icons:clean && npm run icons:optimise && npm run icons:combine && npm run icons:clean",
+    "icons:clean": "rimraf ./src/assets/icons/svgs-min",
+    "icons:combine": "svgstore -o ./src/assets/img/icons.svg -p svg- ./src/assets/icons/svgs-min/*.svg",
+    "icons:optimise": "mkdirp ./src/assets/icons/svgs-min && svgo --folder ./src/assets/icons/svgs-src --output ./src/assets/icons/svgs-min",
+    "build": "run-s clean build:* cache",
+    "build:html": "cross-env ELEVENTY_ENV=production eleventy",
+    "build:assets": "cross-env NODE_ENV=production parcel build ./src/assets/css/style.scss ./src/assets/js/app.js --dist-dir ./dist/assets --no-source-maps",
+    "watch": "run-s clean && run-p watch:*",
+    "watch:html": "cross-env ELEVENTY_ENV=development eleventy --serve --port=8080",
+    "watch:assets": "cross-env NODE_ENV=development parcel watch ./src/assets/css/style.scss ./src/assets/js/app.js --dist-dir ./dist/assets --no-hmr --public-url .",
+    "start": "npm run watch"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^1.0.1",
+    "@11ty/eleventy-navigation": "^0.3.3",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^4.0.0",
+    "@babel/core": "^7.17.10",
+    "@deloitte-digital-au/babel-preset-app": "^3.0.0",
+    "@deloitte-digital-au/eslint-config": "^3.4.2",
+    "@deloitte-digital-au/stylelint-config": "^2.0.1",
+    "@fullhuman/postcss-purgecss": "^4.1.3",
+    "@parcel/optimizer-cssnano": "^2.5.0",
+    "@parcel/packager-css": "^2.5.0",
+    "@parcel/transformer-css": "^2.5.0",
+    "@parcel/transformer-postcss": "^2.5.0",
+    "@parcel/transformer-sass": "^2.5.0",
+    "cross-env": "^7.0.3",
+    "html-minifier": "^4.0.0",
+    "js-beautify": "^1.14.3",
+    "npm-run-all": "^4.1.5",
+    "nunjucks": "^3.2.3",
+    "parcel": "^2.0.0-rc.0",
+    "postcss": "^8.3.6",
+    "prismjs": "^1.24.1",
+    "request": "^2.88.2",
+    "rimraf": "^3.0.2",
+    "sass": "^1.51.0",
+    "slugify": "^1.6.5",
+    "stylelint": "^14.8.2",
+    "stylelint-cli": "^1.3.0",
+    "svg-sprite": "^1.5.4",
+    "svgo": "^2.8.0",
+    "svgstore-cli": "^2.0.1"
+  },
+  "dependencies": {
+    "@deloitte-digital-au/ddbreakpoints": "^2.0.4",
+    "@dkwd/dk-a11y": "^0.0.1",
+    "@dkwd/dk-offscreen": "^0.0.2",
+    "normalize.css": "^8.0.1"
+  }
+}

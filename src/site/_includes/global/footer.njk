@@ -1,0 +1,26 @@
+{#
+GLOBAL FOOTER
+--------------
+Contains the page footer
+#}
+
+{% import "components/toggle-theme.njk" as theme %}
+
+{# HEAD #}
+{% macro render() %}
+<!-- START Global Footer -->
+<footer class="g-footer">
+	<div class="l-padding _content">
+		<p class="_copyright">{{ config.footer.copyright | safe }}</p>
+
+		<ul class="_links">
+			{% for link in config.footer.links %}
+			<li><a href="{{ link.href }}"{% if link.href == page.url %} class="is-active"{% endif %}{% if link.external %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ link.title }}</a></li>
+			{% endfor %}
+		</ul>
+
+		{# theme.render() #}
+	</div>
+</footer>
+<!-- END Global Footer -->
+{% endmacro %}

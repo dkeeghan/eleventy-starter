@@ -1,0 +1,61 @@
+{#
+SITE STRUCTURE
+--------------
+Contains the standard head and scripts to be added to the page top/bottom
+#}
+
+{# HEAD #}
+{% macro head(title='PAGE TITLE NOT SET', env='') -%}
+<!DOCTYPE html>
+<html class="supports-no-js page-is-loading use-theme-dark{% if env == 'development'%} is-debug{% endif %}" lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="format-detection" content="telephone=no" />
+
+	<!-- Disable search indexing -->
+	<meta name="robots" content="noindex">
+
+	<!-- Favicons -->
+	<link rel="icon" type="image/vnd.microsoft.icon" sizes="any" href="/assets/img/favicons/favicon.ico"/>
+	<link rel="icon" type="image/svg+xml" href="/assets/img/favicons/icon.svg">
+	<link rel="apple-touch-icon" href="/assets/img/favicons/apple-touch-icon.png">
+	<meta name="theme-color" content="#86BC25" media="(prefers-color-scheme: light)">
+	<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+	<meta name="color-scheme" content="light dark">
+
+	<link rel="manifest" href="/manifest.json" crossorigin="use-credentials" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700;800&display=swap" rel="stylesheet">
+
+	{% if renderData.title %}
+	<title>{{ renderData.title }} | {{ config.siteTitle }}</title>
+	{% elif title %}
+	<title>{{ title }} | {{ config.siteTitle }}</title>
+	{% else %}
+	<title>{{ config.siteTitle }}</title>
+	{% endif %}
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<link href="/assets/css/style.css" rel="stylesheet" />
+
+	<script>
+		document.documentElement.classList.replace('supports-no-js', 'supports-js');
+	</script>
+</head>
+{%- endmacro %}
+
+{# PAGE TOP #}
+{% macro pageTop(title='PAGE TITLE NOT SET') %}
+<script>
+(function() {
+	var isIE=function(){var e=window.navigator.userAgent,i=e.indexOf("MSIE");return i>0?parseInt(e.substring(i+5,e.indexOf(".",i))):navigator.userAgent.match(/Trident\/7\./)?11:0};if(isIE()>0){var ieDiv=document.createElement("div");ieDiv.className="is-ie",ieDiv.textContent="You're using Internet Explorer (IE) to view this site. IE is very old, insecure and doesn't work with the latest the web has to offer - Please use another browser to view this site like Edge, Chrome, Safari or Firefox.",document.body.insertBefore(ieDiv,document.body.childNodes[0])}
+})();
+</script>
+{% endmacro %}
+
+{# PAGE BOTTOM #}
+{% macro pageBottom() %}
+	<!-- Main application script -->
+	<script src="/assets/js/app.js"></script>
+{% endmacro %}

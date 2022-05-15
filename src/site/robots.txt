@@ -1,0 +1,2 @@
+# Disallow all robots by default - comment out the below line to allow all robots
+User-agent: * Disallow: /

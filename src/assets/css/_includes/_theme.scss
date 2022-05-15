@@ -1,0 +1,232 @@
+@use "@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" as bp;
+@use "./utils";
+
+// ==========================================================================
+// THEME
+// ==========================================================================
+
+// BRANDING
+// ==========================================================================
+
+:root {
+	// primary brand
+	--theme-primary: #2566bc;
+	--theme-primary-darker: #1625ab;
+
+	// greyscale
+	--theme-white: #FFF;
+	--theme-grey-100: #F2f2f6;
+	--theme-grey-200: #EEE;
+	--theme-grey-400: #999;
+	--theme-grey-500: #777;
+	--theme-grey-700: #3F3F3F;
+	--theme-grey-800: #272727;
+	--theme-grey-900: #222;
+	--theme-black: #000;
+}
+
+:root { accent-color: var(--theme-primary); }
+:focus-visible { outline-color: var(--theme-primary); }
+::selection { background-color: var(--theme-primary); }
+::marker { color: var(--theme-primary); }
+
+// - THEME COLOURS - DARK MODE
+// ==========================================================================
+
+html {
+	@include utils.prefers-color-scheme(dark, true) {
+		// standard borders
+		--theme-border: var(--theme-grey-700);
+
+		// text
+		--theme-paragraph-color: var(--theme-white);
+		--theme-paragraph-subdued-color: var(--theme-grey-400);
+		--theme-heading-color: var(--theme-white);
+
+		// text on inverted (light) background
+		--theme-paragraph-color-on-inverted: var(--theme-grey-900);
+		--theme-paragraph-subdued-color-on-inverted: var(--theme-grey-500);
+		--theme-heading-color-on-inverted: var(--theme-grey-900);
+
+		// text on nav
+		--theme-paragraph-color-on-nav: var(--theme-white);
+		--theme-paragraph-subdued-color-on-nav: var(--theme-grey-400);
+		--theme-heading-color-on-nav: var(--theme-white);
+
+		// links
+		--theme-link-color-default: var(--theme-white);
+		--theme-link-color-visited: var(--theme-white);
+		--theme-link-color-hover: var(--theme-primary);
+		--theme-link-color-active: var(--theme-primary-darker);
+
+		// backgrounds
+		--theme-bg-default: var(--theme-grey-900);
+		--theme-bg-shaded: var(--theme-grey-700);
+		--theme-bg-nav: var(--theme-grey-800);
+		--theme-bg-header: var(--theme-grey-900);
+		--theme-bg-footer: var(--theme-grey-900);
+		--theme-bg-person-image: var(--theme-grey-800);
+		--theme-bg-scrollbars: var(--theme-grey-500);
+		--theme-bg-input: var(--theme-grey-700);
+
+		// hero banner
+		--theme-hero-banner-bg-gradient-start: #{utils.hex-to-rgba(#222, 0)};
+		--theme-hero-banner-bg-gradient-mid: #{utils.hex-to-rgba(#222, 0.3)};
+		--theme-hero-banner-bg-gradient-end: var(--theme-bg-default);
+
+		// hero banner gradient positions
+		--theme-hero-banner-bg-gradient-start-pos: 0;
+		--theme-hero-banner-bg-gradient-mid-pos: 30%;
+		--theme-hero-banner-bg-gradient-hidden-text-start-pos: 50%;
+		--theme-hero-banner-bg-gradient-hidden-text-mid-pos: 70%;
+
+		// statuses
+		--theme-status-warning: #FFC107;
+		--theme-text-on-status-warning: var(--theme-grey-800);
+	}
+}
+
+// - THEME COLOURS - LIGHT MODE
+// ==========================================================================
+
+html {	
+	@include utils.prefers-color-scheme(light, true) {
+		// standard borders
+		--theme-border: var(--theme-grey-200);
+
+		// text
+		--theme-paragraph-color: var(--theme-grey-900);
+		--theme-paragraph-subdued-color: var(--theme-grey-500);
+		--theme-heading-color: var(--theme-grey-900);
+
+		// text on inverted (dark) background
+		--theme-paragraph-color-on-inverted: var(--theme-white);
+		--theme-paragraph-subdued-color-on-inverted: var(--theme-grey-400);
+		--theme-heading-color-on-inverted: var(--theme-white);
+
+		// text on nav
+		--theme-paragraph-color-on-nav: var(--theme-grey-900);
+		--theme-paragraph-subdued-color-on-nav: var(--theme-grey-500);
+		--theme-heading-color-on-nav: var(--theme-grey-900);
+
+		// links
+		--theme-link-color-default: var(--theme-paragraph-color);
+		--theme-link-color-visited: var(--theme-paragraph-color);
+		--theme-link-color-hover: var(--theme-primary);
+		--theme-link-color-active: var(--theme-primary-darker);
+
+		// backgrounds
+		--theme-bg-default: var(--theme-white);
+		--theme-bg-shaded: var(--theme-grey-100);
+		--theme-bg-nav: var(--theme-grey-100);
+		--theme-bg-header: var(--theme-grey-200);
+		--theme-bg-footer: var(--theme-white);
+		--theme-bg-person-image: var(--theme-grey-200);
+		--theme-bg-scrollbars: var(--theme-grey-400);
+		--theme-bg-input: var(--theme-white);
+
+		// hero banner
+		--theme-hero-banner-bg-gradient-start: #{utils.hex-to-rgba(#FFF, 0)};
+		--theme-hero-banner-bg-gradient-mid: #{utils.hex-to-rgba(#FFF, 0.3)};
+		--theme-hero-banner-bg-gradient-end: var(--theme-bg-default);
+
+		// statuses
+		--theme-status-warning: #FFC107;
+		--theme-text-on-status-warning: var(--theme-grey-800);
+	}
+}
+
+:root {
+	// BORDERS & SPACING
+	// ==========================================================================
+
+	// standard borders
+	--theme-border-radius: #{utils.rem(2)};
+	--theme-border-width: 2px;
+	--theme-border-width-s: 1px;
+	--theme-border-radius-img: var(--theme-border-radius);
+	--theme-border-radius-profile-image: 50%;
+
+	// spacing
+	--component-spacing: #{utils.rem(26)};
+
+	// FONTS
+	// ==========================================================================
+
+	--font-line-height: 1.6;
+	--font-line-height-s: 1.4;
+	--font-form-line-height: 1.2;
+	--font-heading-line-height: 1.1;
+
+	// margins
+	--font-margins: #{utils.rem(14)} 0;
+	--font-heading-margins: #{utils.rem(36)};
+	--font-heading-margins-s: #{utils.rem(24)};
+
+	// fonts
+	--font-family: 'Open Sans', sans-serif;
+	--font-weight: 400;
+	--font-feature-family: 'Open Sans', sans-serif;
+	--font-feature-weight: 700;
+
+	// font-weight
+	--font-weight-light: 300;
+	--font-weight-bold: 700;
+	--font-weight-extrabold: 800;
+
+	// FONT SIZES
+	// ==========================================================================
+
+	--font-size-h1: #{utils.rem(60)};
+	--font-size-h2: #{utils.rem(30)};
+	--font-size-h3: #{utils.rem(26)};
+	--font-size-h4: #{utils.rem(20)};
+	--font-size-h5: #{utils.rem(18)};
+	--font-size-h6: #{utils.rem(16)};
+
+	@include bp.get(m) {
+		--font-size-h1: #{utils.rem(80)};
+		--font-size-h2: #{utils.rem(36)};
+		--font-size-h3: #{utils.rem(30)};
+		--font-size-h4: #{utils.rem(26)};
+		--font-size-h5: #{utils.rem(22)};
+		--font-size-h6: #{utils.rem(18)};
+	}
+
+	@include bp.get(xl) {
+		--font-size-h1: #{utils.rem(120)};
+		--font-size-h2: #{utils.rem(36)};
+		--font-size-h3: #{utils.rem(30)};
+		--font-size-h4: #{utils.rem(26)};
+		--font-size-h5: #{utils.rem(22)};
+		--font-size-h6: #{utils.rem(18)};
+	}
+
+	// base font sizes
+	--font-size-huge: #{utils.rem(120)};
+	--font-size-xxxl: #{utils.rem(70)};
+	--font-size-xxl: #{utils.rem(40)};
+	--font-size-xl: #{utils.rem(20)};
+	--font-size-l: #{utils.rem(18)};
+	--font-size: #{utils.rem(16)};
+	--font-size-s: #{utils.rem(14)};
+	--font-size-xs: #{utils.rem(12)};
+	--font-size-xxs: #{utils.rem(10)};
+}
+
+// BASE FONTS
+// ==========================================================================
+
+@mixin base-family() {
+	font-family: var(--font-family);
+	font-weight: var(--font-weight);
+}
+
+// FEATURE FONTS
+// ==========================================================================
+
+@mixin feature-family() {
+	font-family: var(--font-feature-family);
+	font-weight: var(--font-feature-weight);
+	letter-spacing: normal;
+}

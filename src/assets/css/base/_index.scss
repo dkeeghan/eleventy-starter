@@ -1,0 +1,19 @@
+@use "./../_includes/theme";
+
+html {
+	box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+
+body {
+	@include theme.base-family();
+	font-size: var(--font-size);
+	line-height: var(--font-line-height);
+	color: var(--theme-paragraph-color);
+	background: var(--theme-bg-default);
+}

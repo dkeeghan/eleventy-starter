@@ -1,0 +1,114 @@
+@use "@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" as bp;
+@use "./_includes/theme";
+@use "./_includes/utils";
+
+// ==========================================================================
+// LAYOUT
+// ==========================================================================
+
+.page-wrap-outer {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	min-width: utils.rem(320);
+}
+
+.page-wrap {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: auto minmax(0, 1fr) auto;
+	min-height: 100vh;
+}
+
+// ==========================================================================
+// CONTAINER AND PADDING LAYOUTS
+// ==========================================================================
+
+.l-container,
+.l-padding {
+	--bp-min-width: 0;
+	--layout-padding: #{utils.rem(20)};
+
+	@include bp.get(m) {
+		--bp-min-width: #{bp.get-width-from-bp(m, "rem")};
+		width: var(--bp-min-width);
+		margin: 0 auto;
+	}
+
+	@include bp.get(l) {
+		--bp-min-width: #{bp.get-width-from-bp(l, "rem")};
+	}
+
+	@include bp.get(xl) {
+		--bp-min-width: #{bp.get-width-from-bp(xl, "rem")};
+		--layout-padding: #{utils.rem(30)};
+	}
+
+	@include bp.get(xxl) {
+		--bp-min-width: #{bp.get-width-from-bp(xxl, "rem")};
+	}
+}
+
+.l-padding {
+	padding: 0 var(--layout-padding);
+
+	.l-padding {
+		padding: 0;
+		width: auto;
+	}
+}
+
+// ==========================================================================
+// IF LEFT NAV IS VISIBLE
+// ==========================================================================
+
+body {
+	&.has-side-nav {
+		.page-wrap-outer {
+			@include bp.get(l) {
+				padding-left: 300px;
+			}
+		}
+
+		.l-padding {
+			@include bp.get(l) {
+				--bp-min-width: #{bp.get-width-from-bp(l, "rem") - utils.rem(300)};
+			}
+
+			@include bp.get(xl) {
+				--bp-min-width: #{bp.get-width-from-bp(xl, "rem") - utils.rem(300)};
+			}
+
+			@include bp.get(xxl) {
+				--bp-min-width: #{bp.get-width-from-bp(xxl, "rem") - utils.rem(300)};
+			}
+		}
+	}
+}
+
+// ==========================================================================
+// GLOBAL LAYOUT
+// ==========================================================================
+
+.l-content-container,
+.l-main,
+.l-layout {
+	outline: none;
+}
+
+.l-content-container {
+	position: relative;
+	margin-bottom: utils.rem(70);
+
+	@include bp.get(m) {
+		margin-bottom: utils.rem(140);
+	}
+}
+
+.l-layout {
+	--layout-gap: #{utils.rem(36)};
+	--layout-col-left-width: #{utils.rem(220)};
+	--layout-col-right-width: #{utils.rem(220)};
+
+	position: relative;
+}

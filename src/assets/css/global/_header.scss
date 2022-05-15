@@ -1,0 +1,81 @@
+@use "@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" as bp;
+@use "../_includes/zindex";
+@use "../_includes/theme";
+@use "../_includes/svgicons";
+@use "../_includes/utils";
+
+// ==========================================================================
+// HEADER
+// ==========================================================================
+
+.g-header {
+	z-index: zindex.$header;
+	padding: utils.rem(15) 0;
+	background-color: var(--theme-bg-header);
+
+	.l-padding {
+		display: flex;
+		flex-wrap: nowrap;
+		align-items: baseline;
+		align-content: flex-start;
+	}
+
+	._logo {
+		display: block;
+		height: utils.rem(37);
+		width: utils.rem(104);
+		position: relative;
+	}
+
+	._btn-offscreen {
+		margin-right: utils.rem(6);
+		margin-left: utils.rem(-8);
+	}
+
+	._logo--img {
+		width: 100%;
+	}
+
+	.has-side-nav & {
+		@include bp.get(l) {
+			display: none;
+		}
+	}
+
+	.g-breadcrumbs {
+		margin-left: auto;
+		align-self: center;
+		position: relative;
+	}
+
+	@include bp.get(l) {
+		padding: utils.rem(25) 0;
+
+		._logo {
+			height: utils.rem(48);
+			width: utils.rem(140);
+		}
+	}
+}
+
+// ==========================================================================
+// BREADCRUMBS
+// ==========================================================================
+
+.g-breadcrumbs {
+	font-size: var(--font-size-s);
+}
+
+// ==========================================================================
+// IE ERROR MESSAGE
+// ==========================================================================
+
+.is-ie {
+	background-color: var(--theme-status-warning);
+	color: var(--theme-text-on-status-warning);
+	padding: utils.rem(10) utils.rem(20);
+	text-align: center;
+	display: block;
+	width: 100%;
+	font-size: var(--font-size-xs);
+}

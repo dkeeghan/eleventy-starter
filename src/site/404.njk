@@ -1,0 +1,23 @@
+---
+title: 404 Page Not Found
+permalink: "404.html"
+---
+
+{% extends "layouts/one-column.njk" %}
+{% import "components/hero-banner.njk" as heroBanner with context %}
+{% import "utils/svg.njk" as svg %}
+
+{% block above %}
+	{{ heroBanner.render('Uhoh, something went wrong.', {
+		bgImage: '/assets/img/404.gif',
+		subtitle: '404 Page Not Found',
+		desc: 'The page you&rsquo;re trying to find doesn&rsquo;t exist - so here is a 404 page instead.'
+	}) }}
+{% endblock %}
+
+{% block main %}
+	<p>Sorry that you've found a page that doesn't exist!</p>
+
+	<h2 class="h4">What next?</h2>
+	<p><a href="/" class="link-icon">{{ svg.render('caret-left') }} Go back to the home page</a></p>
+{% endblock %}

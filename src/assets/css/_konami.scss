@@ -1,0 +1,95 @@
+@use "./_includes/utils";
+@use "./_includes/zindex";
+
+// ==========================================================================
+// LAYOUT
+// ==========================================================================
+
+.konami-raptor {
+	display: none;
+}
+
+.konami {
+	* {
+		font-family: "Comic Sans MS", cursive, sans-serif;
+	}
+
+	.page-wrap-outer::before {
+		position: fixed;
+		bottom: utils.rem(10);
+		right: utils.rem(10);
+		background-color: var(--theme-bg-shaded);
+		border-radius: var(--theme-border-radius);
+		padding: utils.rem(10);
+		font-size: var(--font-size-xs);
+		display: block;
+		z-index: zindex.$pull-to-top;
+		box-shadow: 5px 5px 30px 0 rgba(0, 0, 0, 0.1);
+		max-width: 50vw;
+		content: "Ah Comic Sans, the most professional of workplace fonts - if you've found this say hi to us on MS Teams. 👋";
+	}
+
+	.konami-raptor {
+		display: block;
+		position: fixed;
+		bottom: -383px;
+		left: -80px;
+		z-index: zindex.$pull-to-top;
+
+		img {
+			width: 100%;
+			display: block;
+			margin: 0;
+			position: relative;
+		}
+
+		&.is-animating {
+			animation-name: raptor;
+			animation-duration: 10s;
+			animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+			img {
+				animation-name: raptor-bounce;
+				animation-delay: 3s;
+				animation-duration: 0.25s;
+				animation-fill-mode: both;
+				animation-iteration-count: 20;
+				animation-direction: alternate;
+			}
+		}
+	}
+}
+
+$raptor-pos-base: 0;
+$raptor-pos-final: -220px;
+
+@keyframes raptor {
+	0% {
+		transform: translate3d(0, $raptor-pos-base, 0);
+	}
+
+	5% {
+		transform: translate3d(0, $raptor-pos-final, 0);
+	}
+
+	30% {
+		transform: translate3d(0, $raptor-pos-final, 0);
+	}
+
+	100% {
+		transform: translate3d(calc(100vw + 400px), $raptor-pos-final, 0);
+	}
+}
+
+$raptor-bounce-base: 0;
+$raptor-bounce-up: -50px;
+
+@keyframes raptor-bounce {
+	0% {
+		transform: translate3d(0, $raptor-bounce-base, 0);
+	}
+
+	100% {
+		transform: translate3d(0, $raptor-bounce-up, 0);
+	}
+}

@@ -1,0 +1,111 @@
+@use "sass:math";
+@use "./_includes/dd-a11y" as a11y;
+@use "./_includes/utils";
+
+// ==========================================================================
+// FUNCTIONAL CLASSES
+// ==========================================================================
+
+@include a11y.get-vh-classes();
+
+.has-no-scroll {
+	@include a11y.has-no-scroll;
+}
+
+// Hide from both screenreaders and browsers: h5bp.com/u
+.hidden,
+.is-hidden {
+	display: none !important;
+	visibility: hidden;
+}
+
+.supports-js .js-hidden {
+	display: none;
+}
+
+.supports-no-js .no-js-hidden {
+	display: none;
+}
+
+// Hide visually and from screenreaders, but maintain layout
+.invisible {
+	visibility: hidden;
+}
+
+// CLEARFIX
+// Apply the cf code to the included elements - means you don't need to use class cf all over the place
+.cf,
+.clearfix {
+	@include utils.cf;
+}
+
+// INTRINSIC RATIO
+// ==========================================================================
+
+//	<div class="intrinsic">
+//		<div class="intrinsic-wrap">
+//			<div class="intrinsic-el">
+//			</div>
+//		</div>
+//	</div>
+
+.intrinsic {
+	// You just need to define width within another class on the element,
+	// if not a inherited by default (ie: <div/> or any class with a display: block or default width of auto or 100%)
+}
+
+.intrinsic-wrap {
+	height: 0;
+	position: relative;
+}
+
+// This class needs no further customization,
+// if this class is applied to the element and is contained
+// within .intrinsic > .intrinsic-wrap > *current element*
+// the element should scale in correct perspective
+.intrinsic-el {
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+}
+
+// generates class names to be added to the '.intrinsic-wrap' class
+// e.g. @include intrinsic-class(16,9) creates the class '.intrinsic-16x9'
+@mixin intrinsic-class($width, $height, $prefix: "intrinsic-") {
+	$class-name: $prefix + $width + "x" + $height;
+
+	.#{$class-name} {
+		padding-bottom: percentage(math.div($height, $width));
+	}
+}
+
+@include intrinsic-class(16, 9);
+@include intrinsic-class(4, 3);
+@include intrinsic-class(1, 1);
+
+// PREFERS COLOUR SCHEME
+// ==========================================================================
+
+html {
+	@include utils.prefers-color-scheme(light, true) {
+		.prefers-light-block {
+			display: block;
+		}
+
+		.prefers-dark-block {
+			display: none;
+		}
+	}
+
+	@include utils.prefers-color-scheme(dark, true) {
+		.prefers-light-block {
+			display: none;
+		}
+
+		.prefers-dark-block {
+			display: block;
+		}
+	}
+}

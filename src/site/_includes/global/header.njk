@@ -1,0 +1,85 @@
+{#
+GLOBAL HEADER
+--------------
+Contains the page header and navigation
+#}
+
+{% import "utils/svg.njk" as svg %}
+{% import "components/toggle-theme.njk" as theme %}
+
+{# A11Y LINKS #}
+{% macro renderA11yLinks() %}
+{# <!-- A11y Links - not required for very simple sites  --> #}
+{% endmacro %}
+
+{# SIDE NAV #}
+{% macro renderNav() %}
+<dk-offscreen id="nav-offscreen" enabled-at="0,m" class="g-nav-offscreen left-sidebar">
+	<header class="_header">
+		<a href="/" class="_logo" aria-label="{{ config.siteTitle }}">
+			<img class="_logo--img prefers-light-block" src="/assets/img/site-logo.svg" alt="Eleventy Starter Logo" />
+			<img class="_logo--img prefers-dark-block" src="/assets/img/site-logo-dark.svg" alt="Eleventy Starter Logo" />
+		</a>
+
+		<dk-offscreen-toggle for="nav-offscreen" class="btn-offscreen _close">
+			<button aria-label="Toggle Navigation">
+				<svg viewBox="0 0 100 100">
+					<path class="_svg-line _svg-line-top" d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058" />
+					<path class="_svg-line _svg-line-middle" d="M 20,50 H 80" />
+					<path class="_svg-line _svg-line-bottom" d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942" />
+				</svg>
+			</button>
+		</dk-offscreen-toggle>
+	</header>
+
+	<section class="nav-content">
+		<strong class="_title">{{ config.sideNav.title }}</strong>
+		<p class="_desc">{{ config.sideNav.description }}</p>
+	</section>
+
+	<section class="_theme-toggle">
+		{{ theme.render('nav-') }}
+	</section>
+</dk-offscreen>
+{% endmacro %}
+
+{# HEADER #}
+{% macro renderHeader(hasSideNav=false, hasBackToHome=true) %}
+<!-- START Global Header -->
+<header class="g-header">
+	<div class="l-padding">
+		{% if hasSideNav %}
+		<dk-offscreen-toggle class="btn-offscreen _btn-offscreen" for="nav-offscreen">
+			<button aria-label="Toggle Navigation">
+				<svg viewBox="0 0 100 100">
+					<path class="_svg-line _svg-line-top" d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058" />
+					<path class="_svg-line _svg-line-middle" d="M 20,50 H 80" />
+					<path class="_svg-line _svg-line-bottom" d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942" />
+				</svg>
+			</button>
+		</dk-offscreen-toggle>
+		{% endif %}
+
+		<a href="/" class="_logo" aria-label="{{ config.siteTitle }}">
+			<img class="_logo--img prefers-light-block" src="/assets/img/site-logo.svg" alt="Eleventy Starter Logo" />
+			<img class="_logo--img prefers-dark-block" src="/assets/img/site-logo-dark.svg" alt="Eleventy Starter Logo" />
+		</a>
+
+		{% if hasBackToHome %}
+		<nav class="g-breadcrumbs" aria-label="Breadcrumbs">
+			<div class="l-padding">
+				<a href="/?f=prev" class="link-icon">{{ svg.render('caret-left') }}{{ config.header.backTo }}</a>
+			</div>
+		</nav>
+		{% endif %}
+	</div>
+</header>
+<!-- END Global Header -->
+
+{%- if hasSideNav -%}
+<!-- START Offscreen Nav -->
+{{- renderNav() -}}
+<!-- END Offscreen Nav -->
+{%- endif -%}
+
+{% endmacro %}

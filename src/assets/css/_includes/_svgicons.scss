@@ -1,0 +1,129 @@
+@use "sass:math";
+
+// ==========================================================================
+// SVG ICONS
+// Utilities for using sprite sheets as icons
+// ==========================================================================
+
+@mixin _reset-x-pos($pos) {
+	margin-left: 0;
+
+	@if ($pos == left or nth($pos, 1) == left) {
+		right: auto;
+	} @else if ($pos == right or nth($pos, 1) == right) {
+		left: auto;
+	}
+}
+
+@mixin _set-x-pos($x-pos, $width, $reset: false) {
+	@if ($reset == true) {
+		@include _reset-x-pos($x-pos);
+	}
+
+	@if ($x-pos == left) {
+		left: 0;
+	} @else if (nth($x-pos, 1) == left) {
+		left: nth($x-pos, 2);
+	} @else if ($x-pos == center) {
+		left: 50%;
+		margin-left: (math.div($width, 2)) * -1;
+	} @else if ($x-pos == right) {
+		right: 0;
+	} @else if (nth($x-pos, 1) == right) {
+		right: nth($x-pos, 2);
+	} @else if ($x-pos != none) {
+		left: $x-pos;
+	}
+}
+
+@mixin _reset-y-pos($pos) {
+	margin-top: 0;
+
+	@if ($pos == bottom or nth($pos, 1) == bottom) {
+		top: auto;
+	} @else if ($pos == top or nth($pos, 1) == top) {
+		bottom: auto;
+	}
+}
+
+@mixin _set-y-pos($y-pos, $height, $reset: false) {
+	@if ($reset == true) {
+		@include _reset-y-pos($y-pos);
+	}
+
+	@if ($y-pos == top) {
+		top: 0;
+	} @else if (nth($y-pos, 1) == top) {
+		top: nth($y-pos, 2);
+	} @else if ($y-pos == center) {
+		top: 50%;
+		margin-top: (math.div($height, 2)) * -1;
+	} @else if ($y-pos == bottom) {
+		bottom: 0;
+	} @else if (nth($y-pos, 1) == bottom) {
+		bottom: nth($y-pos, 2);
+	} @else if ($y-pos != none) {
+		top: $y-pos;
+	}
+}
+
+@mixin set($width: 48px, $height: 48px, $x-pos: none, $y-pos: none, $color: none, $hover: none, $active: none, $duration: var(--anim-duration-normal)) {
+	& svg {
+		width: $width;
+		height: $height;
+		display: block;
+		background-position: 50% 50%;
+
+		// Position absolutely if valid position values are provided
+		@if ($x-pos != none or $y-pos != none) {
+			position: absolute;
+
+			@include _set-x-pos($x-pos, $width);
+			@include _set-y-pos($y-pos, $height);
+		}
+
+		@content;
+	}
+
+	@if ($color != none) {
+		@include color($color, $hover, $active, $duration);
+	}
+}
+
+@mixin color($color, $hover: none, $active: none, $duration: var(--anim-duration-normal)) {
+	& svg use {
+		fill: $color;
+		@if ($hover != none) {
+			transition: fill $duration;
+		}
+	}
+
+	@if ($hover != none) {
+		&:hover,
+		&:focus {
+			svg use {
+				fill: $hover;
+			}
+		}
+	}
+
+	@if ($active != none) {
+		&:active {
+			svg use {
+				fill: $active;
+			}
+		}
+	}
+}
+
+@mixin adjust-x($x-pos, $width: 0) {
+	& svg {
+		@include _set-x-pos($x-pos, $width, true);
+	}
+}
+
+@mixin adjust-y($y-pos, $height: 0) {
+	& svg {
+		@include _set-y-pos($y-pos, $height, true);
+	}
+}

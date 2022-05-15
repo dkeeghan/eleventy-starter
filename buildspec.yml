@@ -1,0 +1,32 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      nodejs: 14
+    commands:
+      - echo "install step"
+      - npm ci
+  pre_build:
+    commands:
+      - echo "Copy in responses file from S3"
+      - aws s3 cp s3://${ASSET_BUCKET}/dotify/responses.json src/site/_data/responses.json
+      - echo "Got responses.json"
+      - echo "Get images from cache"
+      - aws s3 sync s3://${ASSET_BUCKET}/dotify/img/people src/assets/img/people/
+      - aws s3 sync s3://${ASSET_BUCKET}/dotify/img/memes src/assets/img/memes/
+      - echo "Got images from cache"
+  build:
+    commands:
+      - echo Building site
+      - npm run build
+      - echo "upload responses.json back to s3"
+      - aws s3 cp src/site/_data/responses.json s3://${ASSET_BUCKET}/dotify/responses.json
+      - echo "upload images to cache"
+      - aws s3 sync src/assets/img/people/. s3://${ASSET_BUCKET}/dotify/img/people
+      - aws s3 sync src/assets/img/memes/. s3://${ASSET_BUCKET}/dotify/img/memes
+      - cd dist
+      - aws s3 sync . s3://${TARGET_BUCKET} --delete
+  post_build:
+    commands:
+      - echo "update cloudfront distribution"
+      - aws cloudfront create-invalidation --distribution-id "${DISTRIBUTION_ID}" --paths "/index.html" "/assets/*" "/404.html" "/people/*"

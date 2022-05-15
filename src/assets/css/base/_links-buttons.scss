@@ -1,0 +1,169 @@
+@use "@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" as bp;
+@use "../_includes/svgicons";
+@use "../_includes/utils";
+
+// ==========================================================================
+// LINKS/BUTTONS
+// ==========================================================================
+
+// BASE
+// ==========================================================================
+
+a {
+	color: var(--theme-link-color-default);
+	text-decoration: underline;
+	transition-duration: var(--anim-duration-normal);
+	transition-property: color, background-color, border-color;
+}
+
+a {
+	display: inline-block;
+
+	&:hover,
+	&:focus {
+		color: var(--theme-link-color-hover);
+		outline: none;
+	}
+
+	&:focus-visible {
+		outline: 1px solid var(--theme-primary);
+	}
+
+	&:active {
+		color: var(--theme-link-color-active);
+	}
+}
+
+// UNIQUE LINKS
+// ==========================================================================
+
+.link-icon {
+	@include svgicons.set(utils.rem(13), utils.rem(13), left, center, var(--theme-link-color-default), var(--theme-primary));
+	position: relative;
+	padding-left: utils.rem(20);
+	text-decoration: none;
+
+	&:hover,
+	&:focus {
+		text-decoration: underline;
+	}
+
+	&.is-right {
+		@include svgicons.adjust-x(right);
+		padding-right: utils.rem(20);
+		padding-left: 0;
+	}
+}
+
+// UNIQUE BUTTONS
+// ==========================================================================
+
+.btn-outline {
+	--btn-outline-theme: var(--theme-paragraph-color);
+	--btn-outline-theme-inverted: var(--theme-paragraph-color-on-inverted);
+	--btn-outline-theme-hover: var(--theme-primary);
+	background: none;
+	border: 1px solid var(--btn-outline-theme);
+	color: var(--btn-outline-theme);
+	border-radius: var(--theme-border-width);
+	padding: utils.rem(7) utils.rem(15);
+	cursor: pointer;
+
+	&.is-active {
+		border-color: var(--btn-outline-theme-hover);
+		color: var(--btn-outline-theme-hover);
+	}
+
+	&:hover,
+	&:focus {
+		border-color: var(--btn-outline-theme-hover);
+		color: var(--btn-outline-theme-hover);
+		outline: none;
+	}
+
+	&:focus-visible {
+		outline: 1px solid var(--theme-primary);
+	}
+
+	&:active {
+		border-color: var(--btn-outline-theme-hover);
+		color: var(--btn-outline-theme-inverted);
+		background-color: var(--btn-outline-theme-hover);
+	}
+
+	&.is-small {
+		padding: utils.rem(2) utils.rem(5);
+		font-size: var(--font-size-xs);
+	}
+}
+
+.btn-offscreen {
+	display: inline-block;
+	width: utils.rem(40);
+	height: utils.rem(40);
+
+	button {
+		width: 100%;
+		height: 100%;
+		border: none;
+		background: none;
+		padding: 0;
+
+		&:hover,
+		&:focus {
+			._svg-line {
+				stroke: var(--theme-link-color-hover);
+			}
+		}
+
+		&:active {
+			._svg-line {
+				stroke: var(--theme-link-color-active);
+			}
+		}
+	}
+
+	._svg-line {
+		fill: none;
+		stroke: var(--theme-heading-color);
+		stroke-width: 6;
+		transition-duration: var(--anim-duration-slow);
+		transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+		transition-property: stroke-dasharray, stroke-dashoffset, stroke;
+	}
+
+	._svg-line-top {
+		stroke-dasharray: 60 207;
+		stroke-width: 6;
+	}
+
+	._svg-line-middle {
+		stroke-dasharray: 60 60;
+		stroke-width: 6;
+	}
+
+	._svg-line-bottom {
+		stroke-dasharray: 60 207;
+		stroke-width: 6;
+	}
+
+	&.is-expanded {
+		._svg-line-top {
+			stroke-dasharray: 90 207;
+			stroke-dashoffset: -134;
+			stroke-width: 6;
+		}
+
+		._svg-line-middle {
+			stroke-dasharray: 1 60;
+			stroke-dashoffset: -30;
+			stroke-width: 6;
+		}
+
+		._svg-line-bottom {
+			stroke-dasharray: 90 207;
+			stroke-dashoffset: -134;
+			stroke-width: 6;
+		}
+	}
+}

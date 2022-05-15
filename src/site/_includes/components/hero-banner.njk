@@ -1,0 +1,60 @@
+{#
+HERO BANNER
+--------------
+Hero banner with title and options
+
+Options
+-------
+
+{
+	backgroundImage: '',
+	desc: '',
+	subtitle: '',
+	cta: {
+		href: '',
+		text: ''
+	},
+	hasFilterResults: false
+}
+
+#}
+
+{% import "utils/svg.njk" as svg %}
+
+{% macro render(bannerTitle, options={}) -%}
+	{%- set classes = ['c-hero-banner'] -%}
+
+	{%- if options.bgImage -%}
+		{%- set classes = (classes.push('has-bg-image'), classes) -%}
+
+		{%- if options.hasBgImageBlur -%}
+		{%- set classes = (classes.push('has-bg-image-blur'), classes) -%}
+		{%- endif -%}
+	{%- endif -%}
+
+	{%- if options.hasPaddingSmall -%}
+	{%- set classes = (classes.push('has-padding-small'), classes) -%}
+	{%- endif -%}
+
+	{%- if options.hideText -%}
+	{%- set classes = (classes.push('has-text-hidden'), classes) -%}
+	{%- endif -%}
+
+	<header class="{{- classes | join(" ") -}}">
+		{% if options.bgImage %}
+		<div class="_bg-image{% if options.bgImageDark %} prefers-light-block{% endif %}" style="background-image: url({{ options.bgImage }});"></div>
+			{% if options.bgImageDark %}
+			<div class="_bg-image prefers-dark-block" style="background-image: url({{ options.bgImageDark }});"></div>
+			{% endif %}
+		{% endif %}
+		<div class="l-padding">
+			<div class="_content">
+				{% if options.subtitle %}<span class="_subtitle text-subtitle">{{ options.subtitle }}</span>{% endif %}
+				<h1 class="_title">{{ bannerTitle | safe }}</h1>
+				{% if options.desc %}<p class="_desc">{{ options.desc | safe }}</p>{% endif %}
+				{% if options.cta %}<a class="link-icon is-right" href="{{ options.cta.href }}">{{ options.cta.text }}{{ svg.render('caret-right') }}</a>{% endif %}
+			</div>
+		</div>
+	</header>
+{%- endmacro %}
+

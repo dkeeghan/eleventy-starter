@@ -1,0 +1,27 @@
+{#
+THEME TOGGLE
+--------------
+Buttons to allow you to toggle the page theme
+#}
+
+{% import "utils/svg.njk" as svg %}
+
+{% macro render(id = '') %}
+<div class="g-toggle-theme js-toggle-theme">
+    <strong>Theme:</strong>
+    <ul class="_list">
+        <li>
+            <input class="vh" type="radio" name="{{id}}theme" id="{{id}}theme-device" value="use-theme-device">
+            <label class="fancy-toggle has-icon" for="{{id}}theme-device" title="Use Device Theme"><span class="vh">Use Device Theme</span>{{ svg.render('theme-device') }}</label>
+        </li>
+        <li>
+            <input class="vh" type="radio" name="{{id}}theme" id="{{id}}theme-dark" value="use-theme-dark" checked>
+            <label class="fancy-toggle has-icon" for="{{id}}theme-dark" title="Use Dark Theme"><span class="vh">Use Dark Theme</span>{{ svg.render('theme-dark') }}</label>
+        </li>
+        <li>
+            <input class="vh" type="radio" name="{{id}}theme" id="{{id}}theme-light" value="use-theme-light">
+            <label class="fancy-toggle has-icon" for="{{id}}theme-light" title="Use Light Theme"><span class="vh">Use Light Theme</span>{{ svg.render('theme-light') }}</label>
+        </li>
+    </ul>
+</div>
+{% endmacro %}

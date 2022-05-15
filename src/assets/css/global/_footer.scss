@@ -1,0 +1,58 @@
+@use "@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" as bp;
+@use "../_includes/utils";
+
+// ==========================================================================
+// FOOTER
+// ==========================================================================
+
+.g-footer {
+	padding: utils.rem(30) 0;
+	font-size: var(--font-size-s);
+	font-weight: var(--font-weight-light);
+	background-color: var(--theme-bg-footer);
+
+	.l-padding {
+		@include bp.get(m) {
+			display: flex;
+		}
+	}
+
+	p {
+		color: var(--theme-paragraph-subdued-color);
+
+		@include bp.get(m) {
+			margin: 0;
+		}
+	}
+
+	._links {
+		list-style: none;
+		margin: 0 0 0 auto;
+		padding: 0;
+		display: flex;
+
+		li {
+			margin: 0 utils.rem(15) 0 0;
+		}
+
+		a {
+			color: var(--theme-paragraph-subdued-color);
+
+			&:hover,
+			&:focus {
+				color: var(--theme-link-color-hover);
+			}
+
+			&:active {
+				color: var(--theme-link-color-active);
+			}
+
+			&.is-active {
+				color: var(--theme-primary);
+				font-weight: var(--font-weight-normal);
+				text-decoration: none;
+				cursor: default;
+			}
+		}
+	}
+}

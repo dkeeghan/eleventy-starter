@@ -1,0 +1,65 @@
+@use "@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" as bp;
+@use "../_includes/utils";
+@use "../_includes/svgicons";
+@use "../_includes/theme";
+
+// ==========================================================================
+// OFFSCREEN NAV
+// ==========================================================================
+
+.g-nav-offscreen {
+	--theme-paragraph-color: var(--theme-paragraph-color-on-nav);
+	--theme-paragraph-subdued-color: var(--theme-paragraph-subdued-color-on-nav);
+	--theme-heading-color: var(--theme-heading-color-on-nav);
+	padding: utils.rem(30) utils.rem(20);
+	background-color: var(--theme-bg-nav);
+	color: var(--theme-paragraph-color);
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: auto auto 1fr auto;
+
+	._header {
+		position: relative;
+		padding-right: utils.rem(30);
+	}
+
+	._logo--img {
+		height: utils.rem(40);
+	}
+
+	._close {
+		position: absolute;
+		top: 4px;
+		right: 0;
+	}
+
+	&[disabled] {
+		transform: none;
+		transition: none;
+		box-shadow: none;
+
+		._close {
+			display: none;
+		}
+	}
+
+	._theme-toggle {
+		margin-top: utils.rem(30);
+	}
+}
+
+.nav-content {
+	padding: utils.rem(30) 0 utils.rem(50);
+
+	._title {
+		margin: 0 0 utils.rem(10) 0;
+		font-size: var(--font-size-l);
+		font-weight: var(--font-weight-bold);
+	}
+
+	._desc {
+		margin: utils.rem(20) 0 0 0;
+		color: var(--theme-paragraph-subdued-color);
+		font-weight: var(--font-weight-light);
+	}
+}

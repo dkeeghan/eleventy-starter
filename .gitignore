@@ -1,0 +1,10 @@
+# folders to ignore
+node_modules
+dist
+_tmp-images
+.parcel-cache
+
+# OS/editor configuration files
+.vscode
+.cache
+.DS_store

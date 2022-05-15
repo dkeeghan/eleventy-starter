@@ -1,0 +1,20 @@
+@use "@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" as bp;
+@use "../_includes/theme";
+@use "../_includes/utils";
+
+// ==========================================================================
+// TOGGLE THEME PANEL
+// ==========================================================================
+
+.g-toggle-theme {
+    strong {
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-normal);
+    }
+
+    ._list {
+        @include utils.list-reset(true);
+        display: flex;
+        grid-gap: utils.rem(7);
+    }
+}

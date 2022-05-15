@@ -1,0 +1,36 @@
+@use "../_includes/theme";
+
+// ==========================================================================
+// SCROLLBARS
+// ==========================================================================
+
+* {
+	scrollbar-width: thin;
+	scrollbar-color: var(--theme-bg-nav) var(--theme-bg-scrollbars);
+}
+
+*::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+.page-is-tv {
+	*::-webkit-scrollbar {
+		width: 30px;
+		height: 30px;
+	}
+}
+
+*::-webkit-scrollbar-track {
+	background: var(--theme-bg-nav);
+}
+
+*::-webkit-scrollbar-thumb {
+	background: var(--theme-bg-scrollbars);
+}
+
+.g-nav-offscreen {
+	&::-webkit-scrollbar {
+		width: 4px;
+	}
+}

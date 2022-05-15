@@ -1,0 +1,70 @@
+// STYLE.CSS
+// ==========================================================================
+
+// NORMALIZE
+// ==========================================================================
+
+@use "./../../../node_modules/normalize.css/normalize.css";
+
+// BREAKPOINTS CONFIG
+// ==========================================================================
+
+@use "@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" with (
+	$breakpoints: (
+		xxs: 359,
+		xs: 480,
+		s: 640,
+		m: 768,
+		l: 1024,
+		xl: 1244,
+		xxl: 1410,
+		xxxl: 1570,
+		fhd: 1900,
+	),
+	$dev-mode: (
+		enabled: true,
+		on-dark: true,
+		selector: '.is-debug body::after'
+	)
+);
+
+// INCLUDES
+// ==========================================================================
+
+@use "./_includes/animations";
+@use "./_includes/theme";
+
+// FUNCTIONAL STYLES
+// ==========================================================================
+
+@use "./functional";
+
+// BASE SITE STYLES
+// ==========================================================================
+
+@use "./base";
+@use "./base/links-buttons";
+@use "./base/rich-text";
+
+// LAYOUT
+// ==========================================================================
+
+@use "./layout";
+
+// GLOBAL COMPONENTS
+// ==========================================================================
+
+@use "./global/header";
+@use "./global/footer";
+@use "./global/nav";
+@use "./global/scrollbars";
+@use "./global/forms";
+
+// COMPONENTS
+// ==========================================================================
+
+@use "./components/content";
+@use "./components/hero-banner";
+@use "./components/toggle-theme";
+@use "./components/dk-offscreen";
+@use "./konami";

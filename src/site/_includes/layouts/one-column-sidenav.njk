@@ -1,0 +1,46 @@
+{%- import "global/structure.njk" as structure with context -%}
+{%- import "global/header.njk" as header with context -%}
+{%- import "global/footer.njk" as footer with context -%}
+
+{{ structure.head(title, config.env) }}
+
+<body class="has-side-nav">
+	{{ structure.pageTop() }}
+	{{ header.renderA11yLinks() }}
+
+	<div class="page-wrap-outer">
+		<div class="page-wrap">
+
+			{{ header.renderHeader(true, false) }}
+			{% block sideNav %}{% endblock %}
+
+			<!-- START .l-layout -->
+			<div class="l-layout">
+				{% block above %}{% endblock %}
+
+				<!-- START .l-content-container -->
+				<div class="l-content-container l-one-column l-padding">
+
+					<!-- START .l-main -->
+					<main id="main" tabindex="-1" role="main" class="l-main">
+						{% block main %}
+							{{ content }}
+						{% endblock %}
+					</main>
+					<!-- END .main -->
+
+				</div>
+				<!-- END .l-content-container -->
+
+				{% block below %}{% endblock %}
+			</div>
+			<!-- END .l-layout -->
+
+			{{ footer.render() }}
+		</div>
+	</div>
+
+	{{ structure.pageBottom() }}
+</body>
+</html>
+

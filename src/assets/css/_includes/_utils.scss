@@ -1,0 +1,118 @@
+@use "sass:math";
+
+// ==========================================================================
+// HELPERS
+// ==========================================================================
+
+// PX TO REM
+// ==========================================================================
+
+@function strip-units($number) {
+	@return math.div($number, ($number * 0 + 1));
+}
+
+@function rem($px) {
+	@return math.div(strip-units($px), 16) * 1rem;
+}
+
+@function hex-to-rgba($color, $opacity: 1) {
+	@return rgba($color, $opacity);
+}
+
+// LIST FUNCTIONS
+// ==========================================================================
+
+@mixin disable-transition-on-page-load() {
+	.page-is-loading & {
+		transition: none;
+	}
+}
+
+// LIST FUNCTIONS
+// ==========================================================================
+
+@mixin list-reset($resetLi: false) {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+
+	@if $resetLi == true {
+		li {
+			margin: 0;
+		}
+	}
+}
+
+@mixin list-horizontal($reset: false) {
+	@include cf;
+
+	@if $reset == true {
+		@include list-reset;
+	}
+
+	& > li {
+		float: left;
+		margin-top: 0;
+	}
+}
+
+// AUTOMATIC TEXT COLOR PICKER
+// ==========================================================================
+
+// Equation from: http://robots.thoughtbot.com/closer-look-color-lightness
+@function luma($colour) {
+	$red: red(rgba($colour, 1));
+	$green: green(rgba($colour, 1));
+	$blue: blue(rgba($colour, 1));
+
+	@return math.div(((0.2126 * $red) + (0.7152 * $green) + (0.0722 * $blue)), 255);
+}
+
+@function get-contrasting-color($colour, $light: #FFF, $dark: #000) {
+	$base-luma: luma($colour);
+	$light-luma: luma($light);
+	$dark-luma: luma($dark);
+
+	$light-diff: abs($base-luma - $light-luma);
+	$dark-diff: abs($base-luma - $dark-luma);
+
+	@if $light-diff > $dark-diff {
+		@return $light;
+	} @else {
+		@return $dark;
+	}
+}
+
+// CLEARFIX
+// ==========================================================================
+
+@mixin cf {
+	&::before,
+	&::after {
+		content: " ";
+		display: table;
+	}
+
+	&::after {
+		clear: both;
+	}
+}
+
+// COLOUR MODE
+// ==========================================================================
+
+@mixin prefers-color-scheme($type: light, $isHtml: false) {
+	@media (prefers-color-scheme: #{$type}) {
+		@content;
+	}
+
+	@if $isHtml == true {
+		&.use-theme-#{$type} {
+			@content;
+		}
+	} @else {
+		html.use-theme-#{$type} & {
+			@content;
+		}
+	}
+}

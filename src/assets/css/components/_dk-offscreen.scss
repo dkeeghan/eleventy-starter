@@ -1,0 +1,17 @@
+@use "@dkwd/dk-offscreen/src/dk-offscreen" with (
+	$width: 300px,
+	$duration: var(--anim-duration-normal),
+	$z-index: 9999
+);
+@use "../_includes/utils";
+@use "../_includes/svgicons";
+
+dk-offscreen {
+	background-color: var(--theme-bg-nav);
+	box-shadow: 5px 0 5px rgba(0, 0, 0, 0.2);
+	outline: none;
+}
+
+dk-offscreen[from-right] {
+	box-shadow: -5px 0 5px rgba(0, 0, 0, 0.2);
+}

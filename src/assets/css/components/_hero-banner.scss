@@ -1,0 +1,162 @@
+@use "@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" as bp;
+@use "../_includes/theme";
+@use "../_includes/utils";
+@use "../_includes/svgicons";
+@use "../_includes/zindex";
+
+// ==========================================================================
+// HERO BANNER
+// ==========================================================================
+
+.c-hero-banner {
+	position: relative;
+	padding: utils.rem(80) 0;
+
+	._title {
+		font-weight: var(--font-weight-extrabold);
+		margin-top: utils.rem(15);
+		line-height: 1;
+		letter-spacing: -0.05em;
+	}
+
+	._desc {
+		font-size: var(--font-size-xl);
+		font-weight: var(--font-weight-light);
+	}
+
+	._filter-text {
+		font-size: var(--font-size-s);
+		font-weight: var(--font-weight-light);
+
+		p {
+			color: var(--theme-paragraph-subdued-color);
+		}
+	}
+
+	._filter-link {
+		@include bp.get(l) {
+			display: none;
+		}
+	}
+
+	&.has-bg-image {
+		&::after,
+		._bg-image {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		}
+
+		._bg-image {
+			background-position: 50% 50%;
+			background-size: cover;
+			z-index: zindex.$base;
+		}
+
+		&::after {
+			content: '';
+			z-index: zindex.$base + 1;
+			background-image:
+				linear-gradient(
+					to bottom,
+					var(--theme-hero-banner-bg-gradient-start) var(--theme-hero-banner-bg-gradient-start-pos),
+					var(--theme-hero-banner-bg-gradient-mid) var(--theme-hero-banner-bg-gradient-mid-pos),
+					var(--theme-hero-banner-bg-gradient-end)
+				);
+		}
+
+		.l-padding {
+			position: relative;
+			z-index: zindex.$base + 2;
+		}
+
+		&.has-bg-image-blur {
+			overflow: hidden;
+
+			._bg-image {
+				filter: blur(10px);
+				top: -20px;
+				left: -20px;
+				width: calc(100% + 40px);
+				height: calc(100% + 20px);
+
+				@include utils.prefers-color-scheme(light) {
+					opacity: 0.4;
+				}
+			}
+		}
+	}
+
+	&.has-text-hidden {
+		._title,
+		._subtitle,
+		._desc {
+			visibility: hidden;
+		}
+
+		&.has-bg-image {
+			&::after {
+				background-image:
+					linear-gradient(
+						to bottom,
+						var(--theme-hero-banner-bg-gradient-start) var(--theme-hero-banner-bg-gradient-hidden-text-start-pos),
+						var(--theme-hero-banner-bg-gradient-mid) var(--theme-hero-banner-bg-gradient-hidden-text-mid-pos),
+						var(--theme-hero-banner-bg-gradient-end)
+					);
+			}
+		}
+	}
+
+	&.has-profile-image {
+		.l-padding {
+			display: grid;
+			grid-gap: utils.rem(20);
+		}
+
+		._image,
+		._image-container.has-no-image {
+			background-size: cover;
+			border-radius: var(--theme-border-radius-profile-image);
+			width: 100%;
+			background-color: var(--theme-bg-person-image);
+		}
+
+		@include bp.get(xs) {
+			.l-padding {
+				grid-template-columns: utils.rem(160) 1fr;
+			}
+
+			._content {
+				order: 2;
+			}
+
+			._image-container {
+				order: 1;
+			}
+		}
+
+		@include bp.get(m) {
+			.l-padding {
+				grid-gap: utils.rem(40);
+			}
+		}
+	}
+
+	&.has-padding-small {
+		padding: utils.rem(50) 0 utils.rem(30);
+
+		@include bp.get(m) {
+			padding: utils.rem(100) 0 utils.rem(70);
+		}
+	}
+
+	@include bp.get(m) {
+		padding: utils.rem(120) 0 utils.rem(170);
+	}
+
+	@include bp.get(l) {
+		padding: utils.rem(170) 0;
+	}
+}

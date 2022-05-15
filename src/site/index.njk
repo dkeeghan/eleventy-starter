@@ -1,0 +1,25 @@
+---
+eleventyNavigation:
+  key: Home
+---
+
+{% extends "layouts/one-column-sidenav.njk" %}
+
+{% import "components/hero-banner.njk" as heroBanner with context %}
+{% import "utils/svg.njk" as svg %}
+
+{% block above %}
+	{{ heroBanner.render(config.banner.homeTitle, {
+		bgImage: '/assets/img/hero-banner.jpg',
+		bgImageDark: '/assets/img/hero-banner-dark.jpg',
+		subtitle: config.banner.subTitle,
+		hasFilterResults: true,
+		hideText: config.banner.hideText
+	}) }}
+{% endblock %}
+
+{% block main %}
+	<section>
+		<p>Main content goes here</p>
+	</section>
+{% endblock %}
