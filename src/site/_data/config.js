@@ -1,20 +1,10 @@
-module.exports = {
+export default {
 	env: process.env.ELEVENTY_ENV,
-	siteTitle: 'Eleventy Starter',
 	header: {
 		backTo: 'Back to Home',
 	},
-	banner: {
-		subTitle: 'Eleventy Starter Site',
-		homeTitle: 'Hello Starter Site Users!',
-		hideText: true,
-	},
-	sideNav: {
-		title: 'About this site',
-		description: 'This starter site has all you need for a very simple site!',
-	},
 	footer: {
-		copyright: '&copy; 2022 Damian Keeghan',
+		copyright: '&copy; 2025 Damian Keeghan',
 		links: [
 			{
 				title: 'Home',

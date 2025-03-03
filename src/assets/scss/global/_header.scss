@@ -1,0 +1,132 @@
+@use "@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" as bp;
+@use "../_includes/zindex";
+@use "../_includes/theme";
+@use "../_includes/svgicons";
+@use "../_includes/utils";
+
+// ==========================================================================
+// HEADER
+// ==========================================================================
+
+.g-header {
+	z-index: zindex.$header;
+	padding: utils.rem(15) 0;
+	background-color: var(--theme-bg-header);
+
+	.l-padding {
+		display: flex;
+		flex-wrap: nowrap;
+		align-items: baseline;
+		align-content: flex-start;
+	}
+
+	._logo {
+		display: block;
+		height: utils.rem(37);
+		width: utils.rem(104);
+		position: relative;
+	}
+
+	._nav {
+		align-self: flex-end;
+		margin-left: auto;
+	}
+
+	._nav-list {
+		display: flex;
+		flex-wrap: nowrap;
+		align-items: baseline;
+		align-content: flex-end;
+		list-style: none;
+		padding: 0;
+		margin: 0;
+
+		li {
+			margin: 0 0 0 var(--component-spacing);
+		}
+	}
+
+	._btn-offscreen {
+		margin-right: utils.rem(6);
+		margin-left: utils.rem(-8);
+	}
+
+	._logo--img {
+		width: 100%;
+	}
+
+	.has-side-nav & {
+		@include bp.get(l) {
+			display: none;
+		}
+	}
+
+	.g-breadcrumbs {
+		margin-left: auto;
+		align-self: center;
+		position: relative;
+	}
+
+	@include bp.get(l) {
+		padding: utils.rem(25) 0;
+
+		._logo {
+			height: utils.rem(48);
+			width: utils.rem(140);
+		}
+	}
+}
+
+// ==========================================================================
+// BREADCRUMBS
+// ==========================================================================
+
+.g-breadcrumbs {
+	font-size: var(--font-size-xs);
+	padding: utils.rem(20) 0;
+
+	._back-to-parent {
+		@include svgicons.set(utils.rem(12), utils.rem(12), left, center, var(--theme-paragraph-subdued-color), var(--theme-primary));
+		position: relative;
+		padding-left: utils.rem(20);
+
+		@include bp.get(m) {
+			display: none;
+		}
+	}
+
+	._list {
+		@include utils.list-horizontal(true);
+		display: none;
+
+		@include bp.get(m) {
+			display: block;
+		}
+
+		li {
+			@include svgicons.set(utils.rem(12), utils.rem(12), left, center, var(--theme-paragraph-subdued-color));
+			padding-left: utils.rem(20);
+			position: relative;
+			display: inline-block;
+			margin: 0 utils.rem(10) 0 0;
+
+			&.is-home {
+				padding-left: 0;
+			}
+		}
+	}
+}
+
+// ==========================================================================
+// IE ERROR MESSAGE
+// ==========================================================================
+
+.is-ie {
+	background-color: var(--theme-status-warning);
+	color: var(--theme-text-on-status-warning);
+	padding: utils.rem(10) utils.rem(20);
+	text-align: center;
+	display: block;
+	width: 100%;
+	font-size: var(--font-size-xs);
+}

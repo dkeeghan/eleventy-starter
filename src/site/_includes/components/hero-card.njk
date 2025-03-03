@@ -1,0 +1,56 @@
+{#
+HERO CARD
+--------------
+Hero card to be displayed on a homepage/hero landing page
+
+Options
+-------
+
+{
+    title: '',
+    desc: '',
+    img: {
+        src: '',
+        alt: ''
+    },
+    cta: {
+        text: '',
+        link: ''
+    }
+}
+
+#}
+
+{% import "utils/svg.njk" as svg %}
+
+{% macro render(options={}) -%}
+	{%- set options = options | SetOptions({
+        title: '',
+        desc: null,
+        img: {
+            src: '',
+            alt: ''
+        },
+        cta: {
+            text: '',
+            href: ''
+        },
+        theme: false
+    }) -%}
+
+	{%- set classes = ['c-hero-card'] -%}
+
+	{%- if options.theme -%}
+		{%- set classes = (classes.push('has-theme-' + options.theme), classes) -%}
+	{%- endif -%}
+
+	<div class="{{- classes | join(" ") -}}">
+		<img class="_image" src="{{ options.img.src }}" alt="{{ options.img.alt }}" />
+        <div class="_text">
+            <h2>{{ options.title }}</h2>
+            {{ options.desc | safe }}
+            <a href="{{ options.cta.href }}">{{ options.cta.text }}</a>
+        </div>
+	</div>
+{%- endmacro %}
+

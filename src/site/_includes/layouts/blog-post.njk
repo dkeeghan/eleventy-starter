@@ -1,0 +1,54 @@
+---js
+{
+	eleventyComputed: {
+		eleventyNavigation: {
+			key: (parentData) => `${parentData.title}`,
+			parent: 'Blog'
+		},
+		permalink: function(parentData) {
+			const postDate = new Date(parentData.date);
+			let postMonth = postDate.getMonth() + 1;
+			postMonth = (postMonth < 10) ? `0${postMonth}` : postMonth;
+			return `/blog/${postDate.getFullYear()}/${postMonth}/${this.slugify(parentData.title)}/`;
+		},
+	},
+}
+---
+
+{% extends "layouts/two-column-left.njk" %}
+
+{% import "components/hero-banner.njk" as heroBanner with context %}
+{% import "global/breadcrumbs.njk" as breadcrumbs with context %}
+
+{% block above %}
+	{{ heroBanner.render(title, {
+		subtitle: page.date | readableDate,
+		bgImage: '/assets/img/hero-banner.jpg',
+		bgImageDark: '/assets/img/hero-banner-dark.jpg'
+	}) }}
+
+	{{ breadcrumbs.render() }}
+{% endblock %}
+
+{% block main %}
+	<ul class="post-metadata">
+		<li><time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time></li>
+		{%- for tag in tags | filterTagList %}
+			{%- set tagUrl %}/blog/tags/{{ tag | slugify }}/{% endset %}
+			<li><a href="{{ tagUrl }}" class="post-tag">{{ tag }}</a>{%- if not loop.last %}, {% endif %}</li>
+		{%- endfor %}
+	</ul>
+
+	{{ content | safe }}
+
+	{%- if collections.posts %}
+		{%- set previousPost = collections.posts | getPreviousCollectionItem %}
+		{%- set nextPost = collections.posts | getNextCollectionItem %}
+		{%- if nextPost or previousPost %}
+		<ul class="links-nextprev">
+			{%- if previousPost %}<li class="links-nextprev-prev">← Previous<br> <a href="{{ previousPost.url }}">{{ previousPost.data.title }}</a></li>{% endif %}
+			{%- if nextPost %}<li class="links-nextprev-next">Next →<br><a href="{{ nextPost.url }}">{{ nextPost.data.title }}</a></li>{% endif %}
+		</ul>
+		{%- endif %}
+	{%- endif %}
+{% endblock %}

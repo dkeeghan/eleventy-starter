@@ -1,0 +1,42 @@
+---
+{
+	pagination: {
+		data: "collections",
+		size: 1,
+		alias: "tag",
+		filter: ["all", "posts"],
+	},
+	eleventyNavigation: {
+		key: 'Tags',
+		parent: 'Tags',
+	},
+	eleventyExcludeFromCollections: true,
+	eleventyComputed: {
+		title: "Tagged '{{ tag }}'",
+		permalink: function(data) {
+			return `/blog/tags/${this.slugify(data.tag)}/`;
+		},
+	}
+}
+---
+
+{% extends "layouts/one-column.njk" %}
+
+{% import "components/hero-banner.njk" as heroBanner with context %}
+{% import "global/breadcrumbs.njk" as breadcrumbs with context %}
+{% import "blog/postslist.njk" as postsList with context %}
+
+{% block above %}
+	{{ heroBanner.render('Tagged "' + tag + '"', {
+		bgImage: '/assets/img/hero-banner.jpg',
+		bgImageDark: '/assets/img/hero-banner-dark.jpg'
+	}) }}
+
+	{{ breadcrumbs.render() }}
+{% endblock %}
+
+{% block main %}
+	{{ postsList.render(collections[ tag ]) }}
+
+	<p>See <a href="tags.njk">all tags</a>.</p>
+{% endblock %}

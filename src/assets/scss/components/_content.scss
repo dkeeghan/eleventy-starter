@@ -1,0 +1,20 @@
+@use "@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" as bp;
+@use "../_includes/theme";
+@use "../_includes/utils";
+@use "../_includes/svgicons";
+@use "../_includes/zindex";
+
+// ==========================================================================
+// IE ERROR MESSAGE
+// ==========================================================================
+
+.is-ie {
+	background-color: var(--theme-status-warning);
+	color: var(--theme-text-on-status-warning);
+	padding: utils.rem(10) utils.rem(20);
+	text-align: center;
+	display: block;
+	width: 100%;
+	font-size: var(--font-size-xs);
+}
+

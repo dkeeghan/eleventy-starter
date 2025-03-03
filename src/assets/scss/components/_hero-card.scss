@@ -1,0 +1,34 @@
+@use "@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" as bp;
+@use "../_includes/theme";
+@use "../_includes/utils";
+@use "../_includes/svgicons";
+@use "../_includes/zindex";
+
+// ==========================================================================
+// HERO CARD
+// ==========================================================================
+
+.c-hero-card {
+    ._image {
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+    }
+
+    ._text {
+        background-color: var(--c-hero-card-theme);
+        padding: var(--component-padding);
+    }
+
+    &.has-theme-primary {
+        --c-hero-card-theme: var(--theme-primary);
+        background-color: red;
+    }
+
+    &.has-theme-primary-light {
+        --c-hero-card-theme: var(--theme-primary-light);
+    }
+
+    &.has-theme-primary-darker {
+        --c-hero-card-theme: var(--theme-primary-darker);
+    }
+}

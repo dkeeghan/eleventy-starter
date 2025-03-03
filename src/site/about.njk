@@ -1,0 +1,33 @@
+---
+{
+	title: 'About',
+	numberOfLatestPostsToShow: 3,
+	eleventyNavigation: {
+		key: 'About',
+		order: 3,
+		parent: 'Home',
+	},
+}
+---
+
+{% extends "layouts/one-column.njk" %}
+
+{% import "components/hero-banner.njk" as heroBanner with context %}
+{% import "global/breadcrumbs.njk" as breadcrumbs with context %}
+
+{% block above %}
+	{{ heroBanner.render('About', {
+		bgImage: '/assets/img/hero-banner.jpg',
+		bgImageDark: '/assets/img/hero-banner-dark.jpg'
+	}) }}
+
+	{{ breadcrumbs.render() }}
+{% endblock %}
+
+
+{% block main %}
+	<section>
+		<p>I am a person that writes stuff.</p>
+	</section>
+{% endblock %}
+

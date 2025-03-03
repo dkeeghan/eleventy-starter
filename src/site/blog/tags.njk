@@ -1,0 +1,32 @@
+---
+{
+	title: 'Tags',
+	eleventyNavigation: {
+		key: 'Tags',
+		parent: 'Blog',
+	}
+}
+---
+
+{% extends "layouts/one-column.njk" %}
+
+{% import "components/hero-banner.njk" as heroBanner with context %}
+{% import "global/breadcrumbs.njk" as breadcrumbs with context %}
+
+{% block above %}
+	{{ heroBanner.render('Tags', {
+		bgImage: '/assets/img/hero-banner.jpg',
+		bgImageDark: '/assets/img/hero-banner-dark.jpg'
+	}) }}
+
+	{{ breadcrumbs.render() }}
+{% endblock %}
+
+{% block main %}
+<ul>
+{% for tag in collections | getKeys | filterTagList %}
+	{% set tagUrl %}/blog/tags/{{ tag | slugify }}/{% endset %}
+	<li><a href="{{ tagUrl }}" class="post-tag">{{ tag }}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}

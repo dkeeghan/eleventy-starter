@@ -1,12 +1,10 @@
-//import 'core-js/stable';
-import '@dkwd/dk-offscreen/dk-offscreen.js';
-
 const ELEVENTY_STARTER = {};
 
 (NS => {
 	const CLASSES = {
 		PAGE_IS_LOADING: 'page-is-loading',
 		IS_LOADING: 'is-loading',
+		IS_CLOSING: 'is-closing',
 		DEFAULT_THEME: 'use-theme-dark',
 		THEMES: [
 			'use-theme-device',
@@ -18,6 +16,15 @@ const ELEVENTY_STARTER = {};
 	const SELECTORS = {
 		LAZY: '.js-lazy',
 		THEME_TOGGLE: '.js-toggle-theme input',
+		DIALOG: {
+			WINDOW: 'dialog',
+			TRIGGER: '.js-dialog-trigger',
+		}
+	};
+
+	const ATTRS = {
+		FOR: 'for',
+		ENABLED_AT: 'enabled-at',
 	};
 
 	// If you want to visually show if a page has loaded or not (i.e. all blocking assets have completed)
@@ -65,6 +72,72 @@ const ELEVENTY_STARTER = {};
 
 		lazyImages.forEach(image => {
 			observer.observe(image);
+		});
+	};
+
+	NS.initDialog = () => {
+		const triggers = document.querySelectorAll(SELECTORS.DIALOG.TRIGGER);
+		const dialogs = [];
+
+		const closeDialog = dialog => {
+			dialog.classList.add(CLASSES.IS_CLOSING);
+			setTimeout(() => {
+				dialog.close();
+				console.log('closing');
+			}, 50);
+		};
+
+		const openDialog = dialog => {
+			dialog.style.display = 'block';
+			setTimeout(() => {
+				dialog.showModal();
+			}, 50);
+		};
+
+		const toggleDialog = dialog => {
+			if (!dialog) {
+				console.warn(`Dialog not found: ${dialog}`);
+				return;
+			}
+
+			if (dialog.open) {
+				closeDialog(dialog);
+			} else {
+				openDialog(dialog);
+			}
+		};
+		
+		triggers.forEach(trigger => {
+			const id = trigger.getAttribute(ATTRS.FOR);
+			const dialog = document.querySelector(`#${id}`);
+
+			if (dialog) {
+				trigger.addEventListener('click', () => {
+					toggleDialog(dialog);
+				});
+			}
+		});
+
+		document.querySelectorAll(SELECTORS.DIALOG.WINDOW).forEach(dialog => {
+			const closeOnOutsideClick = event => {
+				if (event.target === dialog) {
+					dialog.close();
+				}
+			};
+
+			dialog.addEventListener('open', event => {
+				dialog.addEventListener('click', closeOnOutsideClick);
+			});
+
+			dialog.addEventListener('close', event => {
+				dialog.removeEventListener('click', closeOnOutsideClick);
+
+				setTimeout(() => {
+					console.log('after close animation');
+					dialog.style.display = 'none';
+					dialog.classList.remove(CLASSES.IS_CLOSING);
+				}, 500);
+			});
 		});
 	};
 
@@ -199,6 +272,7 @@ const ELEVENTY_STARTER = {};
 	document.addEventListener('DOMContentLoaded', () => {
 		NS.initPageClasses();
 		NS.initLazyLoad();
+		NS.initDialog();
 		NS.toggleTheme();
 		NS.ee();
 	});

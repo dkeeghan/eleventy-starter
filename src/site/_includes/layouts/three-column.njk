@@ -1,0 +1,72 @@
+{%- import "layouts/base.njk" as base with context -%}
+{%- import "global/header.njk" as header with context -%}
+{%- import "global/footer.njk" as footer with context -%}
+
+{{ base.head(title, config.env) }}
+
+<body>
+	{{ base.pageTop() }}
+	{{ header.renderA11yLinks() }}
+
+	<div class="page-wrap-outer">
+		<div class="page-wrap">
+
+			{{ header.renderHeader() }}
+
+			<!-- START .l-layout -->
+			<div class="l-layout">
+				{% block above %}{% endblock %}
+
+				<!-- START .l-content-container -->
+				<div class="l-content-container l-three-column l-padding{% if hasLeftAbove %} has-left-above{% endif %}">
+
+					{% if hasLeftAbove %}
+					<!-- START .l-aside -->
+					<aside id="aside" tabindex="-1" role="complementary" class="l-col-left">
+						{% block leftAbove %}
+							Aside
+						{% endblock %}
+					</aside>
+					<!-- END .l-aside -->
+					{% endif %}
+
+					<!-- START .l-main -->
+					<main id="main" tabindex="-1" role="main" class="l-main">
+						{% block main %}
+							{{ content }}
+						{% endblock %}
+					</main>
+					<!-- END .main -->
+
+					<!-- START .l-complementary -->
+					<aside role="complementary" class="l-col-right">
+						{% block right %}
+							Complementary
+						{% endblock %}
+					</aside>
+					<!-- END .l-complementary -->
+
+					{% if not hasLeftAbove %}
+					<!-- START .l-aside -->
+					<aside id="aside" tabindex="-1" role="complementary" class="l-col-left">
+						{% block left %}
+							Aside
+						{% endblock %}
+					</aside>
+					<!-- END .l-aside -->
+					{% endif %}
+
+				</div>
+				<!-- END .l-content-container -->
+
+				{% block below %}{% endblock %}
+			</div>
+			<!-- END .l-layout -->
+
+			{{ footer.render() }}
+		</div>
+	</div>
+
+	{{ base.pageBottom() }}
+</body>
+</html>

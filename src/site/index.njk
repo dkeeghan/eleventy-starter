@@ -1,25 +1,109 @@
 ---
-eleventyNavigation:
-  key: Home
+{
+	title: 'Home',
+	numberOfLatestPostsToShow: 3,
+	hasNoLayoutPadding: true,
+	eleventyNavigation: {
+		key: 'Home',
+		order: 1,
+	},
+}
 ---
 
-{% extends "layouts/one-column-sidenav.njk" %}
+{% extends "layouts/one-column.njk" %}
 
+{% import "components/layout-columns.njk" as layoutCols with context %}
 {% import "components/hero-banner.njk" as heroBanner with context %}
+{% import "components/hero-card.njk" as heroCard with context %}
+{% import "blog/postslist.njk" as postsList with context %}
 {% import "utils/svg.njk" as svg %}
 
 {% block above %}
-	{{ heroBanner.render(config.banner.homeTitle, {
+	{{ heroBanner.render('Simple Website Starter using Eleventy', {
+		desc: 'Test subtitle text',
 		bgImage: '/assets/img/hero-banner.jpg',
-		bgImageDark: '/assets/img/hero-banner-dark.jpg',
-		subtitle: config.banner.subTitle,
-		hasFilterResults: true,
-		hideText: config.banner.hideText
+		bgImageDark: '/assets/img/hero-banner-dark.jpg'
 	}) }}
 {% endblock %}
 
 {% block main %}
 	<section>
-		<p>Main content goes here</p>
+		{{ layoutCols.render({
+			cols: 3,
+			hasGap: false,
+			contents: [
+				{
+					component: heroCard,
+					options: {
+						title: 'For Designers',
+						desc: '<p>Designers get a solid, pre-built foundation, allowing them to focus on the creative aspects of design rather than wrestling with initial setup and functional complexities.</p>',
+						img: {
+							src: '/assets/img/hero-card-1.jpg',
+							alt: 'Example Alt Text'
+						},
+						cta: {
+							text: 'Example link text',
+							link: '#'
+						},
+						theme: 'primary-light'
+					}
+				},
+				{
+					component: heroCard,
+					options: {
+						title: 'For Product Owners',
+						desc: '<p>Product Owners are empowered to quickly launch and test ideas with common patterns, reducing development time and costs while validating concepts with real users.</p>',
+						img: {
+							src: '/assets/img/hero-card-2.jpg',
+							alt: 'Example Alt Text'
+						},
+						cta: {
+							text: 'Example link text',
+							link: '#'
+						},
+						theme: 'primary'
+					}
+				},
+				{
+					component: heroCard,
+					options: {
+						title: 'For Developers',
+						desc: '<p>Developers get a jump start on projects, providing a clean and organized codebase with essential features already in place, so they can concentrate on building unique functionality and customisations.</p>',
+						img: {
+							src: '/assets/img/hero-card-3.jpg',
+							alt: 'Example Alt Text'
+						},
+						cta: {
+							text: 'Example link text',
+							link: '#'
+						},
+						theme: 'primary-darker'
+					}
+				}
+			]
+		}) }}
+	</section>
+	
+	<section>
+		<div class="l-padding">
+			{% set postsCount = collections.posts | length %}
+			{% set latestPostsCount = postsCount | min(numberOfLatestPostsToShow) %}
+			<h1>Latest {{ latestPostsCount }} Post{% if latestPostsCount != 1 %}s{% endif %}</h1>
+
+			{% set postslistCounter = postsCount %}
+			{{ postsList.render(collections.posts | head(-1 * numberOfLatestPostsToShow)) }}
+
+			{% set morePosts = postsCount - numberOfLatestPostsToShow %}
+			{% if morePosts > 0 %}
+			<p>{{ morePosts }} more post{% if morePosts != 1 %}s{% endif %} can be found in <a href="blog.njk">the archive</a>.</p>
+			{% endif %}
+
+			{# List every content page in the project #}
+			<ul>
+				{%- for entry in collections.all %}
+				<li><a href="{{ entry.url }}"><code>{{ entry.url }}</code></a></li>
+				{%- endfor %}
+			</ul>
+		</div>
 	</section>
 {% endblock %}

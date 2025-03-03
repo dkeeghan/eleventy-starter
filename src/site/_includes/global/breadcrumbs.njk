@@ -1,0 +1,53 @@
+
+{#
+BREADCRUMBS
+--------------
+Page navigation breadcrumbs
+#}
+
+{% import "utils/svg.njk" as svg %}
+
+{% macro render(navPages=false, currentPageTitle = title, currentPageUrl = page.url) -%}    
+    {% if navPages == false %}
+		{% set navPages = collections.all | eleventyNavigationBreadcrumb(eleventyNavigation.key, { allowMissing: true }) %}
+	{% endif %}
+
+	<!-- START .g-breadcrumbs -->
+	<nav class="g-breadcrumbs" aria-label="Breadcrumbs">
+		<div class="l-padding">
+			{% for entry in navPages -%}
+				{%- if loop.last -%}
+					<a href="{{ entry.url | url }}" class="_back-to-parent">{{ svg.render('caret-left') }} Back to {{ entry.title }}</a>
+				{%- endif -%}
+			{%- endfor %}
+
+			<ol class="_list">
+				{% for entry in navPages -%}
+					{% set listClasses = [] %}
+
+					{# Home page could be styled differently #}
+					{% if loop.first %}
+						{% set listClasses = (listClasses.push('is-home'), listClasses) %}
+					{% endif %}
+
+					{# The last item in the loop is the parent page #}
+					{% if loop.last %}
+						{% set listClasses = (listClasses.push('is-parent'), listClasses) %}
+					{% endif %}
+
+					<li{% if listClasses.length %} class="{{ listClasses | join(" ") }}" {%- endif %}>
+						{% if not loop.first -%}
+							{{ svg.render('caret-right') }}
+						{%- endif %}
+						<a href="{{ entry.url | url }}">{{ entry.title }}</a>
+					</li>
+				{%- endfor %}
+				<li>
+					{{ svg.render('caret-right') }}
+					<a href="{{ currentPageUrl }}" class="is-active" aria-current="page">{{ currentPageTitle }}</a>
+				</li>
+			</ol>
+		</div>
+	</nav>
+	<!-- END .g-breadcrumbs -->
+{%- endmacro %}

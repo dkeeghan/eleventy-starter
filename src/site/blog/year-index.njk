@@ -1,0 +1,50 @@
+---
+{
+	pagination: {
+		data: "collections.postsByYear",
+		size: 1,
+		alias: "year",
+        filter: ["all", "posts"],
+	},
+    eleventyComputed: {
+        title: (data) => `${data.year[0]}`,
+        permalink: (data) => `/blog/${data.year[0]}/`,
+        eleventyNavigation: {
+            key: (data) => `${data.year[0]}`,
+            parent: 'Blog',
+        },
+    }
+}
+---
+
+{% extends "layouts/one-column.njk" %}
+
+{% import "components/hero-banner.njk" as heroBanner with context %}
+{% import "global/breadcrumbs.njk" as breadcrumbs with context %}
+{% import "blog/postslist.njk" as postsList with context %}
+
+{% block above %}    
+    {{ heroBanner.render(title, {
+		bgImage: '/assets/img/hero-banner.jpg',
+		bgImageDark: '/assets/img/hero-banner-dark.jpg'
+	}) }}
+
+	{{ breadcrumbs.render([
+        {
+            url: '/',
+            title: 'Home'
+        },
+        {
+            url: '/blog/',
+            title: 'Blog'
+        }
+    ]) }}
+{% endblock %}
+
+{% block main %}
+    {% for postedYear, yearPosts in collections.postsByYear %}
+		{% if postedYear === year[0] %}
+		{{ postsList.render(yearPosts) }}
+		{% endif %}
+	{% endfor %}
+{% endblock %}

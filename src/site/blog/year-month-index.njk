@@ -1,0 +1,67 @@
+---
+{
+	pagination: {
+		data: "collections.postsByYearMonth",
+		size: 1,
+		alias: "yearMonth",
+        filter: ["all", "posts"],
+	},
+    eleventyComputed: {
+        title: (data) => {
+            const postDate = new Date(data.yearMonth[0]);
+            return `${postDate.toLocaleString('en-AU', { month: 'long' })} - ${postDate.getFullYear()}`;
+        },
+        parentPage: (data) => {
+            const postDate = new Date(data.yearMonth[0]);
+            return {
+                url: `/blog/${postDate.getFullYear()}/`,
+                title: `${postDate.getFullYear()}`
+            }
+        },
+        permalink: (data) => `/blog/${data.yearMonth[0]}/`,
+        eleventyNavigation: {
+            key: (data) => `${data.yearMonth[0]} Archive`,
+            parent: (data) => {
+                const postDate = new Date(data.yearMonth[0]);
+                return `${postDate.getFullYear()}`;
+            },
+        },
+    }
+}
+---
+
+{% extends "layouts/one-column.njk" %}
+
+{% import "components/hero-banner.njk" as heroBanner with context %}
+{% import "global/breadcrumbs.njk" as breadcrumbs with context %}
+{% import "blog/postslist.njk" as postsList with context %}
+
+{% block above %}    
+    {{ heroBanner.render(title, {
+		bgImage: '/assets/img/hero-banner.jpg',
+		bgImageDark: '/assets/img/hero-banner-dark.jpg'
+	}) }}
+
+	{{ breadcrumbs.render([
+        {
+            url: '/',
+            title: 'Home'
+        },
+        {
+            url: '/blog/',
+            title: 'Blog'
+        },
+        {
+            url: parentPage.url,
+            title: parentPage.title
+        }
+    ]) }}
+{% endblock %}
+
+{% block main %}
+    {% for postedYearMonth, monthPosts in collections.postsByYearMonth %}
+		{% if postedYearMonth === yearMonth[0] %}
+		{{ postsList.render(monthPosts) }}
+		{% endif %}
+	{% endfor %}
+{% endblock %}

@@ -1,0 +1,75 @@
+@use "@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" as bp;
+@use "../_includes/theme";
+@use "../_includes/utils";
+@use "../_includes/svgicons";
+@use "../_includes/zindex";
+
+// ==========================================================================
+// HERO BANNER
+// ==========================================================================
+
+.c-hero-banner {
+	position: relative;
+	padding: utils.rem(80) 0;
+
+	._title {
+		margin-top: utils.rem(15);
+		line-height: 1;
+		letter-spacing: -0.05em;
+	}
+
+	._desc {
+		font-size: var(--font-size-xl);
+		font-weight: var(--font-weight-light);
+	}
+
+	&.has-bg-media {
+		&::after,
+		._bg-image,
+		._bg-video {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		}
+
+		._bg-image {
+			background-position: 50% 50%;
+			background-size: cover;
+			z-index: zindex.$base;
+		}
+
+		._bg-video {
+			object-fit: cover;
+			z-index: zindex.$base;
+		}
+
+		&::after {
+			content: '';
+			z-index: zindex.$base + 1;
+			background-color: var(--theme-hero-banner-bg-gradient-mid);
+		}
+
+		.l-padding {
+			position: relative;
+			z-index: zindex.$base + 2;
+		}
+	}
+
+	&.has-padding-small {
+		padding: utils.rem(50) 0 utils.rem(30);
+
+		@include bp.get(m) {
+			padding: utils.rem(100) 0 utils.rem(70);
+		}
+	}
+
+	@include bp.get(m) {
+		padding: utils.rem(120) 0 utils.rem(170);
+	}
+
+	@include bp.get(l) {
+		padding: utils.rem(170) 0;
+	}
+}

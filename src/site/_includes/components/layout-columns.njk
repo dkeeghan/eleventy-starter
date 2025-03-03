@@ -1,0 +1,47 @@
+{#
+LAYOUT COLUMNS
+--------------
+Columns for grid layouts - can be extended for complex grid layouts
+
+Options
+-------
+
+{
+	cols: null || <number> || 'auto',
+	hasGap: <boolean>,
+	contents: [
+		{
+			compontent: <component>,
+			options: <object>
+		}
+	]
+}
+
+#}
+
+{% import "utils/svg.njk" as svg %}
+
+{% macro render(options={}) -%}
+	{%- set options = options | SetOptions({
+		cols: 3,
+		hasGap: true,
+		contents: []
+	}) -%}
+
+	{%- set classes = ['l-cols'] -%}
+	
+	{%- if not options.hasGap -%}
+		{%- set classes = (classes.push('has-no-gap'), classes) -%}
+	{%- endif -%}
+
+	{%- set classes = (classes.push('has-' + options.cols + '-cols'), classes) -%}
+
+	<div class="{{- classes | join(" ") -}}">
+		{% for columnContent in options.contents %}
+		<div class="l-col">
+			{{ columnContent.component.render(columnContent.options) }}
+		</div>
+		{% endfor %}
+	</div>
+{%- endmacro %}
+
