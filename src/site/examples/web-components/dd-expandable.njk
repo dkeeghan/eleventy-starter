@@ -1,0 +1,135 @@
+---
+title: dd-expandable
+eleventyNavigation:
+  key: dd-expandable
+  parent: Web Components
+  excerpt: Expand/Collapse component along with toggle button.
+  status: done
+---
+
+{% extends "layouts/one-column.njk" %}
+
+{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+{% import "utils/svg.njk" as svg %}
+
+{% block above %}
+	{{ breadcrumbs.render() }}
+	{{ pageHeader.render() }}
+{% endblock %}
+
+{% block main %}
+	<h2>Usage</h2>
+	{% CodePreview %}
+		{% raw %}
+		<dd-expandable-toggle for="ex-1">Toggle Expandable Container{{ svg.render('caret-down') }}</dd-expandable-toggle>
+		<dd-expandable id="ex-1">
+			Content to be expanded
+		</dd-expandable>
+		{% endraw %}
+	{% endCodePreview %}
+
+	<h3>Outputted HTML</h3>
+	<p>As you can see, only the SVG is modified - the rest is straight up HTML</p>
+	{% CodePreview "markup" %}
+		<dd-expandable-toggle for="ex-1">Toggle Expandable Container{{ svg.render('caret-down') }}</dd-expandable-toggle>
+		<dd-expandable id="ex-1">
+			Content to be expanded
+		</dd-expandable>
+	{% endCodePreview %}
+
+	<h2>Examples</h2>
+
+	<h3>Default</h3>
+
+	<dd-expandable-toggle for="ex-1">Toggle Expandable Container{{ svg.render('caret-down') }}</dd-expandable-toggle>
+	<dd-expandable id="ex-1">
+		Content to be expanded
+	</dd-expandable>
+
+	<h3>Custom link icon</h3>
+
+	{% CodePreview %}
+		{% raw %}
+		<dd-expandable-toggle for="ex-2" class="has-plus-minus">Toggle Expandable Container <div class="_icon"></div></dd-expandable-toggle>
+		<dd-expandable id="ex-2">
+			Content to be expanded
+		</dd-expandable>
+		{% endraw %}
+	{% endCodePreview %}
+
+	<dd-expandable-toggle for="ex-2" class="has-plus-minus">Toggle Expandable Container <div class="_icon"></div></dd-expandable-toggle>
+	<dd-expandable id="ex-2">
+		Content to be expanded
+	</dd-expandable>
+
+	<h3>Grouped Expandables / Accordion</h3>
+
+	{% CodePreview %}
+		{% raw %}
+		<ul>
+			<li>
+				<dd-expandable-toggle for="ex-gr1-1">Item 1{{ svg.render('caret-down') }}</dd-expandable-toggle>
+
+				<dd-expandable id="ex-gr1-1" group="gr1">
+					...
+				</dd-expandable>
+			</li>
+			<li>
+				<dd-expandable-toggle for="ex-gr1-2">Item 2{{ svg.render('caret-down') }}</dd-expandable-toggle>
+
+				<dd-expandable id="ex-gr1-2" group="gr1">
+					...
+				</dd-expandable>
+			</li>
+			...
+		</ul>
+		{% endraw %}
+	{% endCodePreview %}
+
+	<ul>
+		<li>
+			<dd-expandable-toggle for="ex-gr1-1">Item 1{{ svg.render('caret-down') }}</dd-expandable-toggle>
+
+			<dd-expandable id="ex-gr1-1" group="gr1">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam finibus eleifend elit ac luctus. Quisque velit quam, pellentesque eu sem non, tristique convallis ex. Integer iaculis blandit odio vel porta. Curabitur aliquam mattis mi, ac aliquet tortor auctor ac. Vestibulum nibh nibh, posuere convallis mi et, aliquet tristique libero. Integer suscipit diam at consequat aliquam. Etiam venenatis orci non arcu posuere fermentum suscipit ac purus. Praesent eu aliquam erat. Aliquam vestibulum, urna a mattis sagittis, augue arcu sodales quam, vel placerat metus tortor sed quam. Duis feugiat, libero ac sollicitudin ornare, dui lorem iaculis ligula, id blandit nisl turpis at nunc. Etiam ullamcorper, quam id pharetra porttitor, lectus turpis malesuada magna, a mollis turpis mi ac mi. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc luctus nisi sed ex elementum, ut dictum magna ultrices. Maecenas at mollis nibh, at ultrices arcu.</p>
+				<p>Sed urna leo, tincidunt eget ex at, tincidunt sagittis est. Mauris libero velit, accumsan ac accumsan vitae, aliquet eget massa. Curabitur neque odio, hendrerit ac justo fermentum, efficitur euismod velit. Sed eleifend urna quis nunc scelerisque feugiat. Nam tristique leo et tincidunt convallis. Nam eu ante quis velit sodales posuere. Nam pretium maximus enim, iaculis commodo ex ultricies ac.</p>
+			</dd-expandable>
+		</li>
+		<li>
+			<dd-expandable-toggle for="ex-gr1-2">Item 2{{ svg.render('caret-down') }}</dd-expandable-toggle>
+
+			<dd-expandable id="ex-gr1-2" group="gr1">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc lorem lacus, sodales eu accumsan et, vulputate vitae mauris. Vestibulum a enim mi. Sed felis lectus, malesuada ac sapien eu, consequat vehicula metus. Sed pulvinar vitae sem ut vehicula. Nunc ultrices dui quis arcu luctus, sed posuere lacus vulputate. Vestibulum dapibus, quam et sagittis congue, elit lacus aliquet eros, eu sodales magna nulla ac velit. Vestibulum laoreet nisi rhoncus mi facilisis venenatis. Fusce et lobortis dolor. Phasellus nec placerat lorem, a vulputate erat. Nulla facilisi. Cras sit amet felis odio.
+				<p>Quisque venenatis blandit nisl id viverra. In hac habitasse platea dictumst. Nulla tincidunt felis eu arcu auctor porttitor. Vestibulum sed quam sit amet elit venenatis ornare. Etiam vitae luctus lectus. Phasellus molestie suscipit lorem, non accumsan ipsum imperdiet vel. Ut sed tellus magna. Etiam tempus dui vel urna hendrerit mollis non sit amet mauris. Proin accumsan erat vel massa finibus, eleifend sagittis nisi semper. Interdum et malesuada fames ac ante ipsum primis in faucibus. Maecenas sed metus nisl. Maecenas efficitur enim sapien, eu euismod leo imperdiet aliquet. Cras enim nisi, tempus id pulvinar ac, accumsan sed ex. Nunc eu massa lacus. Donec sit amet ex pretium, placerat sem at, mollis nisl. Donec ligula velit, aliquet vel leo vel, porttitor porta erat.</p>
+			</dd-expandable>
+		</li>
+		<li>
+			<dd-expandable-toggle for="ex-gr1-3">Item 3{{ svg.render('caret-down') }}</dd-expandable-toggle>
+
+			<dd-expandable id="ex-gr1-3" group="gr1">
+				<p>Small amount of text.</p>
+			</dd-expandable>
+		</li>
+		<li>
+			<dd-expandable-toggle for="ex-gr1-4">Item 4{{ svg.render('caret-down') }}</dd-expandable-toggle>
+
+			<dd-expandable id="ex-gr1-4" group="gr1">
+				<p>Sed urna leo, tincidunt eget ex at, tincidunt sagittis est. Mauris libero velit, accumsan ac accumsan vitae, aliquet eget massa. Curabitur neque odio, hendrerit ac justo fermentum, efficitur euismod velit. Sed eleifend urna quis nunc scelerisque feugiat. Nam tristique leo et tincidunt convallis. Nam eu ante quis velit sodales posuere. Nam pretium maximus enim, iaculis commodo ex ultricies ac.</p>
+			</dd-expandable>
+		</li>
+	</ul>
+
+	<h2>Some example text to show scroll functionality better</h2>
+
+	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras semper fringilla lectus vitae fermentum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut venenatis, elit sit amet accumsan convallis, sem massa tempus odio, sit amet consectetur leo velit nec leo. Vestibulum ac nunc ex. Etiam sed convallis nisl. Nulla eu egestas enim. Morbi accumsan vehicula tellus sit amet rhoncus. Maecenas malesuada ex molestie sagittis hendrerit.</p>
+
+	<p>Donec egestas sapien quis augue vehicula, non mattis diam varius. Phasellus rhoncus ante vel tellus pellentesque ultricies. Duis eu lacus at nisl laoreet iaculis. Vivamus dolor ligula, malesuada nec ullamcorper in, sollicitudin vitae magna. In in est eget enim ornare facilisis. Mauris eget varius felis. Proin finibus fermentum risus ac elementum. In semper, arcu quis vestibulum faucibus, erat massa consequat justo, vestibulum fringilla libero eros in odio. Praesent ut tortor imperdiet, tempus dui sit amet, mollis dui. Fusce molestie iaculis urna eget placerat. Aenean faucibus sed diam non sagittis. Nullam commodo ante vitae est lobortis, et tristique ex dapibus. Ut vitae gravida lacus. Maecenas mi massa, lobortis ut erat id, laoreet aliquam turpis.</p>
+
+	<p>Nullam interdum, mi vitae sagittis aliquam, urna turpis fringilla diam, in ultricies tellus mauris et orci. Mauris gravida lectus at neque ultrices aliquet. Donec consequat quis mi sit amet finibus. Suspendisse posuere massa sit amet tellus blandit maximus. Vestibulum ut massa congue, venenatis ipsum sit amet, porta orci. Sed turpis lacus, dignissim at eleifend vel, lacinia eget lectus. Proin vel ultrices ante, nec aliquet purus. Nulla dapibus justo erat, vitae volutpat quam dignissim sed.</p>
+
+	<p>Aliquam turpis nulla, aliquam ut finibus euismod, aliquam a lacus. Phasellus rhoncus lacinia blandit. Aenean eu eros vel nibh mattis ultrices. Quisque ornare cursus tortor, id faucibus urna aliquet eget. Phasellus a mauris lacus. Mauris convallis euismod erat, ac porta nulla tempus et. Aliquam in mi efficitur, vehicula felis non, accumsan turpis.</p>
+
+	<p>Phasellus hendrerit ligula odio, ut sagittis turpis placerat sit amet. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut suscipit neque felis, id condimentum ante egestas vel. Maecenas vitae congue neque. Suspendisse potenti. Donec suscipit iaculis elit nec tincidunt. Praesent ac egestas felis. Aliquam molestie, justo porta venenatis fringilla, magna nibh suscipit tortor, non iaculis ex arcu ut lectus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas nisi massa, consequat malesuada risus sit amet, ornare vestibulum nulla. Suspendisse id pellentesque lorem. Morbi facilisis vel neque non cursus. Aliquam urna purus, malesuada vel ullamcorper ac, hendrerit ac turpis.</p>
+
+{% endblock %}

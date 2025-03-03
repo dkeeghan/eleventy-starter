@@ -1,0 +1,108 @@
+@use "~@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" as bp;
+@use "../_includes/utils";
+
+.dev-index-summary {
+	._col-title {
+		width: 20%;
+	}
+
+	._col-status {
+		width: utils.rem(120);
+	}
+
+	._list {
+		@include utils.list-reset(true);
+		display: flex;
+		flex-wrap: wrap;
+		margin-top: -5px;
+
+		li {
+			margin-right: 5px;
+			margin-top: 5px;
+		}
+	}
+
+	._child-item {
+		font-size: var(--font-size-xs);
+		border: var(--theme-border-width-s) solid var(--theme-border);
+		display: block;
+		padding: utils.rem(4) utils.rem(7) utils.rem(6) utils.rem(7);
+		position: relative;
+		text-decoration: none;
+		border-radius: var(--theme-border-radius);
+		overflow: hidden;
+
+		&::after {
+			content: "";
+			display: block;
+			width: 100%;
+			height: 4px;
+			position: absolute;
+			left: 0;
+			bottom: 0;
+		}
+
+		&:hover,
+		&:focus {
+			border-color: var(--theme-primary);
+		}
+	}
+
+	._status-item {
+		&::after {
+			content: "Unknown";
+			display: inline-block;
+			text-align: center;
+			text-transform: uppercase;
+			font-weight: bold;
+			font-size: var(--font-size-xxs);
+			padding: utils.rem(4) utils.rem(7);
+			border-radius: var(--theme-border-radius);
+			width: 100%;
+		}
+
+		&.is-done::after {
+			content: "Done";
+		}
+
+		&.is-finalising::after {
+			content: "Finalising";
+		}
+
+		&.is-in-progress::after {
+			content: "In Progress";
+		}
+
+		&.is-todo::after {
+			content: "Todo";
+		}
+	}
+
+	._child-item,
+	._status-item {
+		&::after {
+			background-color: var(--theme-grey-light);
+		}
+
+		&.is-done::after {
+			background-color: var(--theme-status-success);
+			color: var(--theme-text-on-status-success);
+		}
+
+		&.is-finalising::after {
+			background-color: var(--theme-status-info);
+			color: var(--theme-text-on-status-info);
+		}
+
+		&.is-in-progress::after {
+			background-color: var(--theme-status-warning);
+			color: var(--theme-text-on-status-warning);
+		}
+
+		&.is-todo::after {
+			background-color: var(--theme-status-error);
+			color: var(--theme-text-on-status-error);
+		}
+	}
+
+}

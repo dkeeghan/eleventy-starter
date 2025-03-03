@@ -1,0 +1,116 @@
+---
+title: Creating a Page
+eleventyNavigation:
+  key: Creating a Page
+  parent: Usage
+  excerpt: Guidelines for how to create new pages.
+  status: done
+  order: 1
+---
+
+{% extends "layouts/one-column.njk" %}
+
+{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+{% import "utils/svg.njk" as svg %}
+
+{% block above %}
+	{{ breadcrumbs.render() }}
+	{{ pageHeader.render() }}
+{% endblock %}
+
+{% block main %}
+	{% RichText %}
+		<p>We're using Eleventy as our new static site generator. It's all in JavaScript and Nunjucks.</p>
+		<p>{% DocsExternalLink 'Eleventy', 'https://www.11ty.dev/' %}</p>
+
+		<h2>Getting started</h2>
+		<p>Like with <a href="/examples/usage/creating-a-component">components</a>, it's probably easiest to pick an existing page, duplicate it and then rename it. There are a few things you need to understand about Eleventy to make a page:</p>
+
+		<h3>Building with Nunjucks</h3>
+		<p>Components and Pages are built using Nunjucks. Nunjucks allows us to write modular and reusable code that simulates how a CMS would build a component, helping us to build components that are better used and implemented by the CMS development teams.</p>
+		<p>The base framework has been built out to give you real world examples of how you'd use Nunjucks to create pages and components.</p>
+		<p>{% DocsExternalLink 'Nunjucks Documentation', 'https://mozilla.github.io/nunjucks/templating.html' %}</p>
+
+		<h2>Front Matter</h2>
+		<p>The Front Matter data of a page defines the title and the navigation structure of the preview site.</p>
+
+		{% LColumns 2 %}
+			{% LCol %}
+				<h5>eleventyNavigation</h5>
+				<p>The <code>title</code> and <code>key</code> can be different, but most of the time will be the same. If you have two pages with the same Title, ensure to have unique keys.</p>
+				<p>The <code>order</code> is optional, but required to keep a consistent order of files in the navigation.</p>
+
+				<h6>Status</h6>
+				<p>Valid statuses are: <code>todo</code>, <code>in-progress</code>, <code>finalising</code>, <code>done</code></p>
+
+				<h6>Black Magic</h6>
+				<p>Some components like Breadcrumbs, Page Header and the Site Nav by default use values from the Front Matter to auto populate themselves. Take a look at those components to see how they work.</p>
+			{% endLCol %}
+			{% LCol %}
+				{% CodePreview "njk", "none", "Front Matter" %}
+					{% raw %}
+					---
+					title: Page Title
+					eleventyNavigation:
+						key: Unique Page Title
+						parent: Parent Key
+						excerpt: A paragraph of text that is used as a short description for the page
+						status: in-progress
+						order: 1
+					---
+					{% endraw %}
+				{% endCodePreview %}
+			{% endLCol %}
+		{% endLColumns %}
+
+		<h2>Extends & Imports</h2>
+
+		{% LColumns 2 %}
+			{% LCol %}
+				{% CodePreview "njk", "none", "Example extends and import" %}
+					{% raw %}
+					{% extends "layouts/one-column.njk" %}
+
+					{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+					{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+					{% import "utils/svg.njk" as svg %}
+					{% endraw %}
+				{% endCodePreview %}
+			{% endLCol %}
+			{% LCol %}
+				<h5>Layouts</h5>
+				<p>All extends and import paths are relative to the folder <code>/src/site/_includes</code> which is set in the <code>.eleventy.js</code> config.</p>
+				<p>Firstly you want to extend the base layout which you can find in the <a href="/examples/layouts/">layouts section</a> of this site.</p>
+
+				<h5>Components</h5>
+				<p><a href="/examples/components/">Components</a> are imported in a similar way. By using <code>with context</code> at the end of the import, this allows you to access all page variables without passing them through manually.</p>
+			{% endLCol %}
+		{% endLColumns %}
+
+		<h2>Blocks</h2>
+
+		{% LColumns 2 %}
+			{% LCol %}
+				<p>Each layout contains a series of blocks where you can put content. <code>above</code> and <code>below</code> exist in a full width area above and below the main layout. This is where Hero Components will go as they're designed to be full width.</p>
+				<p><code>left</code>, <code>main</code> and <code>right</code> sit inside an area with <code>.l-padding</code> which will confine the width of the available space.</p>
+			{% endLCol %}
+			{% LCol %}
+				{% CodePreview "njk", "none", "Nunjucks Blocks" %}
+					{% raw %}
+					{% block above %}
+						<p>content goes here</p>
+					{% endblock %}
+
+					{% block main %}
+						<p>content goes here</p>
+					{% endblock %}
+					{% endraw %}
+				{% endCodePreview %}
+			{% endLCol %}
+		{% endLColumns %}
+
+		<h2>Further reading</h2>
+		<p>{% DocsExternalLink 'Front Matter Data on 11ty.dev', 'https://www.11ty.dev/docs/data-frontmatter/' %} {% DocsExternalLink 'Navigation Plugin on 11ty.dev', 'https://www.11ty.dev/docs/plugins/navigation/' %} {% DocsExternalLink 'Extends, Block, Include, Import (Nunjucks Documentation)', 'https://mozilla.github.io/nunjucks/templating.html#extends' %}</p>
+	{% endRichText %}
+{% endblock %}

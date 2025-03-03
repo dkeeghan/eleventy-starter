@@ -1,0 +1,55 @@
+{# Render Nav Item #}
+
+{% macro renderTableRow(entry) -%}
+	<tr>
+		<th scope="row">
+			<a href="{{ entry.url | url }}">
+				{{ entry.title }}
+			</a>
+		</th>
+		<td>
+			{% if entry.excerpt %}<p>{{ entry.excerpt }}</p>{% endif %}
+
+			{%- if entry.children.length -%}
+			<ul class="_list">
+				{%- for child in entry.children %}
+					<li>
+						<a href="{{ child.url | url }}" class="_child-item {% if child.status %} has-status is-{{ child.status }}{% endif %}">
+							{{ child.title }}
+						</a>
+					</li>
+				{% endfor -%}
+			</ul>
+			{%- endif -%}
+		</td>
+		<td>
+			{% if entry.status %}
+				<span class="_status-item is-{{ entry.status }}"><span class="vh">{{ entry.status }}</span></span>
+			{% endif %}
+		</td>
+	</tr>
+{%- endmacro %}
+
+{% macro render(navPages = false, sectionUrl = false) -%}
+	{% if navPages == false %}
+		{% set navPages = collections.all | eleventyNavigation(eleventyNavigation.key) %}
+	{% endif %}
+
+	{% if sectionUrl %}<h2 class="h4"><a href="{{ sectionUrl }}">{{ navPages[0].parent }}</a></h2>{% endif %}
+
+	<table class="dev-index-summary">
+		<thead>
+			<tr>
+				<th scope="col" class="_col-title">Title</th>
+				<th scope="col">Description</th>
+				<th scope="col" class="_col-status">Status</th>
+			</tr>
+		</thead>
+		<tbody>
+			{%- for entry in navPages -%}
+				{{ renderTableRow(entry) }}
+			{%- endfor -%}
+		</tbody>
+	</table>
+
+{%- endmacro %}

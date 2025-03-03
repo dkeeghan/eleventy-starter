@@ -1,25 +1,36 @@
 ---
+title: Home
 eleventyNavigation:
   key: Home
 ---
 
-{% extends "layouts/one-column-sidenav.njk" %}
+{% extends "layouts/one-column.njk" %}
 
-{% import "components/hero-banner.njk" as heroBanner with context %}
-{% import "utils/svg.njk" as svg %}
+{% import "components/hero/hc02-hero-banner.njk" as heroBanner %}
+{% import "components/_dev/index-nav.njk" as indexNav %}
+
 
 {% block above %}
-	{{ heroBanner.render(config.banner.homeTitle, {
-		bgImage: '/assets/img/hero-banner.jpg',
-		bgImageDark: '/assets/img/hero-banner-dark.jpg',
-		subtitle: config.banner.subTitle,
-		hasFilterResults: true,
-		hideText: config.banner.hideText
-	}) }}
+	{{ heroBanner.render(
+		'FED Templates - Site Index',
+		{
+			desc: 'The new and improved FED Templates - now with 100% less Ruby.',
+			backgroundImage: 'https://picsum.photos/id/1022/1200/800.jpg'
+		},
+		{
+			hasBgInverted: true
+		}
+	) }}
 {% endblock %}
 
 {% block main %}
-	<section>
-		<p>Main content goes here</p>
-	</section>
+	{{ indexNav.render(collections.all | eleventyNavigation('Usage'), '/examples/usage') }}
+
+	{{ indexNav.render(collections.all | eleventyNavigation('Layouts'), '/examples/layouts') }}
+
+	{{ indexNav.render(collections.all | eleventyNavigation('Components'), '/examples/components') }}
+
+	{{ indexNav.render(collections.all | eleventyNavigation('Web Components'), '/examples/web-components') }}
+
+	{{ indexNav.render(collections.all | eleventyNavigation('Helpers'), '/examples/helpers') }}
 {% endblock %}

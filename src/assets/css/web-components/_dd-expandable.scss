@@ -1,0 +1,107 @@
+@use "~dd-expandable/src/dd-expandable";
+@use "./_includes/utils";
+@use "./_includes/svgicons";
+
+/* stylelint-disable selector-type-no-unknown */
+dd-expandable-toggle {
+	display: inline-block;
+
+	button {
+		@include svgicons.set(1rem, 1rem, right, center);
+		@include svgicons.color(var(--theme-paragraph-color), var(--theme-link-color-hover), var(--theme-link-color-active));
+		background: none;
+		border-radius: 0;
+		padding: 0 utils.rem(25) 0 0;
+		border: none;
+		text-align: left;
+		position: relative;
+		color: var(--theme-paragraph-color);
+
+		svg {
+			@include utils.disable-transition-on-page-load();
+			transition: transform var(--anim-duration-normal);
+		}
+
+		&:hover,
+		&:focus {
+			text-decoration: underline;
+			color: var(--theme-link-color-hover);
+		}
+
+		&:active {
+			color: var(--theme-link-color-active);
+		}
+	}
+
+	&.is-expanded {
+		svg {
+			transform: rotateZ(180deg);
+		}
+	}
+
+	&.has-plus-minus {
+		button {
+			position: relative;
+			padding: 0 0 0 utils.rem(22);
+			display: inline-block;
+			cursor: pointer;
+
+			._icon {
+				height: utils.rem(20);
+				width: utils.rem(20);
+				position: absolute;
+				top: 50%;
+				margin-top: utils.rem(-10);
+				left: 0;
+
+				&::before,
+				&::after {
+					content: "";
+					width: utils.rem(14);
+					height: utils.rem(2);
+					background-color: var(--theme-paragraph-color);
+					position: absolute;
+					left: 0;
+					top: utils.rem(9);
+					transform-origin: 50% 50%;
+					transition: background-color 150ms, transform 400ms, opacity 200ms;
+				}
+
+				&::after {
+					transform: rotateZ(90deg);
+				}
+			}
+
+			&:hover,
+			&:focus {
+				._icon {
+					&::before,
+					&::after {
+						background-color: var(--theme-link-color-hover);
+					}
+				}
+			}
+
+			&:active {
+				._icon {
+					&::before,
+					&::after {
+						background-color: var(--theme-link-color-active);
+					}
+				}
+			}
+		}
+
+		&.is-expanded ._icon {
+			&::before {
+				transform: rotateZ(90deg);
+				opacity: 0;
+			}
+
+			&::after {
+				transform: rotateZ(180deg);
+			}
+		}
+	}
+}
+/* stylelint-enable selector-type-no-unknown */

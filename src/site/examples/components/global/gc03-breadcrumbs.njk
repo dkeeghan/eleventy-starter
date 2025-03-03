@@ -1,0 +1,91 @@
+---
+title: GC03 Breadcrumbs
+eleventyNavigation:
+  key: GC03 Breadcrumbs
+  parent: Global Components
+  excerpt: The breadcrumbs component displays the heirarchy of pages from the home page to the current page as a sequence of clickable links.
+  status: done
+  order: 3
+---
+
+{% extends "layouts/one-column.njk" %}
+
+{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+
+{% block above %}
+	{{ breadcrumbs.render() }}
+
+	{{ pageHeader.render(
+		title,
+		eleventyNavigation.excerpt
+	) }}
+{% endblock %}
+
+{% block main %}
+	<h2>Usage</h2>
+	<p>For the majority of use cases, use the auto populated version of the breadcrumbs which will look at the page structure in Eleventy and automatically generate the appropriate breadcrumbs based on the eleventyNavigation properties in the page front-matter.</p>
+
+	{% CodePreview "njk", true %}
+		{% raw %}
+		{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+		{{ breadcrumbs.render() }}
+		{% endraw %}
+	{% endCodePreview %}
+
+	<p><strong>Note:</strong> the use of <code>with context</code> in the import statement is very important, as it passes the page variables down to the component.</p>
+
+	<h2>Examples</h2>
+
+	<h3>Auto usage</h3>
+	{% CodePreview "markup" %}
+		{{ breadcrumbs.render() }}
+	{% endCodePreview %}
+
+	{{ breadcrumbs.render() }}
+
+	<h3>Manually overwritten breadcrumbs</h3>
+	<p>For testing purposes, you can overwrite the breadcrumbs values to test longer names, or larger numbers of items.</p>
+
+	{% CodePreview %}
+		{% raw %}
+		{{ breadcrumbs.render(
+			[
+				{
+					title: 'Example',
+					url: '#'
+				},
+				{
+					title: 'Example 2',
+					url: '#'
+				},
+				{
+					title: 'Parent link that has an extremely long title example. So much so, that it should wrap on smaller screens.',
+					url: '#'
+				}
+			],
+			'Current Page Title',
+			'#url-to-current-page'
+		) }}
+		{% endraw %}
+	{% endCodePreview %}
+
+	{{ breadcrumbs.render(
+		[
+			{
+				title: 'Example',
+				url: '#'
+			},
+			{
+				title: 'Example 2',
+				url: '#'
+			},
+			{
+				title: 'Parent link that has an extremely long title example. So much so, that it should wrap on smaller screens.',
+				url: '#'
+			}
+		],
+		'Current Page Title',
+		'#url-to-current-page'
+	) }}
+{% endblock %}

@@ -1,0 +1,56 @@
+{#
+CC02 Content Tile
+--------------
+#}
+{% import "utils/component-options.njk" as co %}
+
+{% macro _addLink(title, link, isSecondary=false) -%}
+	{% if link.type == 'cta' %}
+	<a href="{{ link.href }}" class="cta{% if isSecondary %} is-secondary{% endif %}">{{ link.text }}<span class="vh"> about {{ title }}</span></a>
+	{% elif link.type == 'block' %}
+	<span class="link-faux">{{ link.text }}<span class="vh"> about {{ title }}</span></span>
+	{% else %}
+	<a href="{{ link.href }}">{{ link.text }}<span class="vh"> about {{ title }}</span></a>
+	{% endif %}
+{%- endmacro %}
+
+{% macro _content(title, options) -%}
+	<div class="_container">
+		<div class="_image-container">
+			{% if options.image %}
+				<img class="_image" src="{{ options.image.src }}" alt="{{ options.image.alt }}" />
+			{% endif %}
+		</div>
+		<div class="_content">
+			{% if options.subtitle %}<p>{{ options.subtitle }}</p>{% endif %}
+
+			<h2 class="_cc-title">{{ title }}</h2>
+
+			{% if options.desc %}<p>{{ options.desc }}</p>{% endif %}
+
+			{% if options.link %}
+			{{ _addLink(title, options.link) }}
+			{% endif %}
+
+			{% if options.linkSecondary %}
+			{{ _addLink(title, options.linkSecondary, true) }}
+			{% endif %}
+		</div>
+	</div>
+{%- endmacro %}
+
+{% macro render(title, options={}, componentOptions={}) %}
+<!-- START .cc-content-tile -->
+<section class="{{ co.getClassAttr('cc-content-tile', componentOptions) }}">
+	<dd-component-container>
+	{% if options.link and options.link.type == 'block' %}
+		<a href="{{ link.href }}" class="link-block">
+			{{ _content(title, options) }}
+		</a>
+	{% else %}
+		{{ _content(title, options) }}
+	{% endif %}
+	</dd-component-container>
+</section>
+<!-- END .cc-content-tile -->
+{% endmacro %}

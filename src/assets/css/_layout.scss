@@ -1,4 +1,4 @@
-@use "@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" as bp;
+@use "~@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" as bp;
 @use "./_includes/theme";
 @use "./_includes/utils";
 
@@ -14,10 +14,8 @@
 }
 
 .page-wrap {
-	display: grid;
-	grid-template-columns: 1fr;
-	grid-template-rows: auto minmax(0, 1fr) auto;
-	min-height: 100vh;
+	position: relative;
+	width: 100%;
 }
 
 // ==========================================================================
@@ -59,38 +57,12 @@
 }
 
 // ==========================================================================
-// IF LEFT NAV IS VISIBLE
-// ==========================================================================
-
-body {
-	&.has-side-nav {
-		.page-wrap-outer {
-			@include bp.get(l) {
-				padding-left: 300px;
-			}
-		}
-
-		.l-padding {
-			@include bp.get(l) {
-				--bp-min-width: #{bp.get-width-from-bp(l, "rem") - utils.rem(300)};
-			}
-
-			@include bp.get(xl) {
-				--bp-min-width: #{bp.get-width-from-bp(xl, "rem") - utils.rem(300)};
-			}
-
-			@include bp.get(xxl) {
-				--bp-min-width: #{bp.get-width-from-bp(xxl, "rem") - utils.rem(300)};
-			}
-		}
-	}
-}
-
-// ==========================================================================
 // GLOBAL LAYOUT
 // ==========================================================================
 
 .l-content-container,
+.l-col-left,
+.l-col-right,
 .l-main,
 .l-layout {
 	outline: none;
@@ -100,8 +72,8 @@ body {
 	position: relative;
 	margin-bottom: utils.rem(70);
 
-	@include bp.get(m) {
-		margin-bottom: utils.rem(140);
+	@include bp.get(l) {
+		min-height: utils.rem(500);
 	}
 }
 
@@ -111,4 +83,129 @@ body {
 	--layout-col-right-width: #{utils.rem(220)};
 
 	position: relative;
+}
+
+// ==========================================================================
+// TEMPLATE LAYOUTS
+// ==========================================================================
+
+.l-col-left {
+	grid-area: left;
+}
+
+.l-col-right {
+	grid-area: right;
+}
+
+.l-main {
+	grid-area: main;
+}
+
+.l-content-container {
+	display: grid;
+	grid-gap: var(--layout-gap);
+	grid-template-columns: minmax(0, 1fr);
+	grid-template-areas:
+		"main"
+		"right"
+		"left";
+
+	&.has-left-above {
+		grid-template-areas:
+			"left"
+			"main"
+			"right";
+	}
+}
+
+.l-two-column-left {
+	@include bp.get(l) {
+		grid-template-columns: minmax(0, 1fr) var(--layout-col-right-width);
+		grid-template-areas: "main right";
+
+		.l-col-right {
+			@include theme.font-sizes(0.85, 0.7, true);
+		}
+	}
+}
+
+.l-two-column-right {
+	@include bp.get(m) {
+		grid-template-columns: var(--layout-col-left-width) minmax(0, 1fr);
+		grid-template-areas: "left main";
+	}
+}
+
+.l-three-column {
+	@include bp.get(m) {
+		grid-template-columns: minmax(0, 1fr) var(--layout-col-left-width);
+		grid-template-areas:
+			"main right"
+			"left left";
+
+		.l-col-right {
+			@include theme.font-sizes(0.85, 0.7, true);
+		}
+	}
+
+	@include bp.get(xl) {
+		grid-template-columns: var(--layout-col-left-width) minmax(0, 1fr) var(--layout-col-right-width);
+		grid-template-areas: "left main right";
+	}
+}
+
+// ==========================================================================
+// COLUMN LAYOUTS
+// ==========================================================================
+
+// TODO - updating sizing to use faux element queries instead
+.l-cols {
+	display: grid;
+	grid-gap: var(--component-spacing);
+	grid-template-columns: 1fr;
+	width: 100%;
+	margin: var(--component-spacing) 0;
+
+	._col {
+		width: 100%;
+	}
+
+	&.has-2-cols,
+	&.has-4-cols {
+		@include bp.get(m) {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	&.has-3-cols {
+		@include bp.get(l) {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+	}
+
+	&.has-4-cols {
+		@include bp.get(xl) {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+		}
+	}
+
+	&.has-2-cols {
+		&.has-feature-left {
+			@include bp.get(m) {
+				grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+			}
+		}
+
+		&.has-feature-right {
+			@include bp.get(m) {
+				grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+			}
+		}
+	}
+
+	&.has-equal-heights {
+		.cc {
+			height: 100%;
+		}
+	}
 }

@@ -1,0 +1,60 @@
+---
+title: Two Column Left Layout
+eleventyNavigation:
+  key: Two Column Left
+  parent: Layouts
+  status: done
+  order: 2
+---
+
+{% extends "layouts/two-column-left.njk" %}
+
+{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+
+{% block above %}
+	{{ breadcrumbs.render() }}
+
+	{{ pageHeader.render(title) }}
+{% endblock %}
+
+{% block right %}
+	<p>Right content content goes here.</p>
+{% endblock %}
+
+{% block main %}
+	<p>Two column template - called Two Column Left because the Left column is the Main column (there were lots of arguments about which was the right way to name it, this one won out)</p>
+	<p>Main content gets put in here.</p>
+
+	<h2>Extends</h2>
+	{% CodePreview "njk", true %}
+		{% raw %}
+		{% extends "layouts/two-column-left.njk" %}
+		{% endraw %}
+	{% endCodePreview %}
+
+	<h2>Available Blocks</h2>
+	{% CodePreview "njk", true %}
+		{% raw %}
+		{% block above %}
+			Content to be displayed above the main column
+		{% endblock %}
+
+		{% block main %}
+			Content to be in the main column
+		{% endblock %}
+
+		{% block right %}
+			<p>Right column content goes here.</p>
+		{% endblock %}
+
+		{% block below %}
+			Content to be displayed below the main column
+		{% endblock %}
+		{% endraw %}
+	{% endCodePreview %}
+{% endblock %}
+
+{% block below %}
+	<p>Content that sits below - full width, goes here.</p>
+{% endblock %}

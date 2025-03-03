@@ -1,0 +1,257 @@
+---
+title: CC99 Status Panel
+eleventyNavigation:
+  key: CC99 Status Panel
+  parent: Content Components
+  excerpt: Displays a status message, used for "error", "warning", "success" or "info" status updates.
+  status: done
+  order: 99
+---
+
+{% extends "layouts/two-column-left.njk" %}
+
+{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+
+{% import "components/content/cc99-status-panel.njk" as statusPanel %}
+
+{% block above %}
+	{{ breadcrumbs.render() }}
+
+	{{ pageHeader.render(
+		title,
+		eleventyNavigation.excerpt
+	) }}
+{% endblock %}
+
+{% block main %}
+	<p>The Status Panel has four style variations depending on the type of message. You can use the status type of <code>statusPanel.INFO</code>, <code>statusPanel.WARNING</code>, <code>statusPanel.ERROR</code> or <code>statusPanel.SUCCESS</code>.</p>
+
+	<p>There are variations for Title only, Description only, and Title and Description. You can also optionally add links. See the below examples for info.</p>
+
+	<h2>Usage</h2>
+
+	{% CodePreview %}
+		{% raw %}
+		{% import "components/content/cc99-status-panel.njk" as statusPanel %}
+		{{ statusPanel.render(
+			statusPanel.INFO,
+			{
+				title: 'Title',
+				desc: 'Short description.',
+				list: [
+					{
+						title: 'Title of list item',
+						desc: 'Description of list item.',
+						href: '#'
+					},
+					{
+						title: 'Title of list item - not a link',
+						desc: 'Description of list item without a link.'
+					},
+					{
+						title: 'Title of the list item only'
+					},
+					{
+						title: 'Title of the list item only with link',
+						href: '#'
+					},
+					{
+						desc: 'Description of the list item only.'
+					}
+				]
+			}
+		) }}
+		{% endraw %}
+	{% endCodePreview %}
+
+	{% CodePreview "markup" %}
+		{{ statusPanel.render(
+			statusPanel.INFO,
+			{
+				title: 'Title',
+				desc: 'Short description.',
+				list: [
+					{
+						title: 'Title of list item',
+						desc: 'Description of list item.',
+						href: '#'
+					},
+					{
+						title: 'Title of list item - not a link',
+						desc: 'Description of list item without a link.'
+					},
+					{
+						title: 'Title of the list item only'
+					},
+					{
+						title: 'Title of the list item only with link',
+						href: '#'
+					},
+					{
+						desc: 'Description of the list item only.'
+					}
+				]
+			}
+		) }}
+	{% endCodePreview %}
+
+	{{ statusPanel.render(
+		statusPanel.INFO,
+		{
+			title: 'Title',
+			desc: 'Short description.',
+			list: [
+				{
+					title: 'Title of list item',
+					desc: 'Description of list item.',
+					href: '#'
+				},
+				{
+					title: 'Title of list item - not a link',
+					desc: 'Description of list item without a link.'
+				},
+				{
+					title: 'Title of the list item only'
+				},
+				{
+					title: 'Title of the list item only with link',
+					href: '#'
+				},
+				{
+					desc: 'Description of the list item only.'
+				}
+			]
+		}
+	) }}
+
+	<h2>Examples</h2>
+
+	<h3>Info</h3>
+
+	{{ statusPanel.render(
+		statusPanel.INFO,
+		{
+			title: 'Information',
+			desc: 'Proin ac metus elit. Donec vel nibh ut mi rhoncus mollis nec et lectus. Proin a facilisis massa. Aenean ultricies elementum velit. Phasellus in urna interdum.'
+		}
+	) }}
+
+	{{ statusPanel.render(
+		statusPanel.INFO,
+		{
+			title: 'Information'
+		}
+	) }}
+
+	{{ statusPanel.render(
+		statusPanel.INFO,
+		{
+			desc: 'Proin ac metus elit. Donec vel nibh ut mi rhoncus mollis nec et lectus. Proin a facilisis massa. Aenean ultricies elementum velit. Phasellus in urna interdum.'
+		}
+	) }}
+
+	<h3>Warning</h3>
+
+	{{ statusPanel.render(
+		statusPanel.WARNING,
+		{
+			title: 'Warning',
+			desc: 'Nam a scelerisque nunc. Proin in finibus urna. Praesent sed lectus eget tellus viverra ornare sed in felis. Curabitur non urna finibus, lacinia erat mattis, vehicula sem. Duis varius varius dictum. Pellentesque in iaculis eros, at vestibulum urna. Maecenas laoreet dictum ipsum id commodo.'
+		}
+	) }}
+
+	{{ statusPanel.render(
+		statusPanel.WARNING,
+		{
+			title: 'Nam a scelerisque nunc. Proin in finibus urna. Praesent sed lectus eget tellus viverra ornare sed in felis. Curabitur non urna finibus, lacinia erat mattis, vehicula sem.'
+		}
+	) }}
+
+	{{ statusPanel.render(
+		statusPanel.WARNING,
+		{
+			desc: 'Proin ac metus elit. Donec vel nibh ut mi rhoncus mollis nec et lectus. Proin a facilisis massa. Aenean ultricies elementum velit. Phasellus in urna interdum.'
+		}
+	) }}
+
+	<h3>Error</h3>
+
+	{{ statusPanel.render(
+		statusPanel.ERROR,
+		{
+			title: 'Error',
+			desc: 'Vivamus purus dolor, imperdiet et porta vel, volutpat non augue. In faucibus rutrum nibh vitae tempor. Fusce ex odio, commodo et magna ut, mollis dignissim tortor.',
+			list: [
+				{
+					title: 'Form field name',
+					desc: 'Please enter a value.',
+					href: '#'
+				}
+			]
+		}
+	) }}
+
+	{{ statusPanel.render(
+		statusPanel.ERROR,
+		{
+			title: 'Error with title only'
+		}
+	) }}
+
+	{{ statusPanel.render(
+		statusPanel.ERROR,
+		{
+			desc: 'Proin ac metus elit. Donec vel nibh ut mi rhoncus mollis nec et lectus. Proin a facilisis massa. Aenean ultricies elementum velit. Phasellus in urna interdum.'
+		}
+	) }}
+
+	<h3>Success</h3>
+
+	{{ statusPanel.render(
+		statusPanel.SUCCESS,
+		{
+			title: 'Success',
+			desc: 'Curabitur feugiat dolor faucibus libero faucibus, vitae scelerisque dolor gravida. Donec placerat, ex sit amet ornare feugiat, erat magna posuere quam, at lacinia ex ligula nec est.'
+		}
+	) }}
+
+	{{ statusPanel.render(
+		statusPanel.SUCCESS,
+		{
+			title: 'Success with title only'
+		}
+	) }}
+
+	{{ statusPanel.render(
+		statusPanel.SUCCESS,
+		{
+			desc: 'Proin ac metus elit. Donec vel nibh ut mi rhoncus mollis nec et lectus. Proin a facilisis massa. Aenean ultricies elementum velit. Phasellus in urna interdum.'
+		}
+	) }}
+
+{% endblock %}
+
+{% block right %}
+	{{ statusPanel.render(
+		statusPanel.INFO,
+		{
+			title: 'Info',
+			desc: 'Curabitur feugiat dolor faucibus libero faucibus, vitae scelerisque dolor gravida. Donec placerat, ex sit amet ornare feugiat, erat magna posuere quam, at lacinia ex ligula nec est.'
+		}
+	) }}
+
+	{{ statusPanel.render(
+		statusPanel.SUCCESS,
+		{
+			title: 'Success'
+		}
+	) }}
+
+	{{ statusPanel.render(
+		statusPanel.ERROR,
+		{
+			desc: 'Proin ac metus elit. Donec vel nibh ut mi rhoncus mollis nec et lectus. Proin a facilisis massa. Aenean ultricies elementum velit. Phasellus in urna interdum.'
+		}
+	) }}
+{% endblock %}

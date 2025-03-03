@@ -1,5 +1,3 @@
-@use "sass:math";
-
 // ==========================================================================
 // HELPERS
 // ==========================================================================
@@ -8,15 +6,11 @@
 // ==========================================================================
 
 @function strip-units($number) {
-	@return math.div($number, ($number * 0 + 1));
+	@return $number / ($number * 0 + 1);
 }
 
 @function rem($px) {
-	@return math.div(strip-units($px), 16) * 1rem;
-}
-
-@function hex-to-rgba($color, $opacity: 1) {
-	@return rgba($color, $opacity);
+	@return strip-units($px) / 16 * 1rem;
 }
 
 // LIST FUNCTIONS
@@ -65,7 +59,7 @@
 	$green: green(rgba($colour, 1));
 	$blue: blue(rgba($colour, 1));
 
-	@return math.div(((0.2126 * $red) + (0.7152 * $green) + (0.0722 * $blue)), 255);
+	@return ((0.2126 * $red) + (0.7152 * $green) + (0.0722 * $blue)) / 255;
 }
 
 @function get-contrasting-color($colour, $light: #FFF, $dark: #000) {
@@ -95,24 +89,5 @@
 
 	&::after {
 		clear: both;
-	}
-}
-
-// COLOUR MODE
-// ==========================================================================
-
-@mixin prefers-color-scheme($type: light, $isHtml: false) {
-	@media (prefers-color-scheme: #{$type}) {
-		@content;
-	}
-
-	@if $isHtml == true {
-		&.use-theme-#{$type} {
-			@content;
-		}
-	} @else {
-		html.use-theme-#{$type} & {
-			@content;
-		}
 	}
 }

@@ -1,0 +1,235 @@
+---
+title: CC04 Related Links
+eleventyNavigation:
+  key: CC04 Related Links
+  parent: Content Components
+  excerpt: The Related Links module is used to display a list of related links. It can be placed in the main or complementary columns.
+  status: done
+  order: 4
+---
+
+{% extends "layouts/two-column-left.njk" %}
+
+{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+
+{% import "components/content/cc04-related-links.njk" as relatedLinks %}
+
+{% block above %}
+	{{ breadcrumbs.render() }}
+
+	{{ pageHeader.render(
+		title,
+		eleventyNavigation.excerpt
+	) }}
+{% endblock %}
+
+{% block main %}
+	{% CodePreview %}
+		{% raw %}
+        {% import "components/content/cc04-related-links.njk" as relatedLinks %}
+		{{ relatedLinks.render(
+			'CC04 Related Links',
+			[{
+				href: '#',
+				title: 'Link #1',
+				desc: 'Link description goes here.'
+			},
+			{
+				href: '#',
+				title: 'Link #2',
+				desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+			},
+			{
+				href: '#',
+				title: 'Link with no description.'
+			}]
+		) }}
+		{% endraw %}
+	{% endCodePreview %}
+
+	{% CodePreview "markup" %}
+		{{ relatedLinks.render(
+			'CC04 Related Links',
+			[{
+				href: '#',
+				title: 'Link #1',
+				desc: 'Link description goes here.'
+			},
+			{
+				href: '#',
+				title: 'Link #2',
+				desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+			},
+			{
+				href: '#',
+				title: 'Link with no description.'
+			}]
+		) }}
+	{% endCodePreview %}
+
+	<h2>Examples</h2>
+
+	{{ relatedLinks.render(
+		'CC04 Related Links',
+		[{
+			href: '#',
+			title: 'Link #1',
+			desc: 'Link description goes here.'
+		},
+		{
+			href: '#',
+			title: 'Link #2',
+			desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultrices sem eu diam consectetur, at posuere sem tempus.'
+		},
+		{
+			href: '#',
+			title: 'Link with no description.'
+		}]
+	) }}
+
+	{% LColumns 2 %}
+		{% LCol %}
+			{{ relatedLinks.render(
+				'Related links with top border',
+				[{
+					href: '#',
+					title: 'Link #1',
+					desc: 'Link description goes here.'
+				},
+				{
+					href: '#',
+					title: 'Link #2',
+					desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultrices sem eu diam consectetur, at posuere sem tempus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce tristique eu orci ut hendrerit.'
+				},
+				{
+					href: '#',
+					title: 'Link with no description.'
+				}],
+				{
+					hasBorderTop: true
+				}
+			) }}
+		{% endLCol %}
+		{% LCol %}
+			{{ relatedLinks.render(
+				'More related links',
+				[{
+					href: '#',
+					title: 'Link #1',
+					desc: 'Link description goes here.'
+				},
+				{
+					href: '#',
+					title: 'Link #2',
+					desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultrices sem eu diam consectetur, at posuere sem tempus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce tristique eu orci ut hendrerit.'
+				},
+				{
+					href: '#',
+					title: 'Link with no description.'
+				}],
+				{
+					hasBorderTop: true
+				}
+			) }}
+		{% endLCol %}
+	{% endLColumns %}
+
+	<hr />
+
+	{% LColumns 3, { equalHeights: true } %}
+		{% LCol %}
+			{{ relatedLinks.render(
+				'Related links',
+				[{
+					href: '#',
+					title: 'Link #1',
+					desc: 'Link description goes here.'
+				},
+				{
+					href: '#',
+					title: 'Link #2',
+					desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultrices sem eu diam consectetur, at posuere sem tempus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce tristique eu orci ut hendrerit.'
+				},
+				{
+					href: '#',
+					title: 'Link with no description.'
+				}]
+			) }}
+		{% endLCol %}
+		{% LCol %}
+			{{ relatedLinks.render(
+				'Related links - shaded',
+				[{
+					href: '#',
+					title: 'Link #1',
+					desc: 'Link description goes here.'
+				},
+				{
+					href: '#',
+					title: 'Link #2',
+					desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultrices sem eu diam consectetur, at posuere sem tempus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce tristique eu orci ut hendrerit.'
+				},
+				{
+					href: '#',
+					title: 'Link with no description.'
+				}],
+				{
+					hasBgShaded: true
+				}
+			) }}
+		{% endLCol %}
+		{% LCol %}
+			{{ relatedLinks.render(
+				'More related links with a longer title that wraps',
+				[{
+					href: '#',
+					title: 'Link #1',
+					desc: 'Link description goes here.'
+				},
+				{
+					href: '#',
+					title: 'Link #2',
+					desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultrices sem eu diam consectetur, at posuere sem tempus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce tristique eu orci ut hendrerit.'
+				},
+				{
+					href: '#',
+					title: 'Link with no description.'
+				}],
+				{
+					hasBgInverted: true
+				}
+			) }}
+		{% endLCol %}
+	{% endLColumns %}
+{% endblock %}
+
+{% block right %}
+	{{ relatedLinks.render(
+		'Sidebar Links',
+		[{
+			href: '#',
+			title: 'A sidebar link with a longer title'
+		},
+		{
+			href: '#',
+			title: 'Another link',
+			desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque non.'
+		}]
+	) }}
+	{{ relatedLinks.render(
+		'Shaded links',
+		[{
+			href: '#',
+			title: 'A sidebar link with a longer title'
+		},
+		{
+			href: '#',
+			title: 'Another link',
+			desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque non.'
+		}],
+		{
+			hasBgShaded: true
+		}
+	) }}
+{% endblock %}

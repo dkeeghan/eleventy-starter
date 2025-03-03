@@ -1,0 +1,338 @@
+---
+title: CC03 Downloads
+eleventyNavigation:
+  key: CC03 Downloads
+  parent: Content Components
+  excerpt: The Downloads module is used to display a list of files. This module contains a single version which is the list of links stacked down the page.
+  status: done
+  order: 3
+---
+
+{% extends "layouts/two-column-left.njk" %}
+
+{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+
+{% import "components/content/cc03-downloads.njk" as downloads %}
+
+{% block above %}
+	{{ breadcrumbs.render() }}
+
+	{{ pageHeader.render(
+		title,
+		eleventyNavigation.excerpt
+	) }}
+{% endblock %}
+
+{% block main %}
+	<p>The following icon names are supported:</p>
+
+	{% CodePreview %}
+		{% raw %}
+        {% import "components/content/cc03-downloads.njk" as downloads %}
+		{{ downloads.render(
+			'Title',
+			[{
+				name:'App file',
+				type: 'exe',
+				size: '976KB',
+				href: '#'
+			},
+			{
+				name: 'Audio file (use this for .mp3, .wav and .aac)',
+				type: 'mp3',
+				size: '3.2MB',
+				href: '#'
+			},
+			{
+				name: 'Video file (use this for video files like .mp4, .mov and .avi)',
+				type: 'mp4',
+				size: '431.33MB',
+				href: '#'
+			},
+			{
+				name: 'Image file (use this for image files like .jpg, .png, .gif, .tiff, .svg)',
+				type: 'jpg',
+				size: '8.0MB',
+				href: '#'
+			}],
+			{
+				hasBorderTop: true
+			}
+		) }}
+		{% endraw %}
+	{% endCodePreview %}
+
+	{% CodePreview "markup" %}
+		{{ downloads.render(
+			'Title',
+			[{
+				name:'App file',
+				type: 'exe',
+				size: '976KB',
+				href: '#'
+			},
+			{
+				name: 'Audio file (use this for .mp3, .wav and .aac)',
+				type: 'mp3',
+				size: '3.2MB',
+				href: '#'
+			},
+			{
+				name: 'Video file (use this for video files like .mp4, .mov and .avi)',
+				type: 'mp4',
+				size: '431.33MB',
+				href: '#'
+			},
+			{
+				name: 'Image file (use this for image files like .jpg, .png, .gif, .tiff, .svg)',
+				type: 'jpg',
+				size: '8.0MB',
+				href: '#'
+			}],
+			{
+				hasBorderTop: true
+			}
+		) }}
+	{% endCodePreview %}
+
+	<h2>Examples</h2>
+	{% LColumns %}
+		{% LCol %}
+		{{ downloads.render(
+			'CC03 Downloads',
+			[{
+				name: 'PDF Document example',
+				type: 'pdf',
+				size: '4.2MB',
+				href: '#'
+			},
+			{
+				name: 'DOC Document example',
+				type: 'doc',
+				size: '2.5MB',
+				href: '#'
+			},
+			{
+				name: 'XLS Document example',
+				type: 'xls',
+				size: '2MB',
+				href: '#'
+			},
+			{
+				name: 'PPT Document example',
+				type: 'pptx',
+				size: '17.5MB',
+				href: '#'
+			},
+			{
+				name:'VSD Document example',
+				type: 'vsd',
+				size: '150MB',
+				href: '#'
+			},
+			{
+				name:'ZIP file',
+				type: 'ZIP',
+				size: '976KB',
+				href: '#'
+			},
+			{
+				name: 'Unknown file',
+				type: 'unknown',
+				size: '976KB',
+				href: '#'
+			}],
+			{
+				hasBgShaded: true
+			}
+        ) }}
+		{% endLCol %}
+
+		{% LCol %}
+		{{ downloads.render(
+			'More Download Links',
+			[{
+				name:'App file',
+				type: 'EXE',
+				size: '976KB',
+				href: '#'
+			},
+			{
+				name: 'Audio file (use this for .mp3, .wav and .aac)',
+				type: 'MP3',
+				size: '3.2MB',
+				href: '#'
+			},
+			{
+				name: 'Video file (use this for video files like .mp4, .mov and .avi)',
+				type: 'MP4',
+				size: '431.33MB',
+				href: '#'
+			},
+			{
+				name: 'Image file (use this for image files like .jpg, .png, .gif, .tiff, .svg)',
+				type: 'JPG',
+				size: '8.0MB',
+				href: '#'
+			}],
+			{
+				hasBorderTop: true
+			}
+        ) }}
+		{% endLCol %}
+	{% endLColumns %}
+
+	<hr />
+
+	{% LColumns 3, { equalHeights: true } %}
+		{% LCol %}
+			{{ downloads.render(
+				'CC03 Downloads',
+				[{
+					name: 'PDF Document example',
+					type: 'PDF',
+					size: '4.2MB',
+					href: '#'
+				},
+				{
+					name: 'DOC Document example',
+					type: 'DOC',
+					size: '2.5MB',
+					href: '#'
+				},
+				{
+					name: 'XLS Document example',
+					type: 'XLS',
+					size: '2MB',
+					href: '#'
+				},
+				{
+					name: 'PPT Document example',
+					type: 'PPT',
+					size: '17.5MB',
+					href: '#'
+				},
+				{
+					name:'VSD Document example',
+					type: 'VSD',
+					size: '150MB',
+					href: '#'
+				},
+				{
+					name:'ZIP file',
+					type: 'ZIP',
+					size: '976KB',
+					href: '#'
+				},
+				{
+					name: 'Unknown file',
+					type: 'UNKNOWN',
+					size: '976KB',
+					href: '#'
+				}],
+				{
+					hasBgInverted: true
+				}
+			) }}
+		{% endLCol %}
+
+		{% LCol %}
+			{{ downloads.render(
+				'More Downloads',
+				[{
+					name:'App file',
+					type: 'EXE',
+					size: '976KB',
+					href: '#'
+				},
+				{
+					name: 'Audio file',
+					type: 'MP3',
+					size: '3.2MB',
+					href: '#'
+				},
+				{
+					name: 'Video file',
+					type: 'MP4',
+					size: '431.33MB',
+					href: '#'
+				},
+				{
+					name: 'Image file',
+					type: 'JPG',
+					size: '8.0MB',
+					href: '#'
+				}]
+			) }}
+		{% endLCol %}
+
+		{% LCol %}
+			{{ downloads.render(
+				'More Downloads',
+				[{
+					name: 'PDF Document example',
+					type: 'PDF',
+					size: '5.7MB',
+					href: '#'
+				},
+				{
+					name: 'DOC Document example',
+					type: 'DOC',
+					size: '1.8MB',
+					href: '#'
+				}],
+				{
+					hasBgShaded: true
+				}
+			) }}
+		{% endLCol %}
+	{% endLColumns %}
+{% endblock %}
+
+{% block right %}
+	{{ downloads.render(
+		'CC03 Downloads',
+		[{
+			name: 'Audio file',
+			type: 'MP3',
+			size: '3.2MB',
+			href: '#'
+		},
+		{
+			name: 'Video file',
+			type: 'MP4',
+			size: '431.33MB',
+			href: '#'
+		},
+		{
+			name: 'Image file',
+			type: 'JPG',
+			size: '8.0MB',
+			href: '#'
+		}],
+		{
+			hasBorderTop: true
+		}
+	) }}
+
+	{{ downloads.render(
+		'Files',
+		[
+		{
+			name: 'Video file',
+			type: 'MP4',
+			size: '431.33MB',
+			href: '#'
+		},
+		{
+			name: 'Image file',
+			type: 'JPG',
+			size: '8.0MB',
+			href: '#'
+		}],
+		{
+			hasBgShaded: true
+		}
+	) }}
+{% endblock %}

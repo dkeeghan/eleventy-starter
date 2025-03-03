@@ -1,0 +1,42 @@
+{#
+CC14 Social Links
+--------------
+#}
+{% import "utils/svg.njk" as svg %}
+{% import "utils/component-options.njk" as co %}
+
+{# Demo content from site/_data/demoContent.js #}
+{% set platformData = demoContent.social.platforms %}
+{% set defaultPlatforms = demoContent.social.default %}
+
+{% macro renderList(platforms = defaultPlatforms, isShare = true) %}
+	<ul class="_list-social">
+		{% for platform in platforms -%}
+			{% if (isShare and platformData[platform].share) or isShare == false %}
+				{% if isShare %}
+					{% set href = platformData[platform].share %}
+					{% set title = 'Share this on ' + platformData[platform].title %}
+				{% else %}
+					{% set href = platformData[platform].page %}
+					{% set title = platformData[platform].verb + ' us on ' + platformData[platform].title %}
+				{% endif %}
+				<li>
+					<a href="{{ href }}" target="_blank" rel="noopener" title="{{ title }}" class="link-icon-only"{% if isShare %} onclick="window.open(this.href, 'newwindow', 'width=600, height=350'); return false;"{% endif %}>
+						{{ svg.render(platformData[platform].icon) }}
+					</a>
+				</li>
+			{% endif %}
+		{%- endfor %}
+	</ul>
+{% endmacro %}
+
+{% macro render(title, platforms = defaultPlatforms, isShare = true, componentOptions={}) %}
+	<!-- START .cc-social-links -->
+	<section class="{{ co.getClassAttr('cc-social-links', componentOptions) }}">
+		<div class="_content">
+			<h2 class="_cc-title">{{ title }}</h2>
+			{{ renderList(platforms, isShare) }}
+		</div>
+	</section>
+	<!-- END .cc-social-links -->
+{% endmacro %}

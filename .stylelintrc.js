@@ -7,8 +7,11 @@ module.exports = {
 	rules: {
 		'selector-type-no-unknown': [true, {
 			ignoreTypes: [
-				'dk-offscreen',
-				'dk-offscreen-toggle'
+				'dd-expandable',
+				'dd-expandable-toggle',
+				'dd-component-container',
+				'dd-offscreen',
+				'dd-offscreen-toggle'
 			]
 		}],
 	},

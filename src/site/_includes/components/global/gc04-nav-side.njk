@@ -1,0 +1,71 @@
+{#
+GC04 Side Navigation
+--------------
+#}
+{% import "utils/svg.njk" as svg %}
+
+{# Render Individual Nav Item #}
+{% macro renderNavItem(entry, level = 1, breadcrumbs = false) -%}
+	<li>
+		{% set linkClasses = ['_nav-item'] %}
+
+		{% set linkClasses = (linkClasses.push('is-level-' + level), linkClasses) %}
+
+		{% if entry.url == page.url %}
+			{% set linkClasses = (linkClasses.push('is-active-page'), linkClasses) %}
+		{% endif %}
+
+		{% if entry.children.length %}
+			{% set linkClasses = (linkClasses.push('has-children'), linkClasses) %}
+		{% endif %}
+
+		<a href="{{ entry.url | url }}" class="{{ linkClasses | join(' ') }}"{% if entry.url == page.url %} aria-current="page"{% endif %}>
+			{{ entry.title }}
+			{% if entry.children.length %}
+				{{ svg.render('caret-right') }}
+			{% endif %}
+		</a>
+
+		{% set showChildren = false %}
+
+		{% if entry.children.length %}
+			{% if (entry.url == page.url) %}
+				{% set showChildren = true %}
+			{% else %}
+				{%- for child in entry.children %}
+					{% if child.url == page.url %}
+						{% set showChildren = true %}
+					{% endif %}
+				{% endfor -%}
+			{% endif %}
+		{% endif %}
+
+		{% if showChildren %}
+		{% set childLevel = level + 1 %}
+		<ul class="_list is-level-{{ childLevel }}">
+			{% for child in entry.children -%}
+				{{ renderNavItem(child, childLevel) }}
+			{%- endfor %}
+		</ul>
+		{% endif %}
+	</li>
+{%- endmacro %}
+
+{# Render Nav Items #}
+{% macro render() -%}
+	{% set allPages = collections.all | eleventyNavigation %}
+	{% set breadcrumbs = collections.all | eleventyNavigationBreadcrumb(eleventyNavigation.key) %}
+
+	<nav class="g-nav-side">
+		<ul class="_list">
+			{# Home is the first item in the array, so skip this #}
+			{%- for entry in allPages[0].children %}
+				{% if (entry.key == breadcrumbs[1].key) or (entry.key == eleventyNavigation.key) %}
+					{%- for childEntry in entry.children %}
+						{{ renderNavItem(childEntry, 1, breadcrumbs) }}
+					{%- endfor -%}
+				{% endif %}
+			{%- endfor -%}
+		</ul>
+	</nav>
+{%- endmacro %}

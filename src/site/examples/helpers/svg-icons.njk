@@ -1,0 +1,151 @@
+---
+title: SVG Icons
+eleventyNavigation:
+  key: SVG Icons
+  parent: Helpers
+  status: done
+---
+
+{% extends "layouts/one-column.njk" %}
+
+{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+
+{% block above %}
+	{{ breadcrumbs.render() }}
+
+	{{ pageHeader.render(title) }}
+{% endblock %}
+
+{% block main %}
+	<h2>Adding new images</h2>
+	<p>Add new images to the <code>/src/assets/icons/svgs-src/</code> folder. Then run <code>npm run icons</code> which will generate an updated icons sprite file.</p>
+
+	<h2>Import</h2>
+	{% CodePreview %}
+		{% raw %}
+		{% import "utils/svg.njk" as svg %}
+		{% endraw %}
+	{% endCodePreview %}
+
+	<h2>Embed an SVG Icon</h2>
+	{% CodePreview %}
+		{% raw %}
+		{{ svg.render('caret-right') }}
+		{% endraw %}
+	{% endCodePreview %}
+
+	<h2>Stylesheets</h2>
+	<h3>@use</h3>
+	{% CodePreview "scss" %}
+		@use "./_includes/svgicons";
+	{% endCodePreview %}
+
+	<h3>Base SCSS mixin</h3>
+	{% CodePreview "scss" %}
+		.container {
+			@include svgicons.set(
+				$width: 48px, // sets the width of the icon
+				$height: 48px, // sets the height of the icon
+				$x-pos: none, // if not none - sets abs positioning - can use 'left', 'center', 'right' or a numeric value
+				$y-pos: none, // if not none - sets abs positioning - can use 'left', 'center', 'right' or a numeric value
+				$color: none, // set a default fill colour
+				$changeToColor: none, // set a default fill colour on hover/focus of this element (i.e. .container)
+				$duration: var(--anim-duration-normal)) // set a transition duration
+			);
+		}
+	{% endCodePreview %}
+
+	<h3>Setting colours</h3>
+	{% CodePreview "scss" %}
+		.container {
+			@include svgicons.set(...);
+			@include svgicons.color(
+				$color, // set a default fill colour
+				$changeToColor: none, // set a default fill colour on hover/focus of this element (i.e. .container)
+				$duration: var(--anim-duration-normal)) // set a transition duration
+			);
+		}
+	{% endCodePreview %}
+
+	<h3>Example usage</h3>
+	{% CodePreview "scss" %}
+		// 20px square icon positioned left and 50% and coloured black
+		.container {
+			@include svgicons.set(20px, 20px, left, center, var(--theme-black));
+		}
+
+		// 20px square icon positioned left and 50% and coloured black with a hover to primary
+		button {
+			@include svgicons.set(20px, 20px, left, center, var(--theme-black), var(--theme-primary));
+		}
+
+		// 20px square icon positioned left and 50% and having multiple variations of colours
+		.list-item {
+			@include svgicons.set(20px, 20px, left, center, var(--theme-black));
+
+			&.is-primary {
+				@include svgicons.color(var(--theme-primary));
+			}
+
+			&.is-secondary {
+				@include svgicons.color(var(--theme-secondary));
+			}
+
+			&.is-on-dark {
+				@include svgicons.color(var(--theme-white));
+				background-color: var(--theme-black);
+			}
+		}
+	{% endCodePreview %}
+
+
+	<h2>Current SVG Sprite assets</h2>
+	<p>All the current SVG Icons present in the build can be seen below:</p>
+
+	<ul id="icon-list" class="dev-icon-list"></ul>
+
+	<script>
+		const ajax = new XMLHttpRequest();
+		ajax.open("GET", "/assets/img/icons.svg", true);
+		ajax.send();
+		ajax.onload = err => {
+			document.getElementById('sprite-sheet').innerHTML = ajax.responseText;
+
+			const sprite = document.querySelector('#sprite-sheet svg');
+			const symbols = sprite.querySelectorAll('symbol');
+
+			const list = document.querySelector('#icon-list');
+
+			symbols.forEach(symbol => {
+				list.insertAdjacentHTML('beforeend', `<li>
+					<h3>${symbol.id.replace('svg-', '')}</h3>
+					<div class="dev-svg-icon-swatches">
+						<div class="is-default">
+							<svg width="50" height="50">
+								<use xlink:href="#${symbol.id}" />
+							<svg>
+						</div>
+						<div class="is-primary">
+							<svg width="50" height="50">
+								<use xlink:href="#${symbol.id}" />
+							<svg>
+						</div>
+						<div class="on-dark">
+							<svg width="50" height="50">
+								<use xlink:href="#${symbol.id}" />
+							<svg>
+						</div>
+						<button class="has-hover">
+							<svg width="50" height="50">
+								<use xlink:href="#${symbol.id}" />
+							<svg>
+						</button>
+					</div>
+				</li>`);
+			});
+		}
+	</script>
+
+	<div id="sprite-sheet" style="display: none;"></div>
+{% endblock %}

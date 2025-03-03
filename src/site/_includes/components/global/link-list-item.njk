@@ -1,0 +1,14 @@
+{#
+Link List Item
+--------------
+#}
+{% import "utils/svg.njk" as svg %}
+
+{% macro render(title, href, options={}) -%}
+	<a href="{{ href }}" class="link-list-item{% if options.icon %} has-icon{% endif %}">
+		{% if options.icon %}{{ svg.render(options.icon) }}{% endif %}
+		<strong>{{ title }}</strong>
+		{% if options.meta %}<span class="_metadata">{{ options.meta }}</span>{% endif %}
+		{% if options.desc %}<p>{{ options.desc }}</p>{% endif %}
+	</a>
+{%- endmacro %}

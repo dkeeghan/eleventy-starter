@@ -1,0 +1,43 @@
+---
+title: GC02 Footer
+eleventyNavigation:
+  key: GC02 Footer
+  parent: Global Components
+  excerpt: Site-wide footer containing navigation links, social links, legal links and copyright information.
+  status: done
+  order: 2
+---
+
+{% extends "layouts/one-column.njk" %}
+
+{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+
+{% block above %}
+	{{ breadcrumbs.render() }}
+
+	{{ pageHeader.render(
+		title,
+		eleventyNavigation.excerpt
+	) }}
+{% endblock %}
+
+{% block main %}
+	<p>The footer component appears at the bottom of each page on the site. </p>
+
+	<p>It contains the following elements:</p>
+
+	<ul>
+		<li>Top level navigation links (link column headers)</li>
+		<li>Secondary navigation links (entries in link columns)</li>
+		<li>Social links module</li>
+		<li>Legal links</li>
+		<li>Copyright information</li>
+	</ul>
+
+	<p>All of the links - top level, secondary, and legal - are customisable. Any number of secondary navigation links can be entered. Up to 4 top level navigation links can be entered. It is recommended to enter fewer than four legal links to avoid formatting issues.</p>
+
+	<p>The social links module can also be customised  - the title can be changed as well as the social media channels included.</p>
+
+	<p>On mobile, the columns from the module will stack vertically, and the secondary navigation links will disappear to reduce excessive scrolling.</p>
+{% endblock %}

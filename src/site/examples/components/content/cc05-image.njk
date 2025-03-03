@@ -1,0 +1,172 @@
+---
+title: CC05 Image
+eleventyNavigation:
+  key: CC05 Image
+  parent: Content Components
+  excerpt: The Image component can display a single image full width in the available space. It can be placed in the main or complementary columns.
+  status: done
+  order: 5
+---
+
+{% extends "layouts/two-column-left.njk" %}
+
+{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+
+{% import "components/content/cc05-image.njk" as image %}
+
+{% block above %}
+	{{ breadcrumbs.render() }}
+
+	{{ pageHeader.render(
+		title,
+		eleventyNavigation.excerpt
+	) }}
+{% endblock %}
+
+{% block main %}
+	<p>Images can be displayed in the following configurations:</p>
+	<ul>
+		<li>An image only</li>
+		<li>An image with a caption</li>
+		<li>An image with a caption and supporting caption text</li>
+	</ul>
+
+	{% CodePreview %}
+		{% raw %}
+		{% import "components/content/cc05-image.njk" as image %}
+		{{ image.render(
+			{
+				src: 'https://via.placeholder.com/1200x675/81BC00/ffffff.png',
+				alt: 'Placeholder image',
+				caption: 'CC05 Image: This is the main caption',
+				desc: 'This image may or may not contain a supporting description.'
+			}
+		) }}
+		{% endraw %}
+	{% endCodePreview %}
+
+	{% CodePreview "markup" %}
+		{{ image.render(
+			{
+				src: 'https://via.placeholder.com/1200x675/81BC00/ffffff.png',
+				alt: 'Placeholder image',
+				caption: 'CC05 Image: This is the main caption',
+				desc: 'This image may or may not contain a supporting description.'
+			}
+		) }}
+	{% endCodePreview %}
+
+	<h2>Examples</h2>
+	{{ image.render(
+		{
+			src: 'https://via.placeholder.com/800x450/81BC00/ffffff.png',
+			alt: 'Placeholder image',
+			caption: 'Main Caption',
+			desc: 'This is what happens when an image is not the full-width of a column.'
+		}
+	) }}
+
+	<hr />
+
+	{% LColumns %}
+		{% LCol %}
+		{{ image.render(
+			{
+				src: 'https://via.placeholder.com/800x450/81BC00/ffffff.png',
+				alt: 'Placeholder image',
+				caption: 'Main Caption',
+				desc: 'The image on the right is smaller in width and height.'
+			}
+		) }}
+		{% endLCol %}
+
+		{% LCol %}
+		{{ image.render(
+			{
+				src: 'https://via.placeholder.com/400x225/00BCA0/ffffff.png',
+				alt: 'Placeholder image',
+				caption: 'Main Caption Only'
+			},
+			{
+				hasBgShaded: true
+			}
+		) }}
+		{% endLCol %}
+	{% endLColumns %}
+
+	<hr />
+
+	{% LColumns 4, { equalHeights: true } %}
+		{% LCol %}
+		{{ image.render(
+			{
+				src: 'https://via.placeholder.com/800x450/81BC00/ffffff.png',
+				alt: 'Placeholder image',
+				caption: 'Main Caption',
+				desc: 'This image has a supporting description.'
+			},
+			{
+				hasBgShaded: true
+			}
+		) }}
+		{% endLCol %}
+
+		{% LCol %}
+		{{ image.render(
+			{
+				src: 'https://via.placeholder.com/800x450/00BCA0/ffffff.png',
+				alt: 'Placeholder image',
+				caption: 'Main Caption Only'
+			}
+		) }}
+		{% endLCol %}
+
+		{% LCol %}
+		{{ image.render(
+			{
+				src: 'https://via.placeholder.com/800x450/007185/ffffff.png',
+				alt: 'Placeholder image'
+			}
+		) }}
+		{% endLCol %}
+		{% LCol %}
+		{{ image.render(
+			{
+				src: 'https://via.placeholder.com/800x450/007185/ffffff.png',
+				alt: 'Placeholder image',
+				caption: 'Main Caption',
+				desc: 'This image has a supporting description which is rather long for such a small component.'
+			},
+			{
+				hasBgInverted: true
+			}
+		) }}
+		{% endLCol %}
+	{% endLColumns %}
+
+{% endblock %}
+
+{% block right %}
+	{{ image.render(
+		{
+			src: 'https://via.placeholder.com/800x450/81BC00/ffffff.png',
+			alt: 'Placeholder image',
+			caption: 'Main Caption',
+			desc: 'Images can be placed inside complementary columns too!'
+		}
+	) }}
+	{{ image.render(
+		{
+			src: 'https://via.placeholder.com/800x450/00BCA0/ffffff.png',
+			alt: 'Placeholder image',
+			caption: 'Main Caption'
+		}
+	) }}
+	{{ image.render(
+		{
+			src: 'https://via.placeholder.com/800x450/007185/ffffff.png',
+			alt: 'Placeholder image'
+		}
+	) }}
+{% endblock %}

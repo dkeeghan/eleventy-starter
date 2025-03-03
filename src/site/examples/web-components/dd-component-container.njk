@@ -1,0 +1,137 @@
+---
+title: dd-component-container
+eleventyNavigation:
+  key: dd-component-container
+  parent: Web Components
+  excerpt: Container for components that will detect the size, and set classes accordingly.
+  status: done
+---
+
+{% extends "layouts/one-column.njk" %}
+
+{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+
+{% import "components/content/cc02-content-tile.njk" as contentTile %}
+
+{% block above %}
+	{{ breadcrumbs.render() }}
+	{{ pageHeader.render() }}
+{% endblock %}
+
+{% block main %}
+	<h2>Usage</h2>
+	<p>Place the <code>dd-component-container</code> element directly inside the component - it will add classes to the parent element depending on size</p>
+
+	<p>The classes by default are <code>is-lte-s</code>, <code>is-lte-m</code>, <code>is-lte-l</code> and <code>is-gt-s</code>, <code>is-gt-m</code>, <code>is-gt-l</code>.</p>
+
+	<p>Only three classes will be present at any one time depending on the component size.</p>
+
+	<p>By default the sizes are <code>s 400px, m 550px, l 800px</code>. Therefore if the container is 200px, all three size classes will show the <code>is-lte-X</code> classes and at 401px you have <code>is-gt-s is-lte-m is-lte-l</code>.</p>
+
+	<p><strong>Note:</strong> if the parent is <code>display: inline</code> an error will be thrown as you can only use a block level element (<code>block</code> or <code>inline-block</code>).</p>
+
+	{% CodePreview %}
+		{% raw %}
+		<section class="cc cc-component-name">
+			<dd-component-container>Content for the component</dd-component-container>
+		</section>
+		{% endraw %}
+	{% endCodePreview %}
+
+	<h3>Options</h3>
+	<ul>
+		<li><code>prefix="is"</code> - Change the class prefix</li>
+		<li><code>widths="s 400px, m 550px, l 800px"</code> - Use the format <code>name width</code> separated by commas to add/remove/change widths, e.g. <code>widths="l 500px"</code> or <code>widths="xsmall 300px, small 500px, medium 700px, large 1000px, fhd 1920px"</code>.</li>
+		<li><code>target="parent"</code> - Change the target to look at the size of and apply the classes to. Valid options are <code>parent</code>, <code>self</code> or <code>child</code>. (note, if there is more than one child inside the container it will only apply to the first child)</li>
+	</ul>
+
+	<h2>Example</h2>
+	<p>At screen breakpoint of <code>l</code> the top content tile image appears to the left, but the items in columns below it appear stacked.</p>
+
+	{{ contentTile.render(
+		'Title',
+		{
+			desc: 'Ut maximus nibh nec nibh imperdiet venenatis. Mauris molestie finibus eros, nec iaculis enim interdum id.',
+			image: {
+				src: 'https://via.placeholder.com/800x450/007185/ffffff.png',
+				alt: 'Placeholder image'
+			},
+			link: {
+				type: 'block',
+				href: '#',
+				text: 'Read more'
+			}
+		},
+		{
+			hasBgShaded: true
+		}
+	) }}
+
+	{% LColumns 3, { equalHeights: true } %}
+		{% LCol %}
+			{{ contentTile.render(
+				'A featured item with two links',
+				{
+					desc: 'Lorem ipsum dolor sit amet.',
+					image: {
+						src: 'https://via.placeholder.com/800x450/00BCA0/ffffff.png',
+						alt: 'Placeholder image'
+					},
+					link: {
+						type: 'cta',
+						href: '#',
+						text: 'Call to action'
+					},
+					linkSecondary: {
+						type: 'cta',
+						href: '#',
+						text: 'Another'
+					}
+				},
+				{
+					hasBgShaded: true
+				}
+			) }}
+		{% endLCol %}
+		{% LCol %}
+			{{ contentTile.render(
+				'Another featured item with a long title',
+				{
+					desc: 'Vestibulum non sem ut sapien laoreet finibus quis quis dui. Praesent sed aliquet augue.',
+					image: {
+						src: 'https://via.placeholder.com/800x450/81BC00/FFFFFF.png',
+						alt: 'Placeholder image'
+					},
+					link: {
+						href: '#',
+						text: 'Call us now'
+					}
+				},
+				{
+					hasBgShaded: true
+				}
+			) }}
+		{% endLCol %}
+		{% LCol %}
+			{{ contentTile.render(
+				'A block link title',
+				{
+					desc: 'Vestibulum non sem ut sapien laoreet finibus quis quis dui.',
+					image: {
+						src: 'https://via.placeholder.com/800x450/81BC00/FFFFFF.png',
+						alt: 'Placeholder image'
+					},
+					link: {
+						type: 'block',
+						href: '#',
+						text: 'Call us now'
+					}
+				},
+				{
+					hasBgShaded: true
+				}
+			) }}
+		{% endLCol %}
+	{% endLColumns %}
+{% endblock %}

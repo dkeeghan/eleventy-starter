@@ -1,0 +1,23 @@
+{#
+PAGE HEADER
+--------------
+Full width hero page header - contains the page H1 and an optional paragraph subtitle
+#}
+
+{% import "utils/component-options.njk" as co %}
+
+{% macro render(pageTitle=false, subtitle=false, componentOptions={}) -%}
+	{% if pageTitle == false %}
+		{% set pageTitle = title %}
+		{% set subtitle = eleventyNavigation.excerpt %}
+	{% endif %}
+
+	<!-- START .hc-page-header -->
+	<header class="{{ co.getClassAttr('hc-page-header', componentOptions, 'hc') }}">
+		<div class="l-padding">
+			<h1 class="_title">{{ pageTitle }}</h1>
+			{% if subtitle %}<p class="_subtitle">{{ subtitle }}</p>{% endif %}
+		</div>
+	</header>
+	<!-- END .hc-page-header -->
+{%- endmacro %}

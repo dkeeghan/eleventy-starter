@@ -1,0 +1,117 @@
+---
+title: Creating a Component
+eleventyNavigation:
+  key: Creating a Component
+  parent: Usage
+  excerpt: Guidelines for how to create new components.
+  status: done
+  order: 2
+---
+
+{% extends "layouts/one-column.njk" %}
+
+{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+{% import "utils/svg.njk" as svg %}
+
+{% block above %}
+	{{ breadcrumbs.render() }}
+	{{ pageHeader.render() }}
+{% endblock %}
+
+{% block main %}
+	{% RichText %}
+		<h2>Component Types</h2>
+		<p>There are three main types of components:</p>
+
+		<ul>
+			<li>Global Components (<code>.g-*</code>) - components that are placed by a developer, usually linked directly to a page template. These components generally provide default functionality without user customisation (e.g. header, footer, navigation).</li>
+			<li>Hero Components (<code>.hc</code>, <code>.hc-*</code>) - components that span full screen width and likely only sit in the hero/above/below areas.</li>
+			<li>Content Components (<code>.cc</code>, <code>.cc-*</code>) - components that can fit in small to large areas and likely sit in the main, left or right columns.</li>
+		</ul>
+
+		<h2>Adding a new Component</h2>
+		<p>When adding a new component, you need to add a:</p>
+
+		<ul>
+			<li>Component: <code>/src/site/_includes/components/[global|hero|content]/*</code></li>
+			<li><a href="/examples/usage/creating-a-page">Example Page</a>: <code>/src/site/examples/components/[global|hero|content]/*</code></li>
+		</ul>
+
+		<h3>Component</h3>
+		<p>Simplest approach is to take an existing component and start from there. Here are a couple of things to keep in mind.</p>
+
+		<h4>Building with Nunjucks</h4>
+		<p>Components and Pages are built using Nunjucks. Nunjucks allows us to write modular and reusable code that simulates how a CMS would build a component, helping us to build components that are better used and implemented by the CMS development teams.</p>
+		<p>The base framework has been built out to give you real world examples of how you'd use Nunjucks to create pages and components.</p>
+		<p>{% DocsExternalLink 'Nunjucks Documentation', 'https://mozilla.github.io/nunjucks/templating.html' %}</p>
+
+		<h5>Naming macros</h5>
+		<p>In order to make it easier to use components, call the main macro that controls the display of the component <code>render()</code>, this way all components are consistent.</p>
+		<p>If you have a macro that's only going to be used internally to the component, use an underscore (<code>_</code>) at the start e.g. <code>_renderCard</code> to indicate it's a 'private' macro.</p>
+
+		<h4>Component Base</h4>
+		<p>For Hero and Content Components, use the example template below:</p>
+
+		<h5>Surrounding Comments</h5>
+		<p>Use the HTML START and END comments to help the back-end team see the raw HTML of the components</p>
+
+		{% LColumns 2 %}
+			{% LCol %}
+				<h5>Component Options</h5>
+				<p>Be sure to use <code>component-options</code> to help apply common classes to the container. This is always the final variable to be passed in and is always optional.</p>
+				<p>These options apply classes to the container only. This is important to keep the component itself simple and so that the back-end devs only need to change a class in one spot.</p>
+				<p>Options that are applied to all components are:</p>
+
+				<ul>
+					<li><code>hasBgShaded</code> - applies classes <code>has-padding has-bg-shaded</code>. Sets the background to the shaded colour (by default in this template it's light grey.)</li>
+					<li><code>hasBgInverted</code> - applies classes <code>has-padding has-bg-inverted</code>. Sets the background to the inverted colour (by default in this template it's black.)</li>
+					<li><code>hasHeightReduced</code> - applies the class <code>has-height-reduced</code> to reduce the vertical padding of the item.</li>
+					<li><code>hasBorderTop</code> - applies the class <code>has-border-top</code>. Adds a border to the top of the component.</li>
+				</ul>
+
+				<p>Expand this with other variations as you need for your projects.</p>
+			{% endLCol %}
+			{% LCol %}
+				{% CodePreview "njk", true, "Content Component Base" %}
+					{% raw %}
+					{% import "utils/component-options.njk" as co %}
+
+					{% macro render(title, options={}, componentOptions={}) %}
+						<!-- START .cc-component-name -->
+						<section class="{{ co.getClassAttr('cc-component-name', componentOptions) }}">
+
+						</section>
+						<!-- END .cc-component-name -->
+					{% endmacro %}
+					{% endraw %}
+				{% endCodePreview %}
+
+				<p>Hero Components are pretty much the same, just use the third property of the getClassAttr function to set the base <code>hc</code> class instead of the <code>cc</code> class.</p>
+
+				{% CodePreview "njk", false, "Hero Component Base" %}
+					{% raw %}
+					{% import "utils/component-options.njk" as co %}
+
+					{% macro render(title, options={}, componentOptions={}) %}
+						<!-- START .hc-hero-component-name -->
+						<section class="{{ co.getClassAttr('hc-hero-component-name', componentOptions, 'hc') }}">
+
+						</section>
+						<!-- END .hc-hero-component-name -->
+					{% endmacro %}
+					{% endraw %}
+				{% endCodePreview %}
+			{% endLCol %}
+		{% endLColumns %}
+
+		<h5>Component background image</h5>
+		<p>In the occasion you'd like a background image on the component. Use the <code>co.getBgImage(componentOptions)</code> macro from component options, and by passing in the property <code>bgImage: '/path/to/image.jpg'</code>.</p>
+
+		{% CodePreview "njk", "none", false %}
+			{% raw %}
+			<section class="{{ co.getClassAttr('hc-hero-banner', componentOptions, 'hc') }}"{{ co.getBgImage(componentOptions) }}>
+			{% endraw %}
+		{% endCodePreview %}
+	{% endRichText %}
+{% endblock %}

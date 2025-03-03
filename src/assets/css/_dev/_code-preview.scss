@@ -1,0 +1,63 @@
+@use '../../../../node_modules/prismjs/themes/prism.css';
+@use "../_includes/utils";
+
+.dev-code-preview {
+	border: var(--theme-border-width) solid var(--theme-border);
+	padding: 0.8rem;
+	margin: 20px 0;
+	border-radius: var(--theme-border-radius);
+
+	&:first-child {
+		margin-top: 0;
+	}
+
+	._title {
+		font-size: var(--font-size-s);
+		text-decoration: none;
+
+		em {
+			font-style: normal;
+			font-size: var(--font-size-xs);
+			background-color: var(--theme-grey-light);
+			color: var(--theme-paragraph-color);
+			padding: utils.rem(3) utils.rem(10);
+			text-decoration: none;
+			transition-duration: var(--anim-duration-normal);
+			transition-property: border-color, color;
+			margin-left: utils.rem(7);
+			border-radius: var(--theme-border-radius);
+			border: var(--theme-border-width) solid var(--theme-border);
+		}
+	}
+
+	dd-expandable-toggle button {
+		padding-left: utils.rem(22);
+		padding-right: 0;
+
+		svg {
+			right: auto;
+			left: 0;
+		}
+
+		&:hover,
+		&:focus {
+			span {
+				text-decoration: underline;
+			}
+
+			em {
+				text-decoration: none;
+				border-color: var(--theme-primary);
+				//color: var(--theme-primary);
+			}
+		}
+	}
+
+	& pre {
+		width: 100%;
+		overflow-x: auto;
+		background-color: var(--theme-grey-light);
+		font-size: var(--font-size-s);
+		border-radius: var(--theme-border-radius);
+	}
+}

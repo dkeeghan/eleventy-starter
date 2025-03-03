@@ -1,0 +1,177 @@
+---
+title: CC07 Accordion
+eleventyNavigation:
+  key: CC07 Accordion
+  parent: Content Components
+  excerpt: The accordion module is a wrapper for the dd-expandable web component that makes it easier to use. It can be added to pages to display content in expand/collapse sections.
+  status: done
+  order: 7
+---
+
+{% extends "layouts/two-column-left.njk" %}
+
+{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+
+{% import "components/content/cc07-accordion.njk" as accordion %}
+{% import "components/content/cc02-content-tile.njk" as contentTile %}
+
+{% block above %}
+	{{ breadcrumbs.render() }}
+
+	{{ pageHeader.render(
+		title,
+		eleventyNavigation.excerpt
+	) }}
+{% endblock %}
+
+{% block main %}
+
+	{% CodePreview %}
+		{% raw %}
+        {% import "components/content/cc07-accordion.njk" as accordion %}
+		{{ accordion.render(
+			'Title',
+			[
+				{
+					title: 'Item 1',
+					text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam finibus eleifend elit ac luctus. Quisque velit quam, pellentesque eu sem non, tristique convallis ex. Integer iaculis blandit odio vel porta. Curabitur aliquam mattis mi, ac aliquet tortor auctor ac. Vestibulum nibh nibh, posuere convallis mi et, aliquet tristique libero. Integer suscipit diam at consequat aliquam. Etiam venenatis orci non arcu posuere fermentum suscipit ac purus. Praesent eu aliquam erat. Aliquam vestibulum, urna a mattis sagittis, augue arcu sodales quam, vel placerat metus tortor sed quam. Duis feugiat, libero ac sollicitudin ornare, dui lorem iaculis ligula, id blandit nisl turpis at nunc. Etiam ullamcorper, quam id pharetra porttitor, lectus turpis malesuada magna, a mollis turpis mi ac mi. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc luctus nisi sed ex elementum, ut dictum magna ultrices. Maecenas at mollis nibh, at ultrices arcu.'
+				},
+				{
+					title: 'Item 2',
+					text: 'Sed urna leo, tincidunt eget ex at, tincidunt sagittis est. Mauris libero velit, accumsan ac accumsan vitae, aliquet eget massa. Curabitur neque odio, hendrerit ac justo fermentum, efficitur euismod velit. Sed eleifend urna quis nunc scelerisque feugiat. Nam tristique leo et tincidunt convallis. Nam eu ante quis velit sodales posuere. Nam pretium maximus enim, iaculis commodo ex ultricies ac.'
+				},
+				{
+					title: 'Item 3',
+					text: 'Small amount of text.'
+				},
+				{
+					title: 'Item 4',
+					text: 'Sed urna leo, tincidunt eget ex at, tincidunt sagittis est. Mauris libero velit, accumsan ac accumsan vitae, aliquet eget massa. Curabitur neque odio, hendrerit ac justo fermentum, efficitur euismod velit. Sed eleifend urna quis nunc scelerisque feugiat. Nam tristique leo et tincidunt convallis. Nam eu ante quis velit sodales posuere. Nam pretium maximus enim, iaculis commodo ex ultricies ac.'
+				}
+			]
+		) }}
+		{% endraw %}
+	{% endCodePreview %}
+
+	{% CodePreview "markup" %}
+		{{ accordion.render(
+			'Title',
+			[
+				{
+					title: 'Item 1',
+					text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam finibus eleifend elit ac luctus. Quisque velit quam, pellentesque eu sem non, tristique convallis ex. Integer iaculis blandit odio vel porta. Curabitur aliquam mattis mi, ac aliquet tortor auctor ac. Vestibulum nibh nibh, posuere convallis mi et, aliquet tristique libero. Integer suscipit diam at consequat aliquam. Etiam venenatis orci non arcu posuere fermentum suscipit ac purus. Praesent eu aliquam erat. Aliquam vestibulum, urna a mattis sagittis, augue arcu sodales quam, vel placerat metus tortor sed quam. Duis feugiat, libero ac sollicitudin ornare, dui lorem iaculis ligula, id blandit nisl turpis at nunc. Etiam ullamcorper, quam id pharetra porttitor, lectus turpis malesuada magna, a mollis turpis mi ac mi. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc luctus nisi sed ex elementum, ut dictum magna ultrices. Maecenas at mollis nibh, at ultrices arcu.'
+				},
+				{
+					title: 'Item 2',
+					text: 'Sed urna leo, tincidunt eget ex at, tincidunt sagittis est. Mauris libero velit, accumsan ac accumsan vitae, aliquet eget massa. Curabitur neque odio, hendrerit ac justo fermentum, efficitur euismod velit. Sed eleifend urna quis nunc scelerisque feugiat. Nam tristique leo et tincidunt convallis. Nam eu ante quis velit sodales posuere. Nam pretium maximus enim, iaculis commodo ex ultricies ac.'
+				},
+				{
+					title: 'Item 3',
+					text: 'Small amount of text.'
+				},
+				{
+					title: 'Item 4',
+					text: 'Sed urna leo, tincidunt eget ex at, tincidunt sagittis est. Mauris libero velit, accumsan ac accumsan vitae, aliquet eget massa. Curabitur neque odio, hendrerit ac justo fermentum, efficitur euismod velit. Sed eleifend urna quis nunc scelerisque feugiat. Nam tristique leo et tincidunt convallis. Nam eu ante quis velit sodales posuere. Nam pretium maximus enim, iaculis commodo ex ultricies ac.'
+				}
+			]
+		) }}
+	{% endCodePreview %}
+
+	<h2>Examples</h2>
+
+	{% macro accordionBlockItem1() %}
+		<p>First paragraph block</p>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+		<p>Nullam finibus eleifend elit ac luctus.</p>
+		<p>Quisque velit quam, pellentesque eu sem non, tristique convallis ex.</p>
+		<p>Integer iaculis blandit odio vel porta.</p>
+		<p>Final paragraph block</p>
+	{% endmacro %}
+
+	{% macro accordionBlockItem2() %}
+		{% LColumns %}
+			{% LCol %}
+				{{ contentTile.render(
+					'A featured item with two links',
+					{
+						desc: 'Lorem ipsum dolor sit amet.',
+						image: {
+							src: 'https://via.placeholder.com/800x450/00BCA0/ffffff.png',
+							alt: 'Placeholder image'
+						},
+						link: {
+							type: 'cta',
+							href: '#',
+							text: 'Call to action'
+						},
+						'linkSecondary': {
+							type: 'cta',
+							href: '#',
+							text: 'Another'
+						}
+					}
+
+				) }}
+			{% endLCol %}
+			{% LCol %}
+				{{ contentTile.render(
+					'Another featured item with a long title',
+					{
+						desc: 'Vestibulum non sem ut sapien laoreet finibus quis quis dui. Praesent sed aliquet augue.',
+						image: {
+							src: 'https://via.placeholder.com/800x450/81BC00/FFFFFF.png',
+							alt: 'Placeholder image'
+						},
+						link: {
+							type: 'a',
+							href: '#',
+							text: 'Call us now'
+						}
+					}
+				) }}
+			{% endLCol %}
+		{% endLColumns %}
+	{% endmacro %}
+
+	{{ accordion.render(
+		'Title',
+		[
+			{
+				title: 'Example with block of content',
+				block: accordionBlockItem1
+			},
+			{
+				title: 'Item 2',
+				text: 'Sed urna leo, tincidunt eget ex at, tincidunt sagittis est. Mauris libero velit, accumsan ac accumsan vitae, aliquet eget massa. Curabitur neque odio, hendrerit ac justo fermentum, efficitur euismod velit. Sed eleifend urna quis nunc scelerisque feugiat. Nam tristique leo et tincidunt convallis. Nam eu ante quis velit sodales posuere. Nam pretium maximus enim, iaculis commodo ex ultricies ac.'
+			},
+			{
+				title: 'Item 3',
+				text: 'Small amount of text.'
+			},
+			{
+				title: 'Item with Content Tile component inside it',
+				block: accordionBlockItem2
+			}
+		],
+		'grp2'
+	) }}
+
+{% endblock %}
+
+{% block right %}
+	{{ accordion.render(
+		'Sidebar',
+		[
+			{
+				title: 'Item 1',
+				text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+			},
+			{
+				title: 'Item 2',
+				text: 'Mauris libero velit, accumsan ac accumsan vitae, aliquet eget massa.'
+			}
+		],
+		'grp3'
+	) }}
+{% endblock %}

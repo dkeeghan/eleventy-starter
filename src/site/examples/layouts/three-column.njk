@@ -1,0 +1,83 @@
+---
+title: Three Column Layout
+eleventyNavigation:
+  key: Three Column
+  parent: Layouts
+  status: done
+  order: 4
+---
+
+{% extends "layouts/three-column.njk" %}
+
+{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+
+{% import "components/global/gc04-nav-side.njk" as navSide with context %}
+
+{% block above %}
+	{{ breadcrumbs.render() }}
+	{{ pageHeader.render() }}
+{% endblock %}
+
+{% block left %}
+	{{ navSide.render() }}
+{% endblock %}
+
+{% block right %}
+	<p>Right column  content goes here.</p>
+{% endblock %}
+
+{% block main %}
+	<p>Main content gets put in here.</p>
+
+	<h2>Extends</h2>
+	{% CodePreview "njk", true %}
+		{% raw %}
+		{% extends "layouts/three-column.njk" %}
+		{% endraw %}
+	{% endCodePreview %}
+
+	<h2>Available Blocks</h2>
+	{% CodePreview "njk", true %}
+		{% raw %}
+		{% block above %}
+			Content to be displayed above the main column
+		{% endblock %}
+
+		{% block left %}
+			<p>Left column content goes here.</p>
+		{% endblock %}
+
+		{% block main %}
+			Content to be in the main column
+		{% endblock %}
+
+		{% block right %}
+			<p>Right column content goes here.</p>
+		{% endblock %}
+
+		{% block below %}
+			Content to be displayed below the main column
+		{% endblock %}
+		{% endraw %}
+	{% endCodePreview %}
+
+	<h2>Move DOM position of left column to the top</h2>
+	{% CodePreview "njk", true %}
+		{% raw %}
+		---
+		hasLeftAbove: true
+		---
+
+		{% extends "layouts/three-column.njk" %}
+
+		{% block leftAbove %}
+			<p>Left column content goes here, and will be rendered above the main column.</p>
+		{% endblock %}
+		{% endraw %}
+	{% endCodePreview %}
+{% endblock %}
+
+{% block below %}
+	<p>Content that sits below - full width, goes here.</p>
+{% endblock %}

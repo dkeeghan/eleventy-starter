@@ -1,0 +1,86 @@
+{#
+GC02 Offscreen Navigation
+--------------
+#}
+{% import "utils/svg.njk" as svg %}
+
+{# Render Individual Nav Item #}
+{% macro renderNavItem(entry, level = 1, parentTitleText = 'Main menu') -%}
+	{%- set breadcrumbs = collections.all | eleventyNavigationBreadcrumb(eleventyNavigation.key) -%}
+	{%- set listClasses = ['_list-item'] -%}
+	{%- set expandChildren = false -%}
+
+	{%- if entry.children.length -%}
+		{%- set listClasses = (listClasses.push('has-children'), listClasses) -%}
+	{%- endif -%}
+
+	{%- for breadcrumb in breadcrumbs -%}
+		{% if breadcrumb.url == entry.url %}
+			{%- set expandChildren = true -%}
+		{% endif %}
+	{%- endfor -%}
+
+	<li class="{{ listClasses | join(' ') }}">
+		{% set linkClasses = ['_nav-item'] %}
+
+		{% set linkClasses = (linkClasses.push('is-level-' + level), linkClasses) %}
+
+		{% if entry.url == page.url %}
+			{% set linkClasses = (linkClasses.push('is-active-page'), linkClasses) %}
+			{%- set expandChildren = true -%}
+		{% endif %}
+
+		<a href="{{ entry.url | url }}" class="{{ linkClasses | join(' ') }}"{% if entry.url == page.url %} aria-current="page"{% endif %}>
+			{{ entry.title }}
+		</a>
+
+		{% if entry.children.length -%}
+			{%- set childLevel = level + 1 -%}
+			{%- set expandableId = false | GuidIfFalse -%}
+
+			<dd-expandable-toggle for="offscreen-nav-item-{{ expandableId }}" class="_toggle-children"><button aria-label="Expand Child Pages" title="Expand Child Pages">{{ svg.render('caret-down') }}</button></dd-expandable-toggle>
+
+			<dd-expandable id="offscreen-nav-item-{{ expandableId }}" class="_children"{% if expandChildren %} expanded{% endif %}>
+				<ul class="_list is-level-{{ childLevel }}">
+					{% for child in entry.children -%}
+						{{ renderNavItem(child, childLevel, entry.title) }}
+					{%- endfor %}
+				</ul>
+			</dd-expandable>
+		{%- endif %}
+	</li>
+{%- endmacro %}
+
+{# HEADER #}
+{% macro render() %}
+<!-- START Offscreen Navigation -->
+<dd-offscreen id="nav-offscreen" class="g-nav-offscreen">
+	<div class="_header">
+		<a href="/" class="_logo" aria-label="Deloitte Digital FED Templates - Home">
+			<img class="_logo--img" src="/assets/img/deloitte-digital-logo.svg" alt="Deloitte Digital Logo" />
+		</a>
+
+		<dd-offscreen-toggle for="nav-offscreen" class="btn-offscreen _close">
+			<button aria-label="Toggle Navigation">
+				<svg viewBox="0 0 100 100">
+					<path class="_svg-line _svg-line-top" d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058" />
+					<path class="_svg-line _svg-line-middle" d="M 20,50 H 80" />
+					<path class="_svg-line _svg-line-bottom" d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942" />
+				</svg>
+			</button>
+		</dd-offscreen-toggle>
+	</div>
+
+	<nav class="_menu">
+		<ul class="_list">
+			{% set allPages = collections.all | eleventyNavigation %}
+
+			{# Home is the first item in the array, so skip this #}
+			{%- for entry in allPages[0].children %}
+				{{ renderNavItem(entry, 1) }}
+			{%- endfor -%}
+		</ul>
+	</nav>
+</dd-offscreen>
+<!-- END Offscreen Navigation -->
+{% endmacro %}

@@ -1,0 +1,78 @@
+{#
+CC99 Status Panel
+--------------
+#}
+{% import "utils/svg.njk" as svg %}
+{% import "utils/component-options.njk" as co %}
+
+{%- set INFO = 'info' -%}
+{%- set WARNING = 'warning' -%}
+{%- set ERROR = 'error' -%}
+{%- set SUCCESS = 'success' -%}
+
+{%- set SPACER_BETWEEN_LIST_TITLE_AND_DESC = ':&nbsp;' -%}
+
+{% macro render(status = 'info', content={}, componentOptions={}) %}
+	{%- set classes = [] -%}
+	{%- set hasHeader = true -%}
+	{%- set hasContent = true -%}
+	{%- set hasContentIcon = false -%}
+
+	{%- if componentOptions.classes -%}
+		{%- set classes = componentOptions.classes -%}
+	{%- endif -%}
+
+	{%- if (not(content.desc or content.list)) -%}
+		{%- set classes = (classes.push('has-no-content'), classes) -%}
+		{%- set hasContent = false -%}
+	{%- endif -%}
+
+	{%- if (not(content.title)) -%}
+		{%- set classes = (classes.push('has-no-header'), classes) -%}
+		{%- set hasHeader = false -%}
+	{%- endif -%}
+
+	{%- if hasContent and not(hasHeader) -%}
+		{%- set classes = (classes.push('has-icon'), classes) -%}
+		{%- set hasContentIcon = true -%}
+	{%- endif -%}
+
+	{%- set classes = (classes.push('is-' + status), classes) -%}
+
+	{%- set componentOptions = componentOptions | SetProp('classes', classes) -%}
+
+	<!-- START .cc-status-panel -->
+	<section class="{{ co.getClassAttr('cc-status-panel', componentOptions) }}">
+		{% if hasHeader %}
+		<div class="_header has-icon">
+			{{ svg.render('status-' + status) }}
+			{% if content.title %}<h2>{{ content.title }}</h2>{% endif %}
+		</div>
+		{% endif %}
+		{% if hasContent %}
+		<div class="_content">
+			{% if hasContentIcon %}
+				{{ svg.render('status-' + status) }}
+			{% endif %}
+
+			{% if content.desc %}<p>{{ content.desc }}</p>{% endif %}
+
+			{% if content.list %}
+			<ul>
+				{% for listItem in content.list -%}
+					<li>
+						{%- if listItem.title -%}
+							{% if listItem.href -%}<a href="{{ listItem.href }}">{%- endif -%}
+								<strong>{{ listItem.title }}</strong>
+							{%- if listItem.href %}</a>{%- endif -%}{%- if listItem.desc -%}{{ SPACER_BETWEEN_LIST_TITLE_AND_DESC | safe }}{%- endif -%}
+						{%- endif -%}
+						{{ listItem.desc }}
+					</li>
+				{%- endfor %}
+			</ul>
+			{% endif %}
+		</div>
+		{% endif %}
+	</section>
+	<!-- END .cc-status-panel -->
+{% endmacro %}

@@ -1,0 +1,107 @@
+---
+title: CC14 Social Links
+eleventyNavigation:
+  key: CC14 Social Links
+  parent: Content Components
+  excerpt: The social links module is used to display external content. Each link brings up a share control in a new window, using that service's official share mechanism.
+  status: done
+  order: 14
+---
+
+{% extends "layouts/two-column-left.njk" %}
+
+{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+
+{% import "components/content/cc14-social-links.njk" as socialLinks with context %}
+
+{% block above %}
+	{{ breadcrumbs.render() }}
+
+	{{ pageHeader.render(
+		title,
+		eleventyNavigation.excerpt
+	) }}
+{% endblock %}
+
+{% block main %}
+
+	{% CodePreview %}
+		{% raw %}
+        {% import "components/content/cc14-social-links.njk" as socialLinks with context %}
+		{{ socialLinks.render(
+			'Share',
+			[
+				'twitter',
+				'facebook',
+				'linkedin',
+				'instagram',
+				'github',
+				'youtube',
+				'vimeo'
+			],
+			true
+		) }}
+		{% endraw %}
+	{% endCodePreview %}
+
+	{% CodePreview "markup" %}
+		{{ socialLinks.render(
+			'Share'
+		) }}
+	{% endCodePreview %}
+
+	<h2>Examples</h2>
+
+	<p>There are three platforms that allow sharing:</p>
+
+	{{ socialLinks.render(
+		'Share',
+		[
+			'twitter',
+			'linkedin',
+			'facebook'
+		]
+	) }}
+
+
+	<p>There are seven platforms that allow for following:</p>
+
+	{{ socialLinks.render(
+		'Follow',
+		[
+			'twitter',
+			'facebook',
+			'linkedin',
+			'instagram',
+			'github',
+			'youtube',
+			'vimeo'
+		],
+		false
+	) }}
+
+{% endblock %}
+
+{% block right %}
+	{{ socialLinks.render(
+		'Share',
+		[
+			'linkedin'
+		]
+	) }}
+
+	{{ socialLinks.render(
+		'Follow',
+		[
+			'twitter',
+			'facebook',
+			'linkedin',
+			'instagram',
+			'github',
+			'youtube',
+			'vimeo'
+		],
+		false
+	) }}
+{% endblock %}

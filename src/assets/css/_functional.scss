@@ -1,5 +1,4 @@
-@use "sass:math";
-@use "./_includes/dd-a11y" as a11y;
+@use "~dd-a11y/src/dd-a11y" as a11y;
 @use "./_includes/utils";
 
 // ==========================================================================
@@ -13,8 +12,7 @@
 }
 
 // Hide from both screenreaders and browsers: h5bp.com/u
-.hidden,
-.is-hidden {
+.hidden {
 	display: none !important;
 	visibility: hidden;
 }
@@ -77,35 +75,9 @@
 	$class-name: $prefix + $width + "x" + $height;
 
 	.#{$class-name} {
-		padding-bottom: percentage(math.div($height, $width));
+		padding-bottom: percentage($height / $width);
 	}
 }
 
 @include intrinsic-class(16, 9);
 @include intrinsic-class(4, 3);
-@include intrinsic-class(1, 1);
-
-// PREFERS COLOUR SCHEME
-// ==========================================================================
-
-html {
-	@include utils.prefers-color-scheme(light, true) {
-		.prefers-light-block {
-			display: block;
-		}
-
-		.prefers-dark-block {
-			display: none;
-		}
-	}
-
-	@include utils.prefers-color-scheme(dark, true) {
-		.prefers-light-block {
-			display: none;
-		}
-
-		.prefers-dark-block {
-			display: block;
-		}
-	}
-}

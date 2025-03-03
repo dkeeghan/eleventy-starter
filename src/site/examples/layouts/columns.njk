@@ -1,0 +1,133 @@
+---
+title: Columns
+eleventyNavigation:
+  key: Columns
+  excerpt: Column sub-layouts with options to help position other components
+  parent: Layouts
+  status: done
+  order: 5
+---
+
+{% extends "layouts/one-column.njk" %}
+
+{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+
+{% block above %}
+	{{ breadcrumbs.render() }}
+	{{ pageHeader.render() }}
+{% endblock %}
+
+{% block main %}
+	<p>Main content gets put in here.</p>
+
+	<h2>Default usage</h2>
+	{% CodePreview "njk", true %}
+		{% raw %}
+		{% LColumns 2 %}
+			{% LCol %}
+				<!-- Column 1 Content -->
+			{% endLCol %}
+			{% LCol %}
+				<!-- Column 2 Content -->
+			{% endLCol %}
+		{% endLColumns %}
+		{% endraw %}
+	{% endCodePreview %}
+
+	{% CodePreview "markup" %}
+		{% LColumns 2 %}
+			{% LCol %}
+				<!-- Column 1 Content -->
+			{% endLCol %}
+			{% LCol %}
+				<!-- Column 2 Content -->
+			{% endLCol %}
+		{% endLColumns %}
+	{% endCodePreview %}
+
+	{% LColumns 2 %}
+		{% LCol %}
+			<div style="background-color: #800000; color: #fff; height: 40px">Column 1</div>
+		{% endLCol %}
+		{% LCol %}
+			<div style="background-color: #008000; color: #fff; height: 40px">Column 2</div>
+		{% endLCol %}
+	{% endLColumns %}
+
+	<hr />
+
+	{% LColumns 3 %}
+		{% LCol %}
+			<div style="background-color: #800000; color: #fff; height: 40px">Column 1</div>
+		{% endLCol %}
+		{% LCol %}
+			<div style="background-color: #008000; color: #fff; height: 50px">Column 2</div>
+		{% endLCol %}
+		{% LCol %}
+			<div style="background-color: #000080; color: #fff; height: 60px">Column 3</div>
+		{% endLCol %}
+	{% endLColumns %}
+
+	<hr />
+
+	{% LColumns 4 %}
+		{% LCol %}
+			<div style="background-color: #800000; color: #fff; height: 40px">Column 1</div>
+		{% endLCol %}
+		{% LCol %}
+			<div style="background-color: #008000; color: #fff; height: 50px">Column 2</div>
+		{% endLCol %}
+		{% LCol %}
+			<div style="background-color: #000080; color: #fff; height: 60px">Column 3</div>
+		{% endLCol %}
+		{% LCol %}
+			<div style="background-color: #800080; color: #fff; height: 30px">Column 4</div>
+		{% endLCol %}
+	{% endLColumns %}
+
+	<h2>Feature columns</h2>
+	{% CodePreview %}
+		{% raw %}
+		{% LColumns 2, { feature: "left" } %}
+			{% LCol %}
+				<!-- Column 1 Content - Is Featured -->
+			{% endLCol %}
+			{% LCol %}
+				<!-- Column 2 Content -->
+			{% endLCol %}
+		{% endLColumns %}
+		{% endraw %}
+	{% endCodePreview %}
+
+	{% CodePreview "markup" %}
+		{% LColumns 2, { feature: "left" } %}
+			{% LCol %}
+				<!-- Column 1 Content - Is Featured -->
+			{% endLCol %}
+			{% LCol %}
+				<!-- Column 2 Content -->
+			{% endLCol %}
+		{% endLColumns %}
+	{% endCodePreview %}
+
+	{% LColumns 2, { feature: "left" } %}
+		{% LCol %}
+			<div style="background-color: #800000; color: #fff; height: 40px">Column 1 - Featured</div>
+		{% endLCol %}
+		{% LCol %}
+			<div style="background-color: #008000; color: #fff; height: 50px">Column 2</div>
+		{% endLCol %}
+	{% endLColumns %}
+
+	<hr />
+
+	{% LColumns 2, { feature: "right" } %}
+		{% LCol %}
+			<div style="background-color: #000080; color: #fff; height: 60px">Column 1</div>
+		{% endLCol %}
+		{% LCol %}
+			<div style="background-color: #800080; color: #fff; height: 30px">Column 2 - Featured</div>
+		{% endLCol %}
+	{% endLColumns %}
+{% endblock %}

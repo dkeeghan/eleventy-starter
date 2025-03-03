@@ -1,0 +1,146 @@
+.dev-css-vars-list {
+	display: grid;
+	grid-gap: 1rem;
+	grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+	list-style: none;
+	margin: 0;
+	padding: 0;
+
+	._var {
+		border: var(--theme-border-width) solid var(--theme-border);
+		border-radius: var(--theme-border-radius);
+		padding: 0.5rem;
+		margin: 0;
+	}
+
+	._panel {
+		border: var(--theme-border-width-s) solid var(--theme-border);
+		border-radius: var(--theme-border-radius);
+		height: 5rem;
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		align-items: center;
+		justify-items: center;
+
+		&.is-color {
+			background-color: var(--eg-color);
+		}
+
+		&.is-font-size,
+		&.is-font-weight {
+			align-items: baseline;
+			line-height: 5em;
+
+			._item {
+				color: #CCC;
+
+				&.is-this {
+					color: #000;
+				}
+			}
+		}
+
+		&.is-font-family {
+			grid-template-columns: 1fr;
+
+			p {
+				font-family: var(--eg-font-family);
+				font-size: 2em;
+			}
+		}
+
+		&.is-font-size {
+			._item {
+				font-size: var(--eg-font-size);
+			}
+		}
+
+		&.is-font-weight {
+			._item {
+				font-weight: var(--eg-font-weight);
+			}
+		}
+
+		&.is-line-height {
+			._item {
+				em {
+					display: inline-block;
+					background-color: #CCC;
+					line-height: var(--eg-line-height);
+					font-style: normal;
+				}
+
+				&.is-this {
+					em {
+						background-color: var(--theme-primary);
+					}
+				}
+			}
+		}
+
+		&.is-size,
+		&.is-border-radius {
+			._item {
+				em {
+					position: relative;
+					display: block;
+					text-align: center;
+					font-style: normal;
+					font-size: 0.8rem;
+
+					&::before {
+						content: '';
+						display: block;
+						width: 2rem;
+						height: 2rem;
+						background-color: #CCC;
+						margin: 0 auto 5px;
+					}
+				}
+
+				&.is-this {
+					em::before {
+						background-color: var(--theme-primary);
+					}
+				}
+			}
+		}
+
+		&.is-size {
+			._item {
+				em {
+					&::before {
+						width: var(--eg-size);
+					}
+				}
+			}
+		}
+
+		&.is-border-radius {
+			._item {
+				em {
+					&::before {
+						border-top-left-radius: var(--eg-border-radius);
+					}
+				}
+			}
+		}
+	}
+
+	._details {
+		font-size: 0.8rem;
+		padding: 0.5rem 0 0 0;
+		text-align: right;
+
+		input {
+			border: 0;
+			display: block;
+			font-family: monospace;
+			font-size: inherit;
+			margin: 0;
+			padding: 0.2rem;
+			text-align: right;
+			width: 100%;
+		}
+	}
+}

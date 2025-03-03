@@ -1,0 +1,48 @@
+.dev-icon-list {
+	svg {
+		display: block;
+	}
+
+	.dev-svg-icon-swatches {
+		display: flex;
+
+		div,
+		button {
+			display: block;
+			margin: 0 5px;
+			border: var(--theme-border-width-s) solid var(--theme-border);
+		}
+
+		button {
+			background: none;
+			padding: 0;
+		}
+	}
+
+	.is-primary svg use {
+		fill: var(--theme-primary);
+	}
+
+	.on-dark {
+		background-color: var(--theme-black);
+
+		svg use {
+			fill: var(--theme-white);
+		}
+	}
+
+	.has-hover {
+		svg use {
+			transition: fill var(--anim-duration-normal);
+		}
+
+		&:hover,
+		&:focus {
+			fill: var(--theme-primary);
+		}
+
+		&:active {
+			fill: var(--theme-primary-darker);
+		}
+	}
+}

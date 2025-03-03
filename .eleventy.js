@@ -2,14 +2,19 @@ const fs = require('fs');
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 const eleventyNavigationPlugin = require('@11ty/eleventy-navigation');
 
-// Custom Filters
-const GetRandomInt = require('./src/utils/filters/GetRandomInt');
+// Shortcode
+const RichText = require('./src/utils/shortcode/RichText');
+const CodePreview = require('./src/utils/shortcode/CodePreview');
+
+const LColumns = require('./src/utils/shortcode/LColumns');
+const LCol = require('./src/utils/shortcode/LCol');
+
+const DocsExternalLink = require('./src/utils/shortcode/DocsExternalLink');
+
+// Filters
 const GuidIfFalse = require('./src/utils/filters/GuidIfFalse');
-const IsFileType = require('./src/utils/filters/IsFileType');
 const MergeArrayWith = require('./src/utils/filters/MergeArrayWith');
 const SetProp = require('./src/utils/filters/SetProp');
-const SetOptions = require('./src/utils/filters/SetOptions');
-const Slugify = require('./src/utils/filters/Slugify');
 
 module.exports = function(eleventyConfig) {
 	/**
@@ -32,17 +37,8 @@ module.exports = function(eleventyConfig) {
 	 * @link https://www.11ty.io/docs/copy/
 	 */
 	eleventyConfig.addPassthroughCopy({
-		'./src/assets/img': 'assets/img',
-		'./src/site/manifest.json': 'manifest.json',
-		'./src/site/robots.txt': 'robots.txt',
+		'./src/assets/img': 'assets/img'
 	});
-
-	/**
-	 * Ignore files (files in .gitignore and node_modules are ignored by default)
-	 *
-	 * @link https://www.11ty.dev/docs/ignores/
-	 */
-	//eleventyConfig.ignores.add('./src/site/_theme-builder.njk');
 
 	/**
 	 * Add plugins
@@ -57,13 +53,9 @@ module.exports = function(eleventyConfig) {
 	 *
 	 * @link https://www.11ty.io/docs/filters/
 	 */
-	eleventyConfig.addFilter('GetRandomInt', GetRandomInt);
 	eleventyConfig.addFilter('GuidIfFalse', GuidIfFalse);
-	eleventyConfig.addFilter('IsFileType', IsFileType);
 	eleventyConfig.addFilter('MergeArrayWith', MergeArrayWith);
 	eleventyConfig.addFilter('SetProp', SetProp);
-	eleventyConfig.addFilter('SetOptions', SetOptions);
-	eleventyConfig.addFilter('Slugify', Slugify);
 
 	/**
 	 * Add Transforms
@@ -79,7 +71,13 @@ module.exports = function(eleventyConfig) {
 	 *
 	 * @link https://www.11ty.dev/docs/shortcodes/
 	 */
-	/* eleventyConfig.addPairedShortcode('CodePreview', CodePreview); */
+	eleventyConfig.addPairedShortcode('RichText', RichText);
+	eleventyConfig.addPairedShortcode('CodePreview', CodePreview);
+	// Columns
+	eleventyConfig.addPairedShortcode('LColumns', LColumns);
+	eleventyConfig.addPairedShortcode('LCol', LCol);
+	// Dev Documentation
+	eleventyConfig.addShortcode('DocsExternalLink', DocsExternalLink);
 
 	/**
 	 * Override BrowserSync Server options
@@ -109,7 +107,7 @@ module.exports = function(eleventyConfig) {
 			},
 		},
 	});
-	
+
 	return {
 		dir: {
 			includes: '_includes',

@@ -1,6 +1,5 @@
-@use "@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" as bp;
+@use "~@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" as bp;
 @use "./../_includes/theme";
-@use "./../_includes/svgicons";
 @use "./../_includes/utils";
 
 // ==========================================================================
@@ -25,7 +24,7 @@ h6,
 	@include theme.feature-family();
 	line-height: var(--font-heading-line-height);
 	color: var(--theme-heading-color);
-	margin: var(--font-heading-margins) 0 var(--font-heading-margins-s);
+	margin: var(--font-heading-margins) 0 var(--font-heading-margins-xs);
 
 	&:first-child {
 		margin-top: 0;
@@ -35,8 +34,6 @@ h6,
 h1,
 .h1 {
 	font-size: var(--font-size-h1);
-	font-weight: var(--font-weight-bold);
-	line-height: 1.3;
 }
 
 h2,
@@ -57,11 +54,13 @@ h4,
 h5,
 .h5 {
 	font-size: var(--font-size-h5);
+	margin-top: var(--font-heading-margins-s);
 }
 
 h6,
 .h6 {
 	font-size: var(--font-size-h6);
+	margin-top: var(--font-heading-margins-s);
 }
 
 // BASE TEXT
@@ -85,22 +84,12 @@ ul {
 	}
 }
 
-.subdued {
-	color: var(--theme-paragraph-subdued-color);
-}
-
-.text-subtitle {
-	display: inline-block;
-	font-size: var(--font-size-xs);
-	font-weight: var(--font-weight-bold);
-	text-transform: uppercase;
-	letter-spacing: 0.4em;
-}
-
-.text-trunc {
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+hr {
+	margin: 30px 0;
+	border: none;
+	background-color: var(--theme-border);
+	height: var(--theme-border-width);
+	border-radius: var(--theme-border-radius);
 }
 
 // BASE LIST STYLES
@@ -130,8 +119,8 @@ ol {
 
 dl {
 	dt {
-		color: var(--theme-primary);
-		font-weight: 600;
+		color: var(--theme-heading-color);
+		font-weight: bold;
 		margin-top: 10px;
 
 		& + dt {
@@ -144,7 +133,71 @@ dl {
 	}
 }
 
-img {
-	max-width: 100%;
-	display: block;
+// RTE TEXT CLASSES
+// ==========================================================================
+
+.text-intro {
+	@include theme.base-family-hero();
+}
+
+.text-subtitle {
+	@include theme.base-family-subtitle();
+}
+
+// FIGURES
+// ==========================================================================
+
+figure {
+	margin: var(--component-spacing) 0;
+	position: relative;
+
+	img {
+		display: block;
+		max-width: 100%;
+		margin: 0 auto;
+	}
+
+	figcaption {
+		font-size: var(--font-size-s);
+		color: var(--theme-paragraph-color);
+		margin-top: utils.rem(15);
+
+		p {
+			margin: 0;
+		}
+	}
+}
+
+// BLOCK QUOTE
+// ==========================================================================
+
+// TODO proper styles using theme/rems
+
+blockquote {
+	@include theme.feature-family();
+	font-size: var(--font-size-h2);
+	color: var(--theme-primary);
+	margin: var(--component-spacing) 0;
+
+	footer {
+		@include theme.base-family();
+		font-size: var(--font-size-m);
+		margin-top: utils.rem(10);
+		color: var(--theme-paragraph-color);
+	}
+}
+
+// CODE
+// ==========================================================================
+
+code {
+	tab-size: 4;
+}
+
+p > code,
+li > code {
+	background: var(--theme-grey-light);
+	font-size: 0.9em;
+	padding: 0 utils.rem(4);
+	border-radius: var(--theme-border-radius);
 }

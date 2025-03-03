@@ -1,0 +1,30 @@
+---
+title: GC04 Side Navigation
+eleventyNavigation:
+  key: GC04 Side Navigation
+  parent: Global Components
+  excerpt: The side navigation shows the level 2 navigation of the site and below as a tiered list in the left column of a 2 Column Right/3 Column formatted page.
+  status: done
+  order: 4
+---
+
+{% extends "layouts/two-column-right.njk" %}
+
+{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+
+{% import "components/global/gc04-nav-side.njk" as navSide with context %}
+
+
+{% block above %}
+	{{ breadcrumbs.render() }}
+	{{ pageHeader.render() }}
+{% endblock %}
+
+{% block main %}
+<p> Text here </p>
+{% endblock %}
+
+{% block left %}
+	{{ navSide.render() }}
+{% endblock %}

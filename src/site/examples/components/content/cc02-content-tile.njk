@@ -1,0 +1,315 @@
+---
+title: CC02 Content Tile
+eleventyNavigation:
+  key: CC02 Content Tile
+  parent: Content Components
+  excerpt: The Content Tile contains a title, image, description, optional link, and optional subtitle which sits above the title and creates a "feature banner" layout.
+  status: done
+  order: 2
+---
+
+{% extends "layouts/two-column-left.njk" %}
+
+{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+
+{% import "components/content/cc02-content-tile.njk" as contentTile %}
+
+{% block above %}
+	{{ breadcrumbs.render() }}
+
+	{{ pageHeader.render(
+		title,
+		eleventyNavigation.excerpt
+	) }}
+{% endblock %}
+
+{% block main %}
+	{% CodePreview %}
+		{% raw %}
+		{% import "components/content/cc02-content-tile.njk" as contentTile %}
+		{{ contentTile.render(
+			'Title',
+			{
+				'subtitle': 'Subtitle',
+				desc: 'Description',
+				image: {
+					src: 'https://via.placeholder.com/800x450/81BC00/ffffff.png',
+					alt: 'Placeholder image'
+				},
+				link: {
+					type: 'block',
+					href: '#',
+					text: 'Read more'
+				}
+			}
+		) }}
+		{% endraw %}
+	{% endCodePreview %}
+
+	{% CodePreview "markup" %}
+		{{ contentTile.render(
+			'Title',
+			{
+				'subtitle': 'Subtitle',
+				desc: 'Description',
+				image: {
+					src: 'https://via.placeholder.com/800x450/81BC00/ffffff.png',
+					alt: 'Placeholder image'
+				},
+				link: {
+					type: 'block',
+					href: '#',
+					text: 'Read more'
+				}
+			}
+		) }}
+	{% endCodePreview %}
+
+	<h2>Examples</h2>
+
+	{{ contentTile.render(
+		'Title',
+		{
+			desc: 'Ut maximus nibh nec nibh imperdiet venenatis. Mauris molestie finibus eros, nec iaculis enim interdum id.',
+			image: {
+				src: 'https://via.placeholder.com/800x450/007185/ffffff.png',
+				alt: 'Placeholder image'
+			},
+			link: {
+				type: 'block',
+				href: '#',
+				text: 'Read more'
+			}
+		}
+
+	) }}
+
+	{{ contentTile.render(
+		'A "feature banner" contact tile',
+		{
+			'subtitle': 'Subtitle',
+			desc: 'Ut maximus nibh nec nibh imperdiet venenatis. Mauris molestie finibus eros, nec iaculis enim interdum id.',
+			image: {
+				src: 'https://via.placeholder.com/800x450/007185/ffffff.png',
+				alt: 'Placeholder image'
+			},
+			link: {
+				type: 'cta',
+				href: '#',
+				text: 'Read more'
+			}
+		},
+		{
+			hasBgShaded: true
+		}
+	) }}
+
+	{% LColumns %}
+		{% LCol %}
+			{{ contentTile.render(
+				'A featured item with two links',
+				{
+					desc: 'Lorem ipsum dolor sit amet.',
+					image: {
+						src: 'https://via.placeholder.com/800x450/00BCA0/ffffff.png',
+						alt: 'Placeholder image'
+					},
+					link: {
+						type: 'cta',
+						href: '#',
+						text: 'Call to action'
+					},
+					'linkSecondary': {
+						type: 'cta',
+						href: '#',
+						text: 'Another'
+					}
+				}
+
+			) }}
+		{% endLCol %}
+		{% LCol %}
+			{{ contentTile.render(
+				'Another featured item with a long title',
+				{
+					desc: 'Vestibulum non sem ut sapien laoreet finibus quis quis dui. Praesent sed aliquet augue.',
+					image: {
+						src: 'https://via.placeholder.com/800x450/81BC00/FFFFFF.png',
+						alt: 'Placeholder image'
+					},
+					link: {
+						type: 'a',
+						href: '#',
+						text: 'Call us now'
+					}
+				}
+			) }}
+		{% endLCol %}
+	{% endLColumns %}
+
+	<hr />
+
+	{% LColumns 3, { equalHeights: true } %}
+		{% LCol %}
+			{{ contentTile.render(
+				'A featured item with two links',
+				{
+					desc: 'Lorem ipsum dolor sit amet.',
+					image: {
+						src: 'https://via.placeholder.com/800x450/00BCA0/ffffff.png',
+						alt: 'Placeholder image'
+					},
+					link: {
+						type: 'cta',
+						href: '#',
+						text: 'Call to action'
+					},
+					linkSecondary: {
+						type: 'cta',
+						href: '#',
+						text: 'Another'
+					}
+				},
+				{
+					hasBgInverted: true
+				}
+			) }}
+		{% endLCol %}
+		{% LCol %}
+			{{ contentTile.render(
+				'Another featured item with a long title',
+				{
+					desc: 'Vestibulum non sem ut sapien laoreet finibus quis quis dui. Praesent sed aliquet augue.',
+					image: {
+						src: 'https://via.placeholder.com/800x450/81BC00/FFFFFF.png',
+						alt: 'Placeholder image'
+					},
+					link: {
+						href: '#',
+						text: 'Call us now'
+					}
+				},
+				{
+					hasBgInverted: true
+				}
+			) }}
+		{% endLCol %}
+		{% LCol %}
+			{{ contentTile.render(
+				'A block link title',
+				{
+					desc: 'Vestibulum non sem ut sapien laoreet finibus quis quis dui.',
+					image: {
+						src: 'https://via.placeholder.com/800x450/81BC00/FFFFFF.png',
+						alt: 'Placeholder image'
+					},
+					link: {
+						type: 'block',
+						href: '#',
+						text: 'Call us now'
+					}
+				},
+				{
+					hasBgInverted: true
+				}
+			) }}
+		{% endLCol %}
+	{% endLColumns %}
+
+	<hr />
+
+	{% LColumns %}
+		{% LCol %}
+			{{ contentTile.render(
+				'A featured item - no link',
+				{
+					desc: 'Lorem ipsum dolor sit amet, laoreet finibus quis quis dui. Mauris molestie finibus eros, nec iaculis enim interdum id.  Praesent sed aliquet augue.',
+					image: {
+						src: 'https://via.placeholder.com/800x450/007185/ffffff.png',
+						alt: 'Placeholder image'
+					}
+				}
+			) }}
+		{% endLCol %}
+		{% LCol %}
+			{{ contentTile.render(
+				'Block link item',
+				{
+					desc: 'Vestibulum non sem ut sapien laoreet finibus quis quis dui.',
+					image: {
+						src: 'https://via.placeholder.com/800x450/00BCA0/FFFFFF.png',
+						alt: 'Placeholder image'
+					},
+					link: {
+						type: 'block',
+						href: '#',
+						text: 'Call us now'
+					}
+				},
+				{
+					hasBgShaded: true
+				}
+			) }}
+		{% endLCol %}
+	{% endLColumns %}
+
+	<hr />
+
+	{{ contentTile.render(
+		'Title',
+		{
+			desc: 'Ut maximus nibh nec nibh imperdiet venenatis. Mauris molestie finibus eros, nec iaculis enim interdum id.',
+			image: {
+				src: 'https://via.placeholder.com/800x450/007185/ffffff.png',
+				alt: 'Placeholder image'
+			},
+			link: {
+				type: 'cta',
+				href: '#',
+				text: 'Read more'
+			},
+			'linkSecondary': {
+				href: '#',
+				text: 'Later'
+			}
+		}
+	) }}
+
+{% endblock %}
+
+{% block right %}
+	{{ contentTile.render(
+		'Sidebar item',
+		{
+			desc: 'Mauris molestie consectetur adipiscing elit finibus eros.',
+			image: {
+				src: 'https://via.placeholder.com/400x275/007185/FFFFFF.png',
+				alt: 'Placeholder image'
+			},
+			link: {
+				type: 'block',
+				href: '#',
+				text: 'Read more'
+			}
+		}
+	) }}
+
+	{{ contentTile.render(
+		'Another content tile in the sidebar',
+		{
+			desc: 'Vestibulum non sem ut sapien laoreet finibus quis quis dui.',
+			image: {
+				src: 'https://via.placeholder.com/400x275/00BCA0/FFFFFF.png',
+				alt: 'Placeholder image'
+			},
+			link: {
+				href: '#',
+				text: 'Read more'
+			}
+		},
+		{
+			hasBgShaded: true
+		}
+	) }}
+{% endblock %}

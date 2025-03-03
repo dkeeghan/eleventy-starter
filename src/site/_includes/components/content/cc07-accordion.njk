@@ -1,0 +1,34 @@
+{#
+CC07 Accordion
+--------------
+#}
+{% import "utils/svg.njk" as svg %}
+{% import "utils/component-options.njk" as co %}
+
+{% macro render(title, sections, groupId='gr1', componentOptions={}) %}
+	<!-- START .cc-downloads -->
+	<section class="{{ co.getClassAttr('cc-accordion', componentOptions) }}">
+		<div class="_content">
+			<h2 class="_cc-title">{{ title }}</h2>
+			<ul class="_list">
+				{% for i in range(0, sections.length) -%}
+					<li>
+						<dd-expandable-toggle for="accordion-{{groupId}}-{{i}}">{{sections[i].title}}{{ svg.render('caret-down') }}</dd-expandable-toggle>
+						<dd-expandable id="accordion-{{groupId}}-{{i}}" group="{{groupId}}">
+							<div class="_expandable-content">
+								{% if sections[i].text %}
+									<p>{{sections[i].text}}</p>
+								{% endif %}
+
+								{% if sections[i].block %}
+									{{sections[i].block()}}
+								{% endif %}
+							</div>
+						</dd-expandable>
+					</li>
+				{%- endfor %}
+			</ul>
+		</div>
+	</section>
+	<!-- END .cc-accordion -->
+{% endmacro %}

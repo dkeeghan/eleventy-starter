@@ -1,0 +1,219 @@
+---
+title: CSS Variables
+eleventyNavigation:
+  key: CSS Variables
+  parent: Helpers
+  status: done
+---
+
+{% extends "layouts/one-column.njk" %}
+
+{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+
+{% import "components/content/cc99-status-panel.njk" as statusPanel %}
+
+{% block above %}
+	{{ breadcrumbs.render() }}
+
+	{{ pageHeader.render(title) }}
+{% endblock %}
+
+{% block main %}
+	<h2>When to use CSS Variables</h2>
+	<p>CSS Variables are used when properties will change across various states/screen sizes/branding/themes. Think colours, fonts, spacing and padding.</p>
+
+	<h2>List of variables</h2>
+
+	{{ statusPanel.render(
+		statusPanel.WARNING,
+		{
+			desc: 'This isn\'t an exhastive list, just some of the variables that are used.'
+		}
+	) }}
+
+	<p>You can add more by copying the <code>UL</code> with class <code>.dev-css-vars-list</code> and change the <code>data-prefix</code> attribute value to your prefix.</p>
+
+	<h3>Colour Theme</h3>
+	<dl>
+		<dt>Location:</dt>
+		<dd>/src/assets/css/_includes/_theme.scss</dd>
+	</dl>
+
+	<ul class="dev-css-vars-list" data-prefix="theme"></ul>
+
+	<h3>Fonts</h3>
+	<dl>
+		<dt>Location:</dt>
+		<dd>/src/assets/css/_includes/_theme.scss</dd>
+	</dl>
+
+	<ul class="dev-css-vars-list" data-prefix="font"></ul>
+
+	<h3>CTA Theme</h3>
+	<dl>
+		<dt>Location:</dt>
+		<dd>/src/assets/css/base/_links-buttons.scss</dd>
+	</dl>
+
+	<ul class="dev-css-vars-list" data-prefix="cta"></ul>
+
+	<script>
+		/* Adapted from https://css-tricks.com/how-to-get-all-custom-properties-on-a-page-in-javascript/ */
+
+		/*
+		Check if the stylesheet is internal or hosted on the current domain.
+		If it isn't, attempting to access sheet.cssRules will throw a cross origin error.
+		See https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet#Notes
+
+		NOTE: One problem this could raise is hosting stylesheets on a CDN with a
+		different domain. Those would be cross origin, so you can't access them.
+		*/
+		const isSameDomain = (styleSheet) => {
+			// Internal style blocks won't have an href value
+			if (!styleSheet.href) {
+				return true;
+			}
+
+			return styleSheet.href.indexOf(window.location.origin) === 0;
+		};
+
+		/*
+		Determine if the given rule is a CSSStyleRule
+		See: https://developer.mozilla.org/en-US/docs/Web/API/CSSRule#Type_constants
+		*/
+		const isStyleRule = (rule) => rule.type === 1;
+
+		/**
+		* Get all custom properties on a page
+		* @return array<array[string, string]>
+		* ex; [["--color-accent", "#b9f500"], ["--color-text", "#252525"], ...]
+		*/
+		const getCSSCustomPropIndex = (prefix = '') => {
+			// styleSheets is array-like, so we convert it to an array.
+			// Filter out any stylesheets not on this domain
+			return [...document.styleSheets].filter(isSameDomain).reduce(
+				(finalArr, sheet) =>
+				finalArr.concat(
+					// cssRules is array-like, so we convert it to an array
+					[...sheet.cssRules].filter(isStyleRule).reduce((propValArr, rule) => {
+						const props = [...rule.style]
+							.map((propName) => {
+								return [propName.trim(), rule.style.getPropertyValue(propName).trim()]
+							})
+							// Discard any props that don't start with "--". Custom props are required to.
+							.filter(([propName]) => {
+								return propName.indexOf('--' + prefix) === 0
+							});
+
+						return [...propValArr, ...props];
+					}, [])
+				),
+				[]
+			);
+		};
+
+		// Add the swatches to the DOM
+		const lists = document.querySelectorAll('.dev-css-vars-list');
+
+		lists.forEach(list => {
+			const prefix = list.dataset.prefix || '';
+
+			const colorPanel = (prop, val) => {
+				return `<div class="_panel is-color" style="--eg-color: ${val}"></div>`
+			};
+
+			const fontSizePanel = (prop, val) => {
+				return `<div class="_panel is-font-size">
+					<div class="_item" style="--eg-font-size: 10px">10px</div>
+					<div class="_item" style="--eg-font-size: 1rem">1rem</div>
+					<div class="_item is-this" style="--eg-font-size: ${val}">Me</div>
+					<div class="_item" style="--eg-font-size: 2rem">2rem</div>
+				</div>`
+			};
+
+			const fontFamilyPanel = (prop, val) => {
+				return `<div class="_panel is-font-family">
+					<p style="--eg-font-family: ${val.replace(/"/g, '&quot;')}">ABCxyz 0123 $!@&%</p>
+				</div>`
+			};
+
+			const fontWeightPanel = (prop, val) => {
+				return `<div class="_panel is-font-weight">
+					<div class="_item" style="--eg-font-weight: 300">300</div>
+					<div class="_item" style="--eg-font-weight: 400">400</div>
+					<div class="_item is-this" style="--eg-font-weight: ${val}">Me</div>
+					<div class="_item" style="--eg-font-weight: 800">800</div>
+				</div>`
+			};
+
+			const lineHeightPanel = (prop, val) => {
+				return `<div class="_panel is-line-height">
+					<div class="_item" style="--eg-line-height: 1"><em>1</em></div>
+					<div class="_item is-this" style="--eg-line-height: ${val}"><em>Me</em></div>
+					<div class="_item" style="--eg-line-height: 2"><em>2</em></div>
+					<div class="_item" style="--eg-line-height: 3"><em>3</em></div>
+				</div>`
+			};
+
+			const sizePanel = (prop, val) => {
+				return `<div class="_panel is-size">
+					<div class="_item" style="--eg-size: 1px"><em>1px wide</em></div>
+					<div class="_item is-this" style="--eg-size: ${val}"><em>This wide</em></div>
+					<div class="_item" style="--eg-size: 1rem"><em>1rem wide</em></div>
+					<div class="_item" style="--eg-size: 40px"><em>40px wide</em></div>
+				</div>`
+			};
+
+			const borderRadiusPanel = (prop, val) => {
+				return `<div class="_panel is-border-radius">
+					<div class="_item" style="--eg-border-radius: 0"><em>No radius</em></div>
+					<div class="_item is-this" style="--eg-border-radius: ${val}"><em>This radius</em></div>
+					<div class="_item" style="--eg-border-radius: 20px"><em>20px radius</em></div>
+					<div class="_item" style="--eg-border-radius: 100%"><em>100% radius</em></div>
+				</div>`
+			};
+
+			const getPanel = (prop, val) => {
+				if (['line-height'].some(instance => prop.includes(instance))) {
+					return lineHeightPanel(prop, val);
+				}
+
+				if (['font', 'family'].every(instance => prop.includes(instance))) {
+					return fontFamilyPanel(prop, val);
+				}
+
+				if (['font-weight'].some(instance => prop.includes(instance))) {
+					return fontWeightPanel(prop, val);
+				}
+
+				if (['font'].some(instance => prop.includes(instance))) {
+					return fontSizePanel(prop, val);
+				}
+
+				if (['border-radius'].some(instance => prop.includes(instance))) {
+					return borderRadiusPanel(prop, val);
+				}
+
+				if (['padding', 'width', 'gap'].some(instance => prop.includes(instance))) {
+					return sizePanel(prop, val);
+				}
+
+				return colorPanel(prop, val);
+			}
+
+			console.log(getCSSCustomPropIndex(prefix));
+
+			list.innerHTML = getCSSCustomPropIndex(prefix).reduce(
+				(str, [prop, val]) => `${str}<li class="_var">
+					${getPanel(prop, val)}
+					<div class="_details">
+						<input value="${prop}" readonly />
+						<input value="${val.replace(/"/g, '&quot;')}" readonly />
+					</div>
+				</li>`,
+				""
+			);
+		});
+	</script>
+{% endblock %}

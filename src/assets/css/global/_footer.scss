@@ -1,58 +1,144 @@
-@use "@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" as bp;
-@use "../_includes/utils";
+@use "~@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" as bp;
+@use "./_includes/utils";
 
 // ==========================================================================
 // FOOTER
 // ==========================================================================
 
 .g-footer {
-	padding: utils.rem(30) 0;
-	font-size: var(--font-size-s);
-	font-weight: var(--font-weight-light);
-	background-color: var(--theme-bg-footer);
+	background-color: var(--theme-bg-shaded);
+	padding-top: utils.rem(30);
+	color: var(--theme-link-color-default);
 
-	.l-padding {
-		@include bp.get(m) {
-			display: flex;
+	._cols {
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-gap: var(--component-spacing);
+	}
+
+	._col {
+		&.is-nav-item {
+			._heading {
+				margin: 0;
+			}
 		}
 	}
 
-	p {
-		color: var(--theme-paragraph-subdued-color);
+	._heading {
+		font-size: var(--font-size-l);
+		color: var(--theme-link-color-default);
+	}
 
-		@include bp.get(m) {
-			margin: 0;
+	._children {
+		display: none;
+	}
+
+	._list-social {
+		@include utils.list-reset(true);
+		display: grid;
+		grid-template-columns: repeat(auto-fit, utils.rem(30));
+		grid-gap: utils.rem(5);
+	}
+
+	a {
+		text-decoration: none;
+
+		&:hover,
+		&:focus {
+			text-decoration: underline;
 		}
 	}
 
-	._links {
-		list-style: none;
-		margin: 0 0 0 auto;
-		padding: 0;
-		display: flex;
+	._legal {
+		padding: utils.rem(30) 0;
+		border-top: var(--theme-border-width) solid var(--theme-border);
+		font-size: var(--font-size-s);
+		margin-top: utils.rem(40);
 
-		li {
-			margin: 0 utils.rem(15) 0 0;
+		._links {
+			@include utils.list-reset();
+
+			@include bp.get(xs) {
+				li {
+					margin-top: 0;
+					margin-right: utils.rem(20);
+					display: inline-block;
+				}
+			}
 		}
 
-		a {
-			color: var(--theme-paragraph-subdued-color);
-
-			&:hover,
-			&:focus {
-				color: var(--theme-link-color-hover);
+		@include bp.get(m) {
+			._content {
+				display: flex;
+				justify-content: space-between;
 			}
 
-			&:active {
-				color: var(--theme-link-color-active);
+			._copyright {
+				margin: 0;
 			}
+		}
+	}
 
-			&.is-active {
-				color: var(--theme-primary);
-				font-weight: var(--font-weight-normal);
-				text-decoration: none;
-				cursor: default;
+	@include bp.get(0, s) {
+		._col.is-nav-item {
+			position: relative;
+
+			&::after {
+				content: '';
+				position: relative;
+				display: block;
+				bottom: calc((var(--component-spacing) / 2) * -1);
+				border-bottom: 1px solid var(--theme-border);
 			}
+		}
+	}
+
+	@include bp.get(xs) {
+		._cols {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		._col.is-social {
+			grid-column: 1 / 3;
+		}
+	}
+
+	@include bp.get(m) {
+		._cols {
+			grid-template-columns: repeat(4, 1fr);
+		}
+
+		._heading {
+			font-size: var(--font-size-h5);
+		}
+
+		._children {
+			@include utils.list-reset();
+			display: block;
+			margin-top: var(--font-heading-margins-xs);
+			font-size: var(--font-size-s);
+		}
+
+		._col.is-social {
+			grid-column: 1 / 5;
+		}
+	}
+
+	@include bp.get(l) {
+		padding-top: utils.rem(60);
+
+		._legal {
+			margin-top: utils.rem(50);
+		}
+	}
+
+	@include bp.get(xl) {
+		._cols {
+			grid-template-columns: repeat(5, 1fr);
+		}
+
+		._col.is-social {
+			grid-column: auto;
 		}
 	}
 }

@@ -1,17 +1,20 @@
 {%- import "global/structure.njk" as structure with context -%}
 {%- import "global/header.njk" as header with context -%}
 {%- import "global/footer.njk" as footer with context -%}
+{%- import "components/global/gc02-nav-offscreen.njk" as navOffscreen with context -%}
 
 {{ structure.head(title, config.env) }}
 
 <body>
 	{{ structure.pageTop() }}
+
 	{{ header.renderA11yLinks() }}
 
 	<div class="page-wrap-outer">
 		<div class="page-wrap">
 
 			{{ header.renderHeader() }}
+			{{ navOffscreen.render() }}
 
 			<!-- START .l-layout -->
 			<div class="l-layout">
@@ -35,7 +38,8 @@
 			</div>
 			<!-- END .l-layout -->
 
-			{{ footer.render() }}
+      		{{ footer.render() }}
+
 		</div>
 	</div>
 

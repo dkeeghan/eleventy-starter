@@ -1,0 +1,40 @@
+---
+title: GC01 Header
+eleventyNavigation:
+  key: GC01 Header
+  excerpt: Site-wide header containing brand logo, name, navigation items and search bar.
+  parent: Global Components
+  status: finalising
+  order: 1
+---
+
+{% extends "layouts/one-column.njk" %}
+
+{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+
+{% block above %}
+	{{ breadcrumbs.render() }}
+
+	{{ pageHeader.render(
+		title,
+		eleventyNavigation.excerpt
+	) }}
+{% endblock %}
+
+{% block main %}
+	<p>The header component appears at the top of each page on the site, above the breadcrumbs. </p>
+
+	<p>It contains the following elements:</p>
+
+	<ul>
+		<li>Brand logo</li>
+		<li>Brand name</li>
+		<li>Navigation*</li>
+		<li>Search bar*</li>
+	</ul>
+
+	<p>On mobile, a hamburger menu should show to the left of the logo, and the brand name and navigation items will disappear. This functionality as well as the navigation items and search bar are currently under development.</p>
+
+	<p>The brand logo and name are customisable by the client to match their brand. The navigation items will be pulled from the site heirarchy as the top level links below the home page.</p>
+{% endblock %}

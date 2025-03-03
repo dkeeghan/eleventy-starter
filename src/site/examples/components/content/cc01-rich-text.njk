@@ -1,0 +1,334 @@
+---
+title: CC01 Rich Text
+eleventyNavigation:
+  key: CC01 Rich Text
+  parent: Content Components
+  excerpt: "Rich text - can be put anywhere it's required - main, left or right column."
+  status: done
+  order: 1
+---
+
+{% extends "layouts/two-column-left.njk" %}
+
+{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+{% import "utils/svg.njk" as svg %}
+
+{% macro richTextLarge() %}
+	<h2>H2 Heading Style</h2>
+
+	<p class="intro">Intro paragraph. Lorem ipsum consequat enim incididunt ea aliqua ut minim anim occaecat cupidatat id eiusmod culpa in velit ut fugiat laboris commodo anim. Esse ut proident ea Ut dolore proident enim</p>
+
+	<p>Lorem ipsum consequat <strong>strong - enim incididunt</strong> ea aliqua ut minim anim occaecat cupidatat id eiusmod culpa in velit ut fugiat laboris commodo anim commodo mollit <a href="#">link - adipisicing sit occaecat eu amet</a> labore qui pariatur.<br /><br /> Lorem ipsum <em>emphasis - consequat enim incididunt</em> ea aliqua ut minim anim occaecat cupidatat id eiusmod culpa in velit ut fugiat laboris commodo anim commodo mollit adipisicing sit occaecat eu amet labore qui pariatur sunt sit in est ea in sed dolore pariatur consequat proident esse deserunt nostrud in cillum sunt <strong><em>strong, emphasis - quis ut id nostrud</em></strong> officia id enim labore esse ut proident. <u>underlined - Lorem ipsum</u> consequat enim incididunt ea aliqua ut minim anim occaecat cupidatat id eiusmod culpa in velit ut fugiat laboris commodo anim <del>strikethrough - commodo mollit adipisicing</del> sit occaecat eu amet labore qui pariatur sunt sit in est ea in sed dolore pariatur consequat proident esse deserunt nostrud in cillum sunt quis ut id nostrud officia id enim labore esse ut proident.</p>
+
+	<h3>H3 Heading Style</h3>
+
+	<p>Lorem ipsum consequat enim incididunt ea aliqua ut minim anim occaecat cupidatat id eiusmod culpa in velit ut fugiat laboris commodo anim. Esse ut proident ea Ut dolore proident enim Duis et exercitation in incididunt nisi in elit culpa deserunt quis ex officia nostrud sint enim anim ullamco labore Excepteur eiusmod cupidatat sint labore consequat in Excepteur est officia cillum nostrud id id proident dolor voluptate ut Duis labore veniam.</p>
+
+	<p>Lorem ipsum consequat enim incididunt ea aliqua ut minim anim occaecat cupidatat id eiusmod culpa in velit ut fugiat laboris commodo anim commodo mollit adipisicing sit occaecat eu amet labore qui pariatur sunt sit in est ea in sed dolore pariatur consequat proident esse deserunt nostrud in cillum sunt quis ut id nostrud officia id enim labore esse ut proident.</p>
+
+	<h4>H4 Heading Style</h4>
+
+	<p>Esse ut proident ea Ut dolore proident enim Duis et exercitation in incididunt nisi in elit culpa deserunt quis ex officia nostrud sint enim anim ullamco labore Excepteur eiusmod cupidatat sint labore consequat in Excepteur est officia cillum nostrud id id proident dolor voluptate ut Duis labore veniam.</p>
+
+	<h5>H5 Heading Style</h5>
+
+	<p>Lorem ipsum consequat enim incididunt ea aliqua ut minim anim occaecat cupidatat id eiusmod culpa in velit ut fugiat laboris commodo anim commodo mollit <a href="#">adipisicing sit occaecat eu amet</a> labore qui pariatur.</p>
+
+	<h6>H6 Heading Style</h6>
+
+	<p>Lorem ipsum consequat enim incididunt ea aliqua ut minim anim occaecat cupidatat id eiusmod culpa in velit ut fugiat laboris commodo anim commodo mollit adipisicing sit occaecat eu amet labore qui pariatur sunt sit in est ea in sed dolore pariatur consequat proident esse deserunt nostrud in cillum sunt quis ut id nostrud officia id enim labore esse ut proident.</p>
+
+	<h2>Button styles</h2>
+
+	<h3>Primary buttons</h3>
+
+	<a href="#" class="cta">Anchor button</a>
+	<button class="cta">Button button</button>
+	<button class="cta" disabled>Disabled button</button>
+
+	<p>Smaller variation button</p>
+	<a href="#" class="cta is-small">Anchor button</a>
+	<button class="cta is-small">Button button</button>
+	<button class="cta is-small" disabled>Disabled button</button>
+
+	<h3>Secondary button styles</h3>
+
+	<a href="#" class="cta is-secondary">Anchor button</a>
+	<button class="cta is-secondary">Button button</button>
+	<button class="cta is-secondary" disabled>Disabled button</button>
+
+	<p>Smaller variation button</p>
+	<a href="#" class="cta is-secondary is-small">Anchor button</a>
+	<button class="cta is-secondary is-small">Button button</button>
+	<button class="cta is-secondary is-small" disabled>Disabled button</button>
+
+	<h3>Buttons with Icons</h3>
+
+	<a href="#" class="cta has-icon">{{ svg.render('social-instagram') }} Anchor button</a>
+	<button class="cta has-icon">{{ svg.render('caret-up') }} Button button</button>
+	<a href="#" class="cta has-icon is-small">{{ svg.render('caret-left') }} Small anchor</a>
+	<a href="#" class="cta has-icon is-secondary">{{ svg.render('caret-down') }} Secondary anchor</a>
+	<button class="cta has-icon is-secondary is-small">{{ svg.render('social-linkedin') }} Small secondary button</button>
+	<button class="cta has-icon is-secondary" disabled>{{ svg.render('caret-right') }} Disabled button</button>
+
+	<h3>Buttons with Icons on the Right</h3>
+
+	<a href="#" class="cta has-icon is-right">{{ svg.render('social-github') }} Anchor button</a>
+	<button class="cta has-icon is-right">{{ svg.render('caret-up') }} Button button</button>
+	<a href="#" class="cta has-icon is-right is-small">{{ svg.render('caret-right') }} Small anchor</a>
+	<a href="#" class="cta has-icon is-right is-secondary">{{ svg.render('caret-down') }} Secondary anchor</a>
+	<button class="cta has-icon is-right is-secondary is-small">{{ svg.render('social-vimeo') }} Small secondary button</button>
+	<button class="cta has-icon is-right is-secondary" disabled>{{ svg.render('caret-right') }} Disabled button</button>
+
+	<h2>Lists</h2>
+
+	<h3>Unordered list</h3>
+
+	<ul>
+		<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+		<li>Morbi rutrum sapien non arcu tempus hendrerit vitae eu nisi.</li>
+		<li>Vestibulum dictum sapien vitae est cursus, sit amet eleifend tellus scelerisque.</li>
+		<li>Ut faucibus ligula vel luctus porttitor. Sed vel ante vel dolor vestibulum rhoncus. Ut vulputate odio id libero vestibulum fermentum.</li>
+		<li>Curabitur faucibus mauris vitae ligula fringilla consectetur.</li>
+		<li>
+			Etiam posuere risus vitae ex convallis, eu gravida lorem vulputate.
+			<ul>
+				<li>Integer sed sapien non nunc venenatis aliquam.</li>
+				<li>Donec consequat turpis quis odio commodo, sed accumsan magna vulputate. Curabitur faucibus mauris vitae ligula fringilla ex convallis, eu gravida consectetur.</li>
+				<li>Nullam elementum diam vel ipsum pulvinar, nec lacinia metus mattis.</li>
+			</ul>
+		</li>
+		<li>Donec sed diam dapibus, convallis risus a, pulvinar augue.</li>
+	</ul>
+
+	<h3>Ordered list</h3>
+
+	<ol>
+		<li>Ut vulputate odio id libero vestibulum fermentum.</li>
+		<li>Phasellus at sapien ut turpis faucibus commodo ac et nibh.</li>
+		<li>Donec ut velit nec lectus vehicula auctor eu sed ipsum.</li>
+		<li>Integer sed sapien non nunc venenatis aliquam.</li>
+		<li>Donec consequat turpis quis odio commodo, sed accumsan magna vulputate. Curabitur faucibus mauris vitae ligula fringilla ex convallis, eu gravida consectetur.</li>
+		<li>
+			Nullam elementum diam vel ipsum pulvinar, nec lacinia metus mattis.
+			<ol>
+				<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+				<li>Morbi rutrum sapien non arcu tempus hendrerit vitae eu nisi.</li>
+				<li>Vestibulum dictum sapien vitae est cursus, sit amet eleifend tellus scelerisque.</li>
+			</ol>
+		</li>
+		<li>Quisque in nisl lobortis, pharetra massa quis, pulvinar ante.</li>
+		<li>Sed id ante a ex commodo rutrum.</li>
+		<li>Donec ac dui eget lorem feugiat luctus.</li>
+		<li>Pellentesque volutpat nulla et accumsan volutpat.</li>
+		<li>Cras ut libero ornare, rutrum tortor vitae, commodo mi.</li>
+	</ol>
+
+	<h3>Mixed list</h3>
+
+	<ul>
+		<li>Donec ac dui eget lorem feugiat luctus.</li>
+		<li>Donec consequat turpis quis odio commodo, sed accumsan magna vulputate. Curabitur faucibus mauris vitae ligula fringilla ex convallis, eu gravida consectetur.</li>
+		<li>
+			Nullam elementum diam vel ipsum pulvinar, nec lacinia metus mattis.
+			<ol>
+				<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+				<li>Morbi rutrum sapien non arcu tempus hendrerit vitae eu nisi.</li>
+				<li>Vestibulum dictum sapien vitae est cursus, sit amet eleifend tellus scelerisque.</li>
+			</ol>
+		</li>
+		<li>Quisque in nisl lobortis, pharetra massa quis, pulvinar ante.</li>
+		<li>Sed id ante a ex commodo rutrum.</li>
+	</ul>
+
+	<ol>
+		<li>Vestibulum dictum sapien vitae est cursus, sit amet eleifend tellus scelerisque.</li>
+		<li>Ut faucibus ligula vel luctus porttitor. Sed vel ante vel dolor vestibulum rhoncus. Ut vulputate odio id libero vestibulum fermentum.</li>
+		<li>Curabitur faucibus mauris vitae ligula fringilla consectetur.</li>
+		<li>
+			Etiam posuere risus vitae ex convallis, eu gravida lorem vulputate.
+			<ul>
+				<li>Integer sed sapien non nunc venenatis aliquam.</li>
+				<li>Donec consequat turpis quis odio commodo, sed accumsan magna vulputate. Curabitur faucibus mauris vitae ligula fringilla ex convallis, eu gravida consectetur.</li>
+				<li>Nullam elementum diam vel ipsum pulvinar, nec lacinia metus mattis.</li>
+			</ul>
+		</li>
+		<li>Donec sed diam dapibus, convallis risus a, pulvinar augue.</li>
+	</ol>
+
+	<h3>Definition list</h3>
+
+	<dl>
+		<dt>Etiam fringilla</dt>
+		<dd>Sed efficitur malesuada placerat. Nam aliquet eros sed scelerisque finibus. Aenean ipsum libero, tempor vel erat sit amet, maximus viverra odio. Etiam et est auctor.</dd>
+
+		<dt>Nulla consequat</dt>
+		<dd>Vivamus posuere facilisis purus a pulvinar. Mauris vel dolor sagittis, posuere tellus sit amet, tempor nisl. Duis bibendum consequat ex, in vehicula nibh.</dd>
+
+		<dt>Vivamus</dt>
+		<dd>Aenean non molestie eros. Sed ultricies augue vitae odio tincidunt, et pretium tortor facilisis. Donec nibh metus.</dd>
+
+		<dt>Lorem Ipsum</dt>
+		<dt>Lipsum</dt>
+		<dd>Pellentesque imperdiet eget ex a pretium. Curabitur tincidunt metus ac mi pretium laoreet. Suspendisse vitae libero semper, auctor mauris at, lacinia turpis. Integer massa nisi, dignissim pretium sem ut, pretium feugiat tellus. Aenean fermentum justo libero, in consequat orci pulvinar a lorem ipsum dolor sit amet.</dd>
+	</dl>
+
+	<h2>Quotes</h2>
+
+	<h3>With citation</h3>
+
+	<blockquote>
+		&ldquo;Lorem ipsum Ea aliqua consectetur laboris adipisicing voluptate elit cupidatat proident nostrud consequat sit sunt.&rdquo;
+		<footer>John Pullquote from <cite>Publication</cite></footer>
+	</blockquote>
+
+	<h3>Without citation</h3>
+
+	<blockquote>
+		&ldquo;Lorem ipsum Ea aliqua consectetur laboris adipisicing voluptate elit cupidatat proident nostrud consequat sit sunt.&rdquo;
+	</blockquote>
+
+	<h2>Pull out image</h2>
+
+	<h3>Full</h3>
+
+	<img src="https://via.placeholder.com/1400x788.png" alt="Placeholder image" class="is-full">
+
+	<h3>Left aligned</h3>
+
+	<img src="https://via.placeholder.com/680x383.png" alt="Placeholder image" class="is-left" >
+
+	<p>Nulla consequat velit velit, at bibendum erat viverra nec. Sed ac mi euismod, hendrerit tortor et, luctus lorem. Donec malesuada velit risus. Proin ut ultricies est, nec convallis nulla. Nunc vulputate fringilla tellus, sed molestie augue pharetra vel. Nullam rutrum augue ac augue suscipit, eu iaculis libero luctus. Cras ex urna, bibendum a eleifend id, pretium ut odio. Nam dapibus, enim sit amet tempus ultrices, arcu nunc ullamcorper ante, eu ornare sem enim finibus odio. Etiam nibh purus, posuere id sem sit amet, facilisis consectetur erat. Fusce nunc purus, luctus eu velit sed, tempus laoreet elit. Integer a laoreet quam, id pretium diam. Integer laoreet non elit vitae hendrerit. Praesent et porta sem, vitae tincidunt augue. Ut elementum viverra nulla, quis feugiat tortor varius a.</p>
+
+	<p>Vivamus posuere facilisis purus a pulvinar. Mauris vel dolor sagittis, posuere tellus sit amet, tempor nisl. Duis bibendum consequat ex, in vehicula nibh. Aenean finibus hendrerit turpis, id porttitor risus ultricies non. Vestibulum condimentum rhoncus mi, sit amet congue sem fermentum pellentesque. Fusce sit amet interdum eros. Sed lacus magna, sollicitudin eget gravida a, laoreet ac ligula. Aenean non molestie eros. Sed ultricies augue vitae odio tincidunt, et pretium tortor facilisis. Donec nibh metus, varius malesuada gravida eget, rhoncus quis nulla. Fusce tristique, erat a molestie imperdiet, nunc sapien congue leo, ullamcorper ultricies justo libero id libero. Morbi pretium dolor in libero sagittis efficitur. Nunc sit amet mauris ligula. Ut rhoncus lacus vitae condimentum faucibus. Maecenas tincidunt vitae orci non egestas.</p>
+
+	<h3>Right aligned</h3>
+
+	<p>Nulla consequat velit velit, at bibendum erat viverra nec. Sed ac mi euismod, hendrerit tortor et, luctus lorem. Donec malesuada velit risus. Proin ut ultricies est, nec convallis nulla. Nunc vulputate fringilla tellus, sed molestie augue pharetra vel. Nullam rutrum augue ac augue suscipit, eu iaculis libero luctus. Cras ex urna, bibendum a eleifend id, pretium ut odio. Nam dapibus, enim sit amet tempus ultrices, arcu nunc ullamcorper ante, eu ornare sem enim finibus odio. Etiam nibh purus, posuere id sem sit amet, facilisis consectetur erat. Fusce nunc purus, luctus eu velit sed, tempus laoreet elit. Integer a laoreet quam, id pretium diam. Integer laoreet non elit vitae hendrerit. Praesent et porta sem, vitae tincidunt augue. Ut elementum viverra nulla, quis feugiat tortor varius a.</p>
+
+	<img src="https://via.placeholder.com/480x270.png" alt="Placeholder image" class="is-right">
+
+	<p>Vivamus posuere facilisis purus a pulvinar. Mauris vel dolor sagittis, posuere tellus sit amet, tempor nisl. Duis bibendum consequat ex, in vehicula nibh. Aenean finibus hendrerit turpis, id porttitor risus ultricies non. Vestibulum condimentum rhoncus mi, sit amet congue sem fermentum pellentesque. Fusce sit amet interdum eros. Sed lacus magna, sollicitudin eget gravida a, laoreet ac ligula. Aenean non molestie eros. Sed ultricies augue vitae odio tincidunt, et pretium tortor facilisis. Donec nibh metus, varius malesuada gravida eget, rhoncus quis nulla. Fusce tristique, erat a molestie imperdiet, nunc sapien congue leo, ullamcorper ultricies justo libero id libero. Morbi pretium dolor in libero sagittis efficitur. Nunc sit amet mauris ligula. Ut rhoncus lacus vitae condimentum faucibus. Maecenas tincidunt vitae orci non egestas.</p>
+
+	<h3>Default</h3>
+
+	<p>Nulla consequat velit velit, at bibendum erat viverra nec. Sed ac mi euismod, hendrerit tortor et, luctus lorem. Donec malesuada velit risus. Proin ut ultricies est, nec convallis nulla. Nunc vulputate fringilla tellus, sed molestie augue pharetra vel. Nullam rutrum augue ac augue suscipit, eu iaculis libero luctus. Cras ex urna, bibendum a eleifend id, pretium ut odio. Nam dapibus, enim sit amet tempus ultrices, arcu nunc ullamcorper ante, eu ornare sem enim finibus odio. Etiam nibh purus, posuere id sem sit amet, facilisis consectetur erat. Fusce nunc purus, luctus eu velit sed, tempus laoreet elit. Integer a laoreet quam, id pretium diam. Integer laoreet non elit vitae hendrerit. Praesent et porta sem, vitae tincidunt augue. Ut elementum viverra nulla, quis feugiat tortor varius a.</p>
+
+	<img src="https://via.placeholder.com/680x383.png" alt="Placeholder image">
+
+	<p>Vivamus posuere facilisis purus a pulvinar. Mauris vel dolor sagittis, posuere tellus sit amet, tempor nisl. Duis bibendum consequat ex, in vehicula nibh. Aenean finibus hendrerit turpis, id porttitor risus ultricies non. Vestibulum condimentum rhoncus mi, sit amet congue sem fermentum pellentesque. Fusce sit amet interdum eros. Sed lacus magna, sollicitudin eget gravida a, laoreet ac ligula. Aenean non molestie eros. Sed ultricies augue vitae odio tincidunt, et pretium tortor facilisis. Donec nibh metus, varius malesuada gravida eget, rhoncus quis nulla. Fusce tristique, erat a molestie imperdiet, nunc sapien congue leo, ullamcorper ultricies justo libero id libero. Morbi pretium dolor in libero sagittis efficitur. Nunc sit amet mauris ligula. Ut rhoncus lacus vitae condimentum faucibus. Maecenas tincidunt vitae orci non egestas.</p>
+
+	<h2>Tables</h2>
+	<p>Lorem ipsum consequat enim incididunt ea aliqua ut minim anim occaecat cupidatat id eiusmod culpa in velit ut fugiat laboris commodo anim commodo mollit adipisicing sit occaecat eu amet labore qui pariatur.</p>
+
+	<table class="js-responsive-table">
+		<thead>
+			<tr>
+				<th scope="col">Lorem ipsum  pariatur ea ut.</th>
+				<th scope="col">Adipisicing tempor</th>
+				<th scope="col">Lorem ipsum Fugiat</th>
+				<th scope="col">Abore esse ut proident</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th scope="row">Lorem ipsum</th>
+				<td>Adipisicing sit occaecat eu amet labore qui pariatur</td>
+				<td>Ipsum Consequat enim incididunt</td>
+				<td>Ipsum Consequat enim incididunt ea aliqua ut minim anim occaecat cupidatat id eiusmod culpa in velit ut fugiat laboris commodo anim.</td>
+			</tr>
+			<tr>
+				<th scope="row">Consequat enim incididunt ea aliqua ut minim anim occaecat</th>
+				<td>Adipisicing sit occaecat eu amet labore qui pariatur sunt sit in est ea in sed dolore pariatur consequat proident esse deserunt nostdud.</td>
+				<td>Lorem ipsum consequat enim incididunt ea aliqua ut minim anim occaecat cupidatat id eiusmod culpa in velit ut fugiat laboris commodo anim commodo mollit adipisicing sit occaecat eu amet labore qui pariatur sunt sit in est ea in sed dolore pariatur consequat proident esse deserunt nostdud in cillum sunt quis ut id nostdud officia id enim labore esse ut proident.</td>
+				<td>Ut dolore proident enim Duis et exercitation in incididunt.</td>
+			</tr>
+			<tr>
+				<th scope="row">Adipisicing sit occaecat</th>
+				<td>Adipisicing sit occaecat eu amet labore qui pariatur</td>
+				<td>Incididunt ea aliqua ut minim anim occaecat cupidatat</td>
+				<td>Pariatur consequat proident esse deserunt nostdud</td>
+			</tr>
+		</tbody>
+	</table>
+{% endmacro %}
+
+{% macro richTextSmall() %}
+	<h2>H2 Heading Style</h2>
+
+	<p class="intro">Intro paragraph. Lorem ipsum consequat enim incididunt ea aliqua ut minim anim occaecat cupidatat id eiusmod culpa in velit ut fugiat laboris commodo anim. Esse ut proident ea Ut dolore proident enim</p>
+
+	<p>Lorem ipsum consequat <strong>strong - enim incididunt</strong> ea aliqua laboris commodo anim commodo mollit <a href="#">link - adipisicing sit occaecat eu amet</a> labore qui pariatur.<br /><br /> Lorem ipsum <em>emphasis - consequat enim incididunt</em> ea aliqua ut minim anim occaecat cupidatat id eiu proident esse deserunt nostrud in cillum sunt <strong><em>strong, emphasis - quis ut id nostrud</em></strong> officia id enim labore esse ut proident. <u>underlined - Lorem ipsum</u> consequat enim incididunt ea aliqua ut minim anim <del>strikethrough - commodo mollit adipisicing</del> sit occaecat eu amet labore qui.</p>
+
+	<h3>H3 Heading Style</h3>
+
+	<p>Deserunt nostrud in cillum sunt quis ut id nostrud officia id enim labore esse ut proident. Lorem ipsum consequat enim incididunt ea aliqua ut minim anim occaecat cupidatat.</p>
+
+	<h4>H4 Heading Style</h4>
+
+	<p>Esse ut proident ea Ut dolore proident enim Duis et exercitation in incididunt nisi in elit culpa deserunt quis ex officia nostrud sint enim anim ullamco labore.</p>
+
+	<h5>H5 Heading Style</h5>
+
+	<p>Lorem ipsum consequat enim incididunt ea aliqua ut minim anim occaecat cupidatat id eiusmod culpa in velit ut fugiat laboris commodo anim commodo mollit <a href="#">adipisicing sit occaecat eu amet</a> labore qui pariatur.</p>
+
+	<h6>H6 Heading Style</h6>
+
+	<p>Commodo mollit adipisicing sit occaecat eu amet labore qui pariatur sunt sit in est ea in sed dolore pariatur consequat proident.</p>
+
+	<h2>Button styles</h2>
+
+	<a href="#" class="cta">Anchor button</a><br/><br/>
+	<button class="cta is-small">Button button</button><br/><br/>
+	<a href="#" class="cta is-secondary is-small">Anchor button</a><br/><br/>
+	<button class="cta is-secondary">Button button</button><br/><br/>
+	<button class="cta is-secondary" disabled>Disabled button</button><br/><br/>
+
+	<h2>Lists</h2>
+
+	<ul>
+		<li>Donec consequat turpis quis odio commodo, sed accumsan magna vulputate. Curabitur faucibus mauris vitae ligula fringilla ex convallis, eu gravida consectetur.</li>
+		<li>
+			Nullam elementum diam vel ipsum pulvinar, nec lacinia metus mattis.
+			<ol>
+				<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+				<li>Consectetur adipiscing elit.</li>
+			</ol>
+		</li>
+		<li>Sed id ante a ex commodo rutrum.</li>
+	</ul>
+{% endmacro %}
+
+{% block above %}
+	{{ breadcrumbs.render() }}
+
+	{{ pageHeader.render(
+		title,
+		eleventyNavigation.excerpt
+	) }}
+{% endblock %}
+
+{% block main %}
+	{% CodePreview %}
+		{% raw %}
+		{% RichText %}
+			<p>Rich styles <strong>go in here</strong>.</p>
+		{% endRichText %}
+		{% endraw %}
+	{% endCodePreview %}
+
+	{% RichText %}
+		{{ richTextLarge() }}
+	{% endRichText %}
+
+	{% RichText { hasBgInverted: true } %}
+		{{ richTextLarge() }}
+	{% endRichText %}
+{% endblock %}
+
+{% block right %}
+	{% RichText { hasBgShaded: true } %}
+		{{ richTextSmall() }}
+	{% endRichText %}
+{% endblock %}

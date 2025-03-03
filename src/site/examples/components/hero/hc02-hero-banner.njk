@@ -1,0 +1,196 @@
+---
+title: HC02 Hero Banner
+eleventyNavigation:
+  key: HC02 Hero Banner
+  parent: Hero Components
+  status: done
+  excerpt: The hero banner module is used to showcase content at the top of a page.
+  order: 2
+
+---
+
+{% extends "layouts/one-column.njk" %}
+
+{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+{% import "components/hero/hc02-hero-banner.njk" as heroBanner %}
+
+{% block above %}
+	{{ breadcrumbs.render() }}
+
+	{{ pageHeader.render() }}
+{% endblock %}
+
+{% block main %}
+	<h2> Usage </h2>
+	{% CodePreview %}
+	{% raw %}
+		{{ heroBanner.render(
+		'Hero banner with dark theme',
+		{
+			subtitle: 'This is the subtitle',
+			desc: 'This is the description.',
+			link: {
+				text: 'Link text',
+				href: '#'
+			}
+		}
+	) }}
+	{% endraw %}
+	{% endCodePreview %}
+
+	<h2>Markup:</h2>
+	{% CodePreview 'markup' %}
+		{{ heroBanner.render(
+		'Hero banner with dark theme',
+		{
+			subtitle: 'This is the subtitle',
+			desc: 'This is the description.',
+			link: {
+				text: 'Link text',
+				href: '#'
+			}
+		}
+	) }}
+	{% endCodePreview %}
+
+	<h2>Example in the main column</h2>
+	<p>This component should sit in the "above" section of the layout, however it does also work in the main column.</p>
+
+	{{ heroBanner.render(
+		'Hero banner',
+		{
+			desc: 'This is the hero banner with the inverted background/text',
+			link: {
+				text: 'Link text',
+				href: '#'
+			}
+		},
+		{
+			hasBgInverted: true
+		}
+	) }}
+
+	{{ heroBanner.render(
+		'Hero banner - default white theme',
+		{
+			desc: 'This is the hero banner extends to the edge as it uses the default theme (no padding).',
+			link: {
+				text: 'Link text',
+				href: '#'
+			}
+		}
+	) }}
+
+	{{ heroBanner.render(
+		'Hero banner with background image',
+		{
+			desc: 'This is the hero banner, with an image, and the inverted background/text',
+			link: {
+				text: 'Link text',
+				href: '#'
+			}
+		},
+		{
+			hasBgInverted: true,
+			bgImage: 'https://picsum.photos/id/1004/1600/600.jpg'
+		}
+	) }}
+{% endblock %}
+
+{% block below %}
+	<div class="l-padding">
+		<h2>Examples</h2>
+	</div>
+
+	{{ heroBanner.render(
+		'Hero banner with shaded theme',
+		{
+			desc: 'The light theme is opt-in, the dark theme is default.',
+			link: {
+				text: 'Link text',
+				href: '#'
+			}
+		},
+		{
+			hasBgShaded: true
+		}
+	) }}
+
+	{{ heroBanner.render(
+		'Hero banner with default theme',
+		{
+			subtitle: 'This is the subtitle.',
+			desc: 'This is the description.',
+			link: {
+				text: 'Link text',
+				href: '#'
+			}
+		}
+	) }}
+
+	{{ heroBanner.render(
+		'Hero banner with inverted theme',
+		{
+			subtitle: 'This is the subtitle',
+			desc: 'The light theme is opt-in, the dark theme is default.',
+			link: {
+				text: 'Link text',
+				href: '#'
+			}
+		},
+		{
+			hasBgInverted: true
+		}
+	) }}
+
+	{{ heroBanner.render(
+		'Small hero banner with background image',
+		{
+			desc: 'This is the small hero banner, which has less vertical padding.',
+			link: {
+				text: 'Link text',
+				href: '#'
+			}
+		},
+		{
+			hasHeightReduced: true,
+			bgImage: 'https://picsum.photos/id/100/1600/400.jpg'
+		}
+	) }}
+
+	{{ heroBanner.render(
+		'Small hero banner with background image',
+		{
+			subtitle: 'This is the subtitle',
+			desc: 'This is the small hero banner, which has less vertical padding.'
+		},
+		{
+			hasBgShaded: true,
+			hasHeightReduced: true
+		}
+	) }}
+
+	{{ heroBanner.render(
+		'Hero banner with background image',
+		{
+			desc: 'This is the hero banner, with an image, and the inverted background/text',
+			link: {
+				text: 'Link text',
+				href: '#'
+			}
+		},
+		{
+			hasBgInverted: true,
+			bgImage: 'https://picsum.photos/id/1004/1600/600.jpg'
+		}
+	) }}
+
+	{{ heroBanner.render(
+		'Hero banner with no link',
+		{
+			subtitle: 'This is the subtitle.',
+			desc: 'This is the description.'
+		}
+	) }}
+{% endblock %}

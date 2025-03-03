@@ -1,0 +1,21 @@
+{#
+CC05 Image
+--------------
+#}
+{% import "utils/component-options.njk" as co %}
+
+{% macro render(options={}, componentOptions={}) %}
+<!-- START .cc-image -->
+<section class="{{ co.getClassAttr('cc-image', componentOptions) }}">
+	<figure class="_container">
+		<img class="_image" src="{{ options.src }}" alt="{{ options.alt }}" />
+		{% if options.caption or options.desc %}
+		<figcaption class="_content">
+			{% if options.caption %}<strong>{{ options.caption }}</strong>{% endif %}
+			{% if options.desc %}<p>{{ options.desc }}</p>{% endif %}
+		</figcaption>
+		{% endif %}
+	</figure>
+</section>
+<!-- END .cc-image -->
+{% endmacro %}

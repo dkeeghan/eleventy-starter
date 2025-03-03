@@ -1,0 +1,49 @@
+{#
+HC03 Contact Bar
+--------------
+#}
+{% import "utils/svg.njk" as svg %}
+{% import "utils/component-options.njk" as co %}
+
+{% set icontypes = {
+	'email': 'email',
+	'phone': 'phone',
+	'ph': 'phone',
+	'telephone': 'phone',
+	'mobile': 'phone',
+	'location': 'location',
+	'address': 'location',
+	'post': 'location'
+} %}
+
+{% macro render(header, items, componentOptions={}) %}
+	<!-- START .cc-contact-bar -->
+	<section class="{{ co.getClassAttr('hc-contact-bar', componentOptions, 'hc') }}"{{ co.getBgImage(componentOptions) }}>
+		<div class="l-padding">
+			<div class="_container">
+				<h2 class="_hc-title">{{ header }}</h2>
+				<ul class="_list">
+					{% for item in items -%}
+						{% set icon = icontypes[item.type | lower] %}
+						<li>
+						{% if item.href %}
+							<a href="{{ item.href }}" target="_blank" class="_list-item is-link">
+								{{ svg.render('contact-' + icon) }}
+								<strong>{{ item.name }}</strong>
+								<span class="_details">{{ item.details }}</span>
+							</a>
+						{% else %}
+							<div class="_list-item">
+								{{ svg.render('contact-' + icon) }}
+								<strong>{{ item.name }}</strong>
+								<span class="_details">{{ item.details }}</span>
+							</div>
+						{% endif %}
+						</li>
+					{%- endfor %}
+				</ul>
+			</div>
+		</div>
+	</section>
+	<!-- END .cc-contact-bar -->
+{% endmacro %}

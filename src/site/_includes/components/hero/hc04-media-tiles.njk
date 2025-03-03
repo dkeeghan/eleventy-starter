@@ -1,0 +1,56 @@
+{#
+CC11 Media Tiles
+--------------
+#}
+{% import "utils/component-options.njk" as co %}
+
+{% macro _addTileContent(tile) -%}
+	<div class="_content">
+		{% if tile.subtitle %}<span class="text-subtitle">{{ tile.subtitle }}</span>{% endif %}
+
+		<h3 class="_title">{{ tile.title }}</h3>
+
+		{% if tile.desc %}<p>{{ tile.desc }}</p>{% endif %}
+	</div>
+	<div class="_image-container">
+		{% if tile.image %}
+			<img class="_image" src="{{ tile.image.src }}" alt="{{ tile.image.alt }}" />
+		{% endif %}
+	</div>
+{%- endmacro %}
+
+{% macro _addTile(tile) -%}
+	{% if tile.link -%}
+		<a href="{{ tile.link }}" class="_tile link-block has-border">
+			{{ _addTileContent(tile) }}
+		</a>
+	{%- else -%}
+		<div class="_tile">
+			{{ _addTileContent(tile) }}
+		</div>
+	{%- endif %}
+{%- endmacro %}
+
+{% macro render(title, tiles=[], link=false, componentOptions={}) %}
+<!-- START .cc-media-tiles -->
+<section class="{{ co.getClassAttr('hc-media-tiles', componentOptions, 'hc') }}">
+	<div class="l-padding">
+		<div class="_header">
+			<h2 class="_hc-title">{{ title }}</h2>
+			{% if link %}
+			<a href="{{ link.href }}" class="_button cta is-secondary">{{ link.text }}</a>
+			{% endif %}
+		</div>
+		{% LColumns 4 %}
+		{% for tile in tiles -%}
+			{% LCol %}
+				{{ _addTile(tile) }}
+			{% endLCol %}
+		{%- endfor %}
+		{% endLColumns %}
+	</div>
+</section>
+<!-- END .cc-media-tiles -->
+{% endmacro %}
+
+

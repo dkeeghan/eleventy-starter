@@ -1,0 +1,74 @@
+---
+title: HC01 Page Header
+eleventyNavigation:
+  key: HC01 Page Header
+  parent: Hero Components
+  status: done
+  excerpt: Full width hero page header - contains the page H1 and an optional paragraph subheading.
+  order: 1
+---
+
+{% extends "layouts/one-column.njk" %}
+
+{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+
+{% block above %}
+	{{ breadcrumbs.render() }}
+
+	{{ pageHeader.render(
+		title,
+		eleventyNavigation.excerpt
+	) }}
+{% endblock %}
+
+{% block main %}
+	<h2>Usage</h2>
+	<p>By default, the Page Header component will prepopulate with the title and the eleventyNavigation excerpt, however this can be overwritten if you like.</p>
+	<p>There should only ever be ONE of this component on a page at a time.</p>
+
+	{% CodePreview "njk", true %}
+		{% raw %}
+		{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+		{{ pageHeader.render() }}
+		{% endraw %}
+	{% endCodePreview %}
+
+	{% CodePreview "markup" %}
+		{{ pageHeader.render() }}
+	{% endCodePreview %}
+
+	<h3>Custom Page Title</h3>
+	{% CodePreview %}
+		{% raw %}
+		{{ pageHeader.render('Custom Page Title') }}
+		{% endraw %}
+	{% endCodePreview %}
+
+	{{ pageHeader.render('Custom Page Title') }}
+
+	<h3>Page Title only</h3>
+	<p>By default if title is blank, both the title and excerpt are used. If you want to remove the except, just manually set the title using the front-matter variable <code>title</code>.</p>
+	{% CodePreview %}
+		{% raw %}
+		{{ pageHeader.render(title) }}
+		{% endraw %}
+	{% endCodePreview %}
+
+	{{ pageHeader.render(title) }}
+
+	<h3>Default title, with custom subtitle</h3>
+	{% CodePreview %}
+		{% raw %}
+		{{ pageHeader.render(
+			title,
+			'Example custom subheading'
+		) }}
+		{% endraw %}
+	{% endCodePreview %}
+
+	{{ pageHeader.render(
+		title,
+		'Example custom subheading'
+	) }}
+{% endblock %}

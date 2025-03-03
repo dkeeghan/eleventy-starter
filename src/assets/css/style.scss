@@ -9,7 +9,7 @@
 // BREAKPOINTS CONFIG
 // ==========================================================================
 
-@use "@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" with (
+@use "~@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" with (
 	$breakpoints: (
 		xxs: 359,
 		xs: 480,
@@ -45,6 +45,7 @@
 @use "./base";
 @use "./base/links-buttons";
 @use "./base/rich-text";
+@use "./base/tables";
 
 // LAYOUT
 // ==========================================================================
@@ -57,14 +58,15 @@
 @use "./global/header";
 @use "./global/footer";
 @use "./global/nav";
-@use "./global/scrollbars";
-@use "./global/forms";
 
 // COMPONENTS
 // ==========================================================================
 
+@use "./components/hero";
 @use "./components/content";
-@use "./components/hero-banner";
-@use "./components/toggle-theme";
-@use "./components/dk-offscreen";
-@use "./konami";
+
+// WEB COMPONENTS
+// ==========================================================================
+
+@use "./web-components/dd-expandable";
+@use "./web-components/dd-offscreen";

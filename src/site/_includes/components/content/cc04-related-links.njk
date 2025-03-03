@@ -1,0 +1,25 @@
+{#
+CC04 Related Links
+--------------
+#}
+{% import "utils/component-options.njk" as co %}
+{% import "components/global/link-list-item.njk" as linkListItem %}
+
+{% macro render(title, links, componentOptions={}) %}
+	<!-- START .cc-related-links -->
+	<section class="{{ co.getClassAttr('cc-related-links', componentOptions) }}">
+		<div class="_content">
+			<h2 class="_cc-title">{{ title }}</h2>
+			<ul class="links-list">
+				{% for link in links -%}
+					<li>
+						{{ linkListItem.render(link.title, link.href, {
+							desc: link.desc
+						}) }}
+					</li>
+				{%- endfor %}
+			</ul>
+		</div>
+	</section>
+	<!-- END .cc-related-links -->
+{% endmacro %}

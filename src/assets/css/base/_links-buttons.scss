@@ -1,4 +1,4 @@
-@use "@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" as bp;
+@use "~@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" as bp;
 @use "../_includes/svgicons";
 @use "../_includes/utils";
 
@@ -9,7 +9,8 @@
 // BASE
 // ==========================================================================
 
-a {
+a,
+.link-faux {
 	color: var(--theme-link-color-default);
 	text-decoration: underline;
 	transition-duration: var(--anim-duration-normal);
@@ -17,16 +18,9 @@ a {
 }
 
 a {
-	display: inline-block;
-
 	&:hover,
 	&:focus {
 		color: var(--theme-link-color-hover);
-		outline: none;
-	}
-
-	&:focus-visible {
-		outline: 1px solid var(--theme-primary);
 	}
 
 	&:active {
@@ -34,68 +28,281 @@ a {
 	}
 }
 
-// UNIQUE LINKS
+button {
+	transition-duration: var(--anim-duration-normal);
+	transition-property: color, background-color, border-color;
+	cursor: pointer;
+}
+
+// LINK VARIATIONS
 // ==========================================================================
 
-.link-icon {
-	@include svgicons.set(utils.rem(13), utils.rem(13), left, center, var(--theme-link-color-default), var(--theme-primary));
-	position: relative;
-	padding-left: utils.rem(20);
+.link-faux {
+	a:hover &,
+	a:focus & {
+		color: var(--theme-link-color-hover);
+	}
+
+	a:active & {
+		color: var(--theme-link-color-active);
+	}
+}
+
+.link-block {
+	display: block;
 	text-decoration: none;
+
+	._image {
+		transition: opacity var(--anim-duration-normal);
+	}
 
 	&:hover,
 	&:focus {
+		color: var(--theme-link-color-default);
+
+		._image {
+			opacity: 0.8;
+		}
+	}
+
+	&:active {
+		color: var(--theme-link-color-default);
+
+		._image {
+			opacity: 0.6;
+		}
+	}
+
+	&.has-border {
+		border: var(--theme-border-width) solid var(--theme-border);
+		border-radius: var(--theme-border-radius);
+
+		&:hover,
+		&:focus {
+			border-color: var(--theme-link-color-hover);
+		}
+
+		&:active {
+			border-color: var(--theme-link-color-active);
+		}
+	}
+}
+
+.link-icon-only {
+	@include svgicons.set(1.5rem, 1.5rem, center, center);
+	@include svgicons.color(var(--theme-link-color-default), var(--theme-link-color-hover), var(--theme-link-color-active));
+	display: block;
+	width: utils.rem(30);
+	height: utils.rem(30);
+	position: relative;
+}
+
+// LINKS LIST
+// ==========================================================================
+
+.links-list {
+	list-style: none;
+	padding: 0;
+
+	li {
+		margin-top: 25px;
+
+		&:first-child {
+			margin: 0;
+		}
+	}
+}
+
+.link-list-item {
+	display: inline-block;
+	text-decoration: none;
+	color: var(--theme-link-color-default);
+
+	&.has-icon {
+		@include svgicons.set(1.5rem, 1.5rem, left, top);
+		@include svgicons.color(var(--theme-paragraph-color), var(--theme-link-color-hover), var(--theme-link-color-active));
+		padding-left: utils.rem(30);
+		position: relative;
+	}
+
+	strong {
 		text-decoration: underline;
 	}
 
-	&.is-right {
-		@include svgicons.adjust-x(right);
-		padding-right: utils.rem(20);
-		padding-left: 0;
+	p {
+		color: var(--theme-link-color-default);
+		margin-top: 0;
+	}
+
+	._metadata {
+		font-size: 0.8em;
+		text-transform: uppercase;
+		display: inline-block;
+		color: var(--theme-paragraph-color);
+	}
+}
+
+// CTA
+// ==========================================================================
+
+.cta {
+	// variables
+	--cta-font-size: var(--font-size);
+	--cta-line-height: 1.5;
+
+	// colors
+	--cta-color-default: var(--theme-white);
+	--cta-color-hover: var(--theme-white);
+	--cta-color-active: var(--theme-white);
+	--cta-border-color-default: var(--theme-primary);
+	--cta-border-color-hover: var(--theme-primary-darker);
+	--cta-border-color-active: var(--theme-primary-darker);
+	--cta-background-color-default: var(--theme-primary);
+	--cta-background-color-hover: var(--theme-primary-darker);
+	--cta-background-color-active: var(--theme-primary-darker);
+
+	// spacing & widths
+	--cta-padding-inline: #{utils.rem(16)};
+	--cta-padding-block: #{utils.rem(10)};
+	--cta-icon-width: #{utils.rem(16)};
+	--cta-icon-gap: #{utils.rem(8)};
+
+	// properties
+	font-size: var(--cta-font-size);
+	line-height: var(--cta-line-height);
+	transition-duration: var(--anim-duration-normal);
+	transition-property: color, background-color, border-color;
+	display: inline-block;
+	outline: none;
+	color: var(--cta-color-default);
+	background-color: var(--cta-background-color-default);
+	border: var(--theme-border-width) solid var(--cta-border-color-default);
+	font-weight: 500;
+	text-decoration: none;
+	padding: var(--cta-padding-block) var(--cta-padding-inline);
+	text-align: center;
+	width: 100%;
+	border-radius: var(--theme-border-radius);
+
+	&:hover,
+	&:focus {
+		color: var(--cta-color-hover);
+		background-color: var(--cta-background-color-hover);
+		border-color: var(--cta-border-color-hover);
+	}
+
+	&:active {
+		color: var(--cta-color-active);
+		background-color: var(--cta-background-color-active);
+		border-color: var(--cta-border-color-active);
+	}
+
+	&.is-secondary {
+		// default colours
+		--cta-color-default: var(--theme-paragraph-color);
+		--cta-border-color-default: var(--theme-paragraph-color);
+		--cta-background-color-default: transparent;
+		// on hover colours
+		--cta-color-hover: var(--theme-white);
+		--cta-border-color-hover: var(--theme-paragraph-color);
+		--cta-background-color-hover: var(--theme-paragraph-color);
+		// on active colours
+		--cta-color-active: var(--theme-white);
+		--cta-border-color-active: var(--theme-grey-dark);
+		--cta-background-color-active: var(--theme-grey-dark);
+
+		.has-bg-inverted & {
+			// default colours
+			--cta-color-default: var(--theme-paragraph-color-inverted);
+			--cta-border-color-default: var(--theme-paragraph-color-inverted);
+			--cta-background-color-default: transparent;
+			// on hover colours
+			--cta-color-hover: var(--theme-grey-dark);
+			--cta-border-color-hover: var(--theme-paragraph-color-inverted);
+			--cta-background-color-hover: var(--theme-paragraph-color-inverted);
+			// on active colours
+			--cta-color-active: var(--theme-grey-dark);
+			--cta-border-color-active: var(--theme-grey-light);
+			--cta-background-color-active: var(--theme-grey-light);
+		}
+	}
+
+	&.is-small {
+		--cta-font-size: var(--font-size-s);
+		--cta-line-height: 2.2308;
+		--cta-padding-inline: #{utils.rem(10)};
+		--cta-padding-block: #{utils.rem(2)};
+		--cta-icon-width: #{utils.rem(14)};
+		--cta-icon-gap: #{utils.rem(7)};
+	}
+
+	// not using the svgicons mixin here because of the CSS variables being used
+	&.has-icon {
+		position: relative;
+		padding-left: calc(var(--cta-padding-inline) + var(--cta-icon-width) + var(--cta-icon-gap));
+
+		svg {
+			width: var(--cta-icon-width);
+			height: var(--cta-icon-width);
+			display: block;
+			background-position: 50% 50%;
+			position: absolute;
+			left: var(--cta-padding-inline);
+			top: 50%;
+			margin-top: calc((var(--cta-icon-width) / 2) * -1);
+
+			use {
+				transition-duration: var(--anim-duration-normal);
+				transition-property: fill;
+				fill: var(--cta-color-default);
+			}
+		}
+
+		&.is-right {
+			padding-left: var(--cta-padding-inline);
+			padding-right: calc(var(--cta-padding-inline) + var(--cta-icon-width) + var(--cta-icon-gap));
+
+			& svg {
+				left: auto;
+				right: var(--cta-padding-inline);
+			}
+		}
+
+		&:hover,
+		&:focus {
+			svg use {
+				fill: var(--cta-color-hover);
+			}
+		}
+
+		&:active {
+			svg use {
+				fill: var(--cta-color-active);
+			}
+		}
+	}
+
+	&[disabled] {
+		cursor: default;
+		pointer-events: none;
+		opacity: 0.5;
+
+		svg use {
+			fill: var(--cta-color-default);
+		}
+	}
+
+	&.is-full {
+		width: 100%;
+	}
+
+	@include bp.get(xxs) {
+		width: auto;
 	}
 }
 
 // UNIQUE BUTTONS
 // ==========================================================================
-
-.btn-outline {
-	--btn-outline-theme: var(--theme-paragraph-color);
-	--btn-outline-theme-inverted: var(--theme-paragraph-color-on-inverted);
-	--btn-outline-theme-hover: var(--theme-primary);
-	background: none;
-	border: 1px solid var(--btn-outline-theme);
-	color: var(--btn-outline-theme);
-	border-radius: var(--theme-border-width);
-	padding: utils.rem(7) utils.rem(15);
-	cursor: pointer;
-
-	&.is-active {
-		border-color: var(--btn-outline-theme-hover);
-		color: var(--btn-outline-theme-hover);
-	}
-
-	&:hover,
-	&:focus {
-		border-color: var(--btn-outline-theme-hover);
-		color: var(--btn-outline-theme-hover);
-		outline: none;
-	}
-
-	&:focus-visible {
-		outline: 1px solid var(--theme-primary);
-	}
-
-	&:active {
-		border-color: var(--btn-outline-theme-hover);
-		color: var(--btn-outline-theme-inverted);
-		background-color: var(--btn-outline-theme-hover);
-	}
-
-	&.is-small {
-		padding: utils.rem(2) utils.rem(5);
-		font-size: var(--font-size-xs);
-	}
-}
 
 .btn-offscreen {
 	display: inline-block;
@@ -125,7 +332,7 @@ a {
 
 	._svg-line {
 		fill: none;
-		stroke: var(--theme-heading-color);
+		stroke: var(--theme-black);
 		stroke-width: 6;
 		transition-duration: var(--anim-duration-slow);
 		transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);

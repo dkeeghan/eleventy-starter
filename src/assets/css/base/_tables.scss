@@ -1,0 +1,111 @@
+@use "../_includes/theme";
+@use "../_includes/utils";
+
+// ==========================================================================
+// TABLES
+// ==========================================================================
+
+table {
+	--table-color: var(--theme-paragraph-color);
+	--table-border-color: var(--theme-border);
+	--table-background-color: transparent;
+	--table-background-color-alternate: var(--theme-grey-light);
+	--table-header-color: var(--theme-white);
+	--table-header-border-color: var(--theme-white);
+	--table-header-background-color: var(--theme-black);
+
+	font-size: var(--font-size-s);
+	line-height: 1.4286;
+	width: 100%;
+	margin: var(--font-margins);
+	border-spacing: 0;
+	border-radius: var(--theme-border-radius);
+
+	.has-bg-inverted & {
+		--table-color: var(--theme-paragraph-color);
+		--table-border-color: var(--theme-grey-mid);
+		--table-background-color: transparent;
+		--table-background-color-alternate: var(--theme-grey-verydark);
+		--table-header-color: var(--theme-grey-verydark);
+		--table-header-border-color: var(--theme-grey-dark);
+		--table-header-background-color: var(--theme-grey-light);
+	}
+
+	&:first-child {
+		margin-top: 0;
+	}
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+
+th,
+td {
+	text-align: left;
+	vertical-align: top;
+	padding: utils.rem(14);
+	border: var(--theme-border-width-s) solid var(--table-border-color);
+
+	tr + tr & {
+		border-top: none;
+	}
+
+	& + th,
+	& + td {
+		border-left: none;
+	}
+}
+
+thead {
+	th {
+		@include theme.feature-family();
+		font-size: var(--font-size);
+		line-height: var(--font-heading-line-height);
+		background-color: var(--table-header-background-color);
+		color: var(--table-header-color);
+		border-top: none;
+		border-bottom: none;
+
+		&:first-child {
+			border-left: none;
+			border-top-left-radius: var(--theme-border-radius);
+		}
+
+		&:last-child {
+			border-right: none;
+			border-top-right-radius: var(--theme-border-radius);
+		}
+	}
+}
+
+tbody {
+	td,
+	th {
+		color: var(--table-color);
+	}
+
+	th {
+		font-weight: 700;
+	}
+
+	tr:nth-child(2n) {
+		th,
+		td {
+			background-color: var(--table-background-color-alternate);
+		}
+	}
+
+	tr:last-child {
+		th,
+		td {
+			&:first-child {
+				border-bottom-left-radius: var(--theme-border-radius);
+			}
+
+			&:last-child {
+				border-bottom-right-radius: var(--theme-border-radius);
+			}
+		}
+	}
+}

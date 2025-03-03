@@ -1,0 +1,77 @@
+---
+title: Two Column Right Layout
+eleventyNavigation:
+  key: Two Column Right
+  parent: Layouts
+  status: done
+  order: 3
+---
+
+{% extends "layouts/two-column-right.njk" %}
+
+{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+
+{% import "components/global/gc04-nav-side.njk" as navSide with context %}
+
+{% block above %}
+	{{ breadcrumbs.render() }}
+
+	{{ pageHeader.render(title) }}
+{% endblock %}
+
+{% block left %}
+	{{ navSide.render() }}
+{% endblock %}
+
+{% block main %}
+	<p>Two column template - called Two Column Right because the Right column is the Main column (there were lots of arguments about which was the right way to name it, this one won out)</p>
+	<p>Main content gets put in here.</p>
+
+	<h2>Extends</h2>
+	{% CodePreview "njk", true %}
+		{% raw %}
+		{% extends "layouts/two-column-right.njk" %}
+		{% endraw %}
+	{% endCodePreview %}
+
+	<h2>Available Blocks</h2>
+	{% CodePreview "njk", true %}
+		{% raw %}
+		{% block above %}
+			Content to be displayed above the main column
+		{% endblock %}
+
+		{% block left %}
+			<p>Left column content goes here.</p>
+		{% endblock %}
+
+		{% block main %}
+			Content to be in the main column
+		{% endblock %}
+
+		{% block below %}
+			Content to be displayed below the main column
+		{% endblock %}
+		{% endraw %}
+	{% endCodePreview %}
+
+	<h2>Move DOM position of left column to the top</h2>
+	{% CodePreview "njk", true %}
+		{% raw %}
+		---
+		hasLeftAbove: true
+		---
+
+		{% extends "layouts/two-column-right.njk" %}
+
+		{% block leftAbove %}
+			<p>Left column content goes here, and will be rendered above the main column.</p>
+		{% endblock %}
+		{% endraw %}
+	{% endCodePreview %}
+{% endblock %}
+
+{% block below %}
+	<p>Content that sits below - full width, goes here.</p>
+{% endblock %}

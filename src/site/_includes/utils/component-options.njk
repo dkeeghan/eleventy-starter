@@ -1,0 +1,52 @@
+{# TODO: Add background image properties in here as a new macro and remove from components like HC02/03 #}
+
+{%- macro getClassAttr(componentClass, options={}, type='cc') -%}
+	{%- set classes = [type, componentClass] -%}
+	{%- set hasPadding = false -%}
+
+	{%- if type == 'cc' -%}
+		{%- if options.hasBorderTop -%}
+			{%- set classes = (classes.push('has-border-top'), classes) -%}
+		{%- endif -%}
+	{%- endif -%}
+
+	{%- if type == 'hc' -%}
+		{%- if options.hasHeightReduced -%}
+			{%- set classes = (classes.push('has-height-reduced'), classes) -%}
+		{%- endif -%}
+	{%- endif -%}
+
+	{%- if options.hasBgShaded -%}
+		{%- set classes = (classes.push('has-bg-shaded'), classes) -%}
+		{%- set hasPadding = true -%}
+	{%- endif -%}
+
+	{%- if options.hasBgInverted -%}
+		{%- set classes = (classes.push('has-bg-inverted'), classes) -%}
+		{%- set hasPadding = true -%}
+	{%- endif -%}
+
+	{%- if options.classes -%}
+		{%- set classes = classes | MergeArrayWith(options.classes) -%}
+	{%- endif -%}
+
+	{%- if options.bgImage -%}
+		{%- set hasPadding = true -%}
+	{%- endif -%}
+
+	{%- if hasPadding -%}
+		{%- set classes = (classes.push('has-padding'), classes) -%}
+	{%- endif -%}
+
+	{{- classes | join(" ") -}}
+{%- endmacro -%}
+
+{%- macro getBgImage(options={}) -%}
+	{%- set style = '' -%}
+
+	{%- if options.bgImage -%}
+		{%- set style = ' style="background-image: url(' + options.bgImage + ');"' -%}
+	{%- endif -%}
+
+	{{- style | safe -}}
+{%- endmacro -%}

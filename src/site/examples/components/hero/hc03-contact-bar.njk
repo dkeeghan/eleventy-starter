@@ -1,0 +1,262 @@
+---
+title: HC03 Contact Bar
+eleventyNavigation:
+  key: HC03 Contact Bar
+  parent: Hero Components
+  excerpt: The contact bar module is used to display a set of detailed links horizontally with an image.
+  status: done
+  order: 3
+---
+
+{% extends "layouts/one-column.njk" %}
+
+{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+
+{% import "components/hero/hc03-contact-bar.njk" as contactBar %}
+
+{% block above %}
+	{{ breadcrumbs.render() }}
+	{{ pageHeader.render() }}
+{% endblock %}
+
+{% block main %}
+
+	{% CodePreview %}
+		{% raw %}
+        {% import "components/content/cc08-contact-bar.njk" as contactBar %}
+		{{ contactBar.render(
+			'Contact Us',
+			[
+				{
+					name: 'Email',
+					type: 'email',
+					details: 'email@company.com',
+					href: 'mailto:email@company.com'
+				},
+				{
+					name: 'Location',
+					type: 'address',
+					details: '123 Main St, Melbourne, VIC 3000'
+				},
+				{
+					name: 'Phone',
+					type: 'ph',
+					details: '1800 123 456',
+					href: 'tel:1800123456'
+				}
+			]
+		) }}
+		{% endraw %}
+	{% endCodePreview %}
+
+	{% CodePreview "markup" %}
+		{{ contactBar.render(
+			'Contact Us',
+			[
+				{
+					name: 'Email',
+					type: 'email',
+					details: 'email@company.com',
+					href: 'mailto:email@company.com'
+				},
+				{
+					name: 'Location',
+					type: 'address',
+					details: '123 Main St, Melbourne, VIC 3000'
+				},
+				{
+					name: 'Phone',
+					type: 'ph',
+					details: '1800 123 456',
+					href: 'tel:1800123456'
+				}
+			]
+		) }}
+	{% endCodePreview %}
+
+	<h2>Examples</h2>
+
+	{{ contactBar.render(
+		'Contact Us Inline',
+		[
+			{
+				name: 'Email',
+				type: 'email',
+				details: 'email@company.com',
+				href: 'mailto:email@company.com'
+			},
+			{
+				name: 'Location',
+				type: 'address',
+				details: '123 Main St, Melbourne, VIC 3000',
+				href: 'https://goo.gl/maps/6rFnqY2w3NG59PUG7'
+			},
+			{
+				name: 'Phone',
+				type: 'ph',
+				details: '1800 123 456',
+				href: 'tel:1800123456'
+			}
+		]
+	) }}
+
+	<hr />
+
+	{{ contactBar.render(
+		'Shaded option - inline',
+		[
+			{
+				name: 'Phone',
+				type: 'ph',
+				details: '1800 123 456',
+				href: 'tel:1800123456'
+			},
+			{
+				name: 'Email',
+				type: 'email',
+				details: 'email@company.com',
+				href: 'mailto:email@company.com'
+			},
+			{
+				name: 'Location',
+				type: 'address',
+				details: '123 Main St, Melbourne, VIC 3000',
+				href: 'https://goo.gl/maps/6rFnqY2w3NG59PUG7'
+			}
+		],
+		{
+			hasBgShaded: true
+		}
+	) }}
+
+	<hr />
+
+	{{ contactBar.render(
+		'Contact us at night',
+		[
+			{
+				name: 'Email',
+				type: 'email',
+				details: 'email@company.com',
+				href: 'mailto:email@company.com'
+			},
+			{
+				name: 'Phone',
+				type: 'ph',
+				details: '1800 123 456',
+				href: 'tel:1800123456'
+			},
+			{
+				name: 'Location',
+				type: 'address',
+				details: '123 Main St, Melbourne, VIC 3000',
+				href: 'https://goo.gl/maps/6rFnqY2w3NG59PUG7'
+			}
+		],
+		{
+			hasBgInverted: true
+		}
+	) }}
+
+	<hr />
+
+	{{ contactBar.render(
+		'Contact Us',
+		[
+			{
+				name: 'Location',
+				type: 'address',
+				details: '123 Main St, Melbourne, VIC 3000'
+			},
+			{
+				name: 'Email',
+				type: 'email',
+				details: 'email@company.com'
+			},
+			{
+				name: 'Phone',
+				type: 'ph',
+				details: '1800 123 456'
+			}
+		],
+		{
+			bgImage: 'https://picsum.photos/id/100/1600/400.jpg'
+		}
+	) }}
+
+{% endblock %}
+
+{% block below %}
+
+	{{ contactBar.render(
+		'Contact Us with links',
+		[
+			{
+				name: 'Email',
+				type: 'email',
+				details: 'email@company.com',
+				href: 'mailto:email@company.com'
+			},
+			{
+				name: 'Location',
+				type: 'address',
+				details: '123 Main St, Melbourne, VIC 3000',
+				href: 'https://goo.gl/maps/6rFnqY2w3NG59PUG7'
+			},
+			{
+				name: 'Phone',
+				type: 'ph',
+				details: '1800 123 456',
+				href: 'tel:1800123456'
+			}
+		]
+	) }}
+
+	{{ contactBar.render(
+		'No links, shaded background',
+		[
+			{
+				name: 'Email',
+				type: 'email',
+				details: 'email@company.com'
+			},
+			{
+				name: 'Location',
+				type: 'address',
+				details: '123 Main St,
+				Melbourne, VIC 3000'
+			},
+			{
+				name: 'Phone',
+				type: 'ph',
+				details: '1800 123 456'
+			}
+		],
+		{
+			hasBgShaded: true
+		}
+	) }}
+
+	{{ contactBar.render(
+		'Dark option with image',
+		[
+			{
+				name: 'Location',
+				type: 'address',
+				details: '123 Main St,
+				Melbourne, VIC 3000'
+			},
+			{
+				name: 'Phone',
+				type: 'ph',
+				details: '1800 123 456'
+			}
+		],
+		{
+			hasBgInverted: true,
+			bgImage: 'https://picsum.photos/id/1019/1400/400'
+		}
+	) }}
+
+{% endblock %}

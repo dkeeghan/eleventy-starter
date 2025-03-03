@@ -1,0 +1,27 @@
+{#
+HERO BANNER
+--------------
+Full width module used to showcase content at the top of a page.
+#}
+
+{% import "utils/component-options.njk" as co %}
+
+{% macro render(title, options, componentOptions) -%}
+<!-- START .hc-hero-banner -->
+<section class="{{ co.getClassAttr('hc-hero-banner', componentOptions, 'hc') }}"{{ co.getBgImage(componentOptions) }}>
+	<div class="l-padding">
+		{% if options.subtitle %}<span class="_subtitle text-subtitle">{{ options.subtitle }}</span>{% endif %}
+
+		<h1 class="_title">{{ title }}</h1>
+
+		{% if options.desc %}<p class="_desc">{{ options.desc }}</p>{% endif %}
+
+		{% if options.link %}
+		<a href="{{ options.link.href }}" class="cta">{{options.link.text}}</a>
+		{% endif %}
+	</div>
+</section>
+<!-- END .hc-hero-banner -->
+{%- endmacro %}
+
+

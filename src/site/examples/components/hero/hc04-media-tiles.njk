@@ -1,0 +1,325 @@
+---
+title: HC04 Media Tiles
+eleventyNavigation:
+  key: HC04 Media Tiles
+  parent: Hero Components
+  excerpt: The Media Tiles module is used to display a set of related content. It is a wrapper for a number of content tiles (up to 4) displayed in a row with a header and "see more" button.
+  status: done
+  order: 4
+---
+
+{% extends "layouts/one-column.njk" %}
+
+{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+
+{% import "components/hero/hc04-media-tiles.njk" as mediaTiles %}
+
+{% block above %}
+	{{ breadcrumbs.render() }}
+
+	{{ pageHeader.render(
+		title,
+		eleventyNavigation.excerpt
+	) }}
+{% endblock %}
+
+{% block main %}
+	{% CodePreview %}
+		{% raw %}
+		{% import "components/hero/hc04-media-tiles.njk" as mediaTiles %}
+		{{ mediaTiles.render(
+			'Module heading',
+			[
+				{
+					title: 'Tile One',
+					subtitle: 'Subtitle',
+					desc: 'Description',
+					image: {
+						src: 'https://via.placeholder.com/800x450/81BC00/ffffff.png',
+						alt: 'Placeholder image'
+					},
+					link: '#'
+				},
+				{
+					title: 'Tile Two',
+					subtitle: 'Subtitle',
+					desc: 'Description',
+					image: {
+						src: 'https://via.placeholder.com/800x450/81BC00/ffffff.png',
+						alt: 'Placeholder image'
+					},
+					link: '#'
+				},
+				{
+					title: 'Tile Three',
+					subtitle: 'Subtitle',
+					desc: 'Description',
+					image: {
+						src: 'https://via.placeholder.com/800x450/81BC00/ffffff.png',
+						alt: 'Placeholder image'
+					},
+					link: '#'
+				},
+				{
+					title: 'Tile Four',
+					subtitle: 'Subtitle',
+					desc: 'Description',
+					image: {
+						src: 'https://via.placeholder.com/800x450/81BC00/ffffff.png',
+						alt: 'Placeholder image'
+					},
+					link: '#'
+				}
+			],
+			{
+				href: '#',
+				text: 'See all'
+			}
+		) }}
+		{% endraw %}
+	{% endCodePreview %}
+
+	{% CodePreview "markup" %}
+		{{ mediaTiles.render(
+			'Module heading',
+			[
+				{
+					title: 'Tile One',
+					subtitle: 'Subtitle',
+					desc: 'Description',
+					image: {
+						src: 'https://via.placeholder.com/800x450/81BC00/ffffff.png',
+						alt: 'Placeholder image'
+					},
+					link: '#'
+				},
+				{
+					title: 'Tile Two',
+					subtitle: 'Subtitle',
+					desc: 'Description',
+					image: {
+						src: 'https://via.placeholder.com/800x450/81BC00/ffffff.png',
+						alt: 'Placeholder image'
+					},
+					link: '#'
+				},
+				{
+					title: 'Tile Three',
+					subtitle: 'Subtitle',
+					desc: 'Description',
+					image: {
+						src: 'https://via.placeholder.com/800x450/81BC00/ffffff.png',
+						alt: 'Placeholder image'
+					},
+					link: '#'
+				},
+				{
+					title: 'Tile Four',
+					subtitle: 'Subtitle',
+					desc: 'Description',
+					image: {
+						src: 'https://via.placeholder.com/800x450/81BC00/ffffff.png',
+						alt: 'Placeholder image'
+					},
+					link: '#'
+				}
+			],
+			{
+				href: '#',
+				text: 'See all'
+			}
+		)}}
+	{% endCodePreview %}
+
+	<h2>Examples - in the main column</h2>
+
+	{{ mediaTiles.render(
+		'Module heading',
+		[
+			{
+				title: 'Tile One',
+				subtitle: 'Subtitle',
+				desc: 'This tile has a link. Clicking anywhere on the tile will direct you to the link destination.',
+				image: {
+					src: 'https://via.placeholder.com/800x450/81BC00/ffffff.png',
+					alt: 'Placeholder image'
+				},
+				link: '#'
+			},
+			{
+				title: 'Another title',
+				subtitle: 'Subtitle',
+				desc: 'This tile has an image, but no link.',
+				image: {
+					src: 'https://via.placeholder.com/800x450/81BC00/ffffff.png',
+					alt: 'Placeholder image'
+				}
+			},
+			{
+				title: 'A longer title',
+				subtitle: 'Subtitle',
+				desc: 'This title has no image or link.'
+			},
+			{
+				title: 'The longest title of them all',
+				subtitle: 'Subtitle',
+				desc: 'This tile has no image, but it has a link. Aenean ac hendrerit nisl. Aenean vitae tempor mi, ut pellentesque velit. Nam in est condimentum, congue urna id, sodales orci.',
+				link: '#'
+			}
+		],
+		{
+			href: '#',
+			text: 'See all'
+		}
+	) }}
+
+	<h3>Colour variation in the main column</h3>
+
+	{{ mediaTiles.render(
+		'Example with long title, no header link and less than 4 items.',
+		[
+			{
+				title: 'Tile One',
+				subtitle: 'Subtitle',
+				desc: 'This tile has a link. Clicking anywhere on the tile will direct you to the link destination.',
+				image: {
+					src: 'https://via.placeholder.com/800x450/81BC00/ffffff.png',
+					alt: 'Placeholder image'
+				},
+				link: '#'
+			},
+			{
+				title: 'Tile Two',
+				subtitle: 'Subtitle',
+				desc: 'This tile has no image, but it has a link.',
+				link: '#'
+			}
+		],
+		false,
+		{
+			hasBgInverted: true
+		}
+	) }}
+
+	<h2>Examples - in the full width &ldquo;below&rdquo; area</h2>
+
+{% endblock %}
+
+{% block below %}
+	{{ mediaTiles.render(
+		'Module heading',
+		[
+			{
+				title: 'Tile One',
+				subtitle: 'Subtitle',
+				desc: 'This tile has a link. Clicking anywhere on the tile will direct you to the link destination.',
+				image: {
+					src: 'https://via.placeholder.com/800x450/81BC00/ffffff.png',
+					alt: 'Placeholder image'
+				},
+				link: '#'
+			},
+			{
+				title: 'Tile Two',
+				subtitle: 'Subtitle',
+				desc: 'This tile has no image, but it has a link.',
+				link: '#'
+			},
+			{
+				title: 'Tile Three',
+				subtitle: 'Subtitle',
+				desc: 'This tile has an image, but no link.',
+				image: {
+					src: 'https://via.placeholder.com/800x450/81BC00/ffffff.png',
+					alt: 'Placeholder image'
+				}
+			},
+			{
+				title: 'Tile Four',
+				subtitle: 'Subtitle',
+				desc: 'This title has no image or link.'
+			}
+		],
+		{
+			href: '#',
+			text: 'See all'
+		}
+	) }}
+
+	{{ mediaTiles.render(
+		'Example with long title, no header link and less than 4 items.',
+		[
+			{
+				title: 'Tile One',
+				subtitle: 'Subtitle',
+				desc: 'This tile has a link. Clicking anywhere on the tile will direct you to the link destination.',
+				image: {
+					src: 'https://via.placeholder.com/800x450/81BC00/ffffff.png',
+					alt: 'Placeholder image'
+				},
+				link: '#'
+			},
+			{
+				title: 'Tile Two',
+				subtitle: 'Subtitle',
+				desc: 'This tile has no image, but it has a link.',
+				link: '#'
+			}
+		]
+	) }}
+
+	<div class="l-padding"><h3>Global variations</h3></div>
+
+	{{ mediaTiles.render(
+		'Example with long title, no header link and less than 4 items.',
+		[
+			{
+				title: 'Tile One',
+				subtitle: 'Subtitle',
+				desc: 'This tile has a link. Clicking anywhere on the tile will direct you to the link destination.',
+				image: {
+					src: 'https://via.placeholder.com/800x450/81BC00/ffffff.png',
+					alt: 'Placeholder image'
+				},
+				link: '#'
+			},
+			{
+				title: 'Tile Two',
+				subtitle: 'Subtitle',
+				desc: 'This tile has no image, but it has a link.',
+				link: '#'
+			}
+		],
+		false,
+		{
+			hasBgShaded: true
+		}
+	) }}
+
+	{{ mediaTiles.render(
+		'Example with long title, no header link and less than 4 items.',
+		[
+			{
+				title: 'Tile One',
+				subtitle: 'Subtitle',
+				desc: 'This tile has a link. Clicking anywhere on the tile will direct you to the link destination.',
+				image: {
+					src: 'https://via.placeholder.com/800x450/81BC00/ffffff.png',
+					alt: 'Placeholder image'
+				},
+				link: '#'
+			},
+			{
+				title: 'Tile Two',
+				subtitle: 'Subtitle',
+				desc: 'This tile has no image, but it has a link.',
+				link: '#'
+			}
+		],
+		false,
+		{
+			hasBgInverted: true
+		}
+	) }}
+{% endblock %}

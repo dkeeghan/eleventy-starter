@@ -1,0 +1,218 @@
+@use "~@deloitte-digital-au/ddbreakpoints/lib/dd.breakpoints" as bp;
+@use "./_includes/theme";
+@use "./_includes/utils";
+@use "./_includes/svgicons";
+
+// ==========================================================================
+// HERO COMPONENTS
+// ==========================================================================
+
+.hc {
+	// styles for all content components
+	margin: 0;
+
+	// example Content Component wide variants
+	&.has-bg-shaded {
+		background-color: var(--theme-bg-shaded);
+	}
+
+	// example Content Component wide variants
+	&.has-bg-inverted {
+		--theme-paragraph-color: var(--theme-paragraph-color-inverted);
+		--theme-paragraph-subdued-color: var(--theme-paragraph-subdued-color-inverted);
+		--theme-heading-color: var(--theme-heading-color-inverted);
+		--theme-link-color-default: var(--theme-link-color-default-inverted);
+
+		background-color: var(--theme-bg-inverted);
+	}
+
+	._hc-title {
+		font-size: var(--font-size-h3);
+		margin: 0 0 utils.rem(20);
+	}
+
+	.l-padding &.has-padding {
+		padding-left: var(--layout-padding);
+		padding-right: var(--layout-padding);
+		border-radius: var(--theme-border-radius);
+	}
+}
+
+// PAGE HEADER
+// ==========================================================================
+
+.hc-page-header {
+	margin-bottom: utils.rem(30);
+	padding: utils.rem(30) 0;
+	background-color: var(--theme-grey-light);
+
+	._title {
+		margin: 0 0 utils.rem(10) 0;
+	}
+
+	._subtitle {
+		@include theme.base-family-hero();
+		margin: 0;
+	}
+
+	@include bp.get(l) {
+		padding: utils.rem(60) 0;
+	}
+}
+
+// HERO BANNER
+// ==========================================================================
+
+.hc-hero-banner {
+	margin-bottom: var(--component-spacing);
+	padding: utils.rem(80) 0;
+	background-size: cover;
+	background-position: 50% 50%;
+
+	._title {
+		margin: 0 0 utils.rem(10) 0;
+	}
+
+	._subtitle {
+		margin: 0 0 utils.rem(40) 0;
+		display: block;
+	}
+
+	._desc {
+		@include theme.base-family-hero();
+		margin: 0 0 utils.rem(40) 0;
+	}
+
+	&.has-height-reduced {
+		padding: utils.rem(40) 0;
+
+		._desc {
+			margin: utils.rem(10) 0 utils.rem(40) 0;
+		}
+	}
+
+	@include bp.get(l) {
+		padding: utils.rem(120) 0;
+
+		._desc {
+			margin: utils.rem(10) 0 utils.rem(60) 0;
+		}
+
+		&.has-height-reduced {
+			padding: utils.rem(80) 0;
+
+			._desc {
+				margin: utils.rem(10) 0 utils.rem(30) 0;
+			}
+		}
+	}
+}
+
+// CONTACT BAR
+// ==========================================================================
+
+.hc-contact-bar {
+	width: 100%;
+	background-size: cover;
+	background-position: 50% 50%;
+	padding: 3.75rem 0;
+
+	._container {
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-gap: utils.rem(20);
+
+		span {
+			color: var(--theme-paragraph-subdued-color);
+		}
+
+		._list {
+			list-style: none;
+			display: grid;
+			grid-template-columns: 1fr;
+			grid-gap: utils.rem(20);
+			padding: 0;
+			margin: 0;
+
+			li {
+				margin: 0;
+			}
+		}
+
+		@include bp.get(m) {
+			._list {
+				grid-template-columns: 1fr 1fr 1fr;
+			}
+		}
+
+		@include bp.get(l) {
+			grid-template-columns: 1fr 3fr;
+		}
+	}
+
+	._hc-title {
+		margin: 0;
+	}
+
+	._list-item {
+		@include svgicons.set(utils.rem(24), utils.rem(24), left, utils.rem(3));
+		padding-left: utils.rem(35);
+		position: relative;
+
+		&.is-link {
+			text-decoration: none;
+			display: block;
+
+			&:hover,
+			&:focus {
+				strong {
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+
+	strong {
+		display: block;
+	}
+}
+
+// MEDIA TILES
+// ==========================================================================
+
+.hc-media-tiles {
+	padding: var(--component-padding) 0;
+
+	._header {
+		width: 100%;
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		margin-bottom: var(--component-spacing);
+	}
+
+	._tile {
+		text-decoration: none;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		height: 100%;
+		border: var(--theme-border-width) solid var(--theme-border);
+		border-radius: var(--theme-border-radius);
+		overflow: hidden;
+	}
+
+	._content {
+		padding: var(--component-padding);
+	}
+
+	._title {
+		font-size: var(--font-size-h4);
+	}
+
+	._image {
+		max-width: 100%;
+		width: 100%;
+		display: block;
+	}
+}

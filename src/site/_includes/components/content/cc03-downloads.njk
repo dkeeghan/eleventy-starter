@@ -1,0 +1,64 @@
+{#
+CC03 Downloads
+--------------
+#}
+{% import "utils/svg.njk" as svg %}
+{% import "utils/component-options.njk" as co %}
+{% import "components/global/link-list-item.njk" as linkListItem %}
+
+{% set filetypes = {
+	'pdf': 'pdf',
+	'doc': 'doc',
+	'docx': 'doc',
+	'rtf': 'doc',
+	'txt': 'doc',
+	'xls': 'xls',
+	'xlsx': 'xls',
+	'ppt': 'ppt',
+	'pptx': 'ppt',
+	'vsd': 'vsd',
+	'vsdx': 'vsd',
+	'zip': 'zip',
+	'app': 'app',
+	'exe': 'app',
+	'dmg': 'app',
+	'app': 'app',
+	'audio': 'audio',
+	'mp3': 'audio',
+	'wav': 'audio',
+	'aac': 'audio',
+	'video': 'video',
+	'mp4': 'video',
+	'mov': 'video',
+	'avi': 'video',
+	'image': 'image',
+	'jpg': 'image',
+	'png': 'image',
+	'gif': 'image',
+	'tiff': 'image',
+	'svg': 'image',
+	'unknown': 'default',
+	'default': 'default'
+} %}
+
+
+{% macro render(title, files, componentOptions={}) %}
+	<!-- START .cc-downloads -->
+	<section class="{{ co.getClassAttr('cc-downloads', componentOptions) }}">
+		<div class="_content">
+			<h2 class="_cc-title">{{ title }}</h2>
+			<ul class="links-list">
+				{% for file in files -%}
+					{% set icon = filetypes[file.type | lower] %}
+					<li>
+						{{ linkListItem.render(file.name, file.href, {
+							icon: 'filetype-' + icon,
+							meta: '(' + file.type + ', ' + file.size + ')'
+						}) }}
+					</li>
+				{%- endfor %}
+			</ul>
+		</div>
+	</section>
+	<!-- END .cc-downloads -->
+{% endmacro %}

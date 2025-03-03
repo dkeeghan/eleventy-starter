@@ -1,0 +1,180 @@
+---
+title: SCSS
+eleventyNavigation:
+  key: SCSS
+  parent: Usage
+  excerpt: Guidelines for writing SCSS in a modular & reusable fashion.
+  status: done
+  order: 3
+---
+
+{% extends "layouts/one-column.njk" %}
+
+{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+
+{% block above %}
+	{{ breadcrumbs.render() }}
+	{{ pageHeader.render() }}
+{% endblock %}
+
+{% block main %}
+	{% RichText %}
+		<h2>Introduction</h2>
+		<p>This project is a starting point for larger websites - if required, change structures and move things around as you need. If you're finding that things need to be constantly moved/rearranged, then there could be a problem with the template itself, and feel free to make a change, raise a detailed Pull Request and explain why you feel like it should be changed.</p>
+
+		<h2>Modular CSS</h2>
+		<p>The Modular CSS approach is kind of like the bastard child of BEM without the weird syntax, styled components but not in JS, and SCSS.</p>
+		<p>The intention behind it is to make standalong components that are easy to manage, update and expand on.</p>
+
+		<h3>Global/Namespaced, Private and Modifier Classes</h3>
+		<p>We break CSS classes down into three distinct types:</p>
+		<ul>
+			<li>Global</li>
+			<li>Namespaced</li>
+			<li>Private</li>
+			<li>Modifier</li>
+		</ul>
+
+		{% LColumns 2 %}
+			{% LCol %}
+				<h4>Global</h4>
+				<p>Global classes can be thought of as global utilities that can be used inside any other component.</p>
+				<p>When naming your classes think about the order of the words you use from most generic, to most specific. For example, if you have multiple types of links, use the word 'link' e.g. <code>.link-external</code> as the first word instead of <code>.external-link</code>. This will help you determine if you have variations (and therefore should use a modifer instead) or need entirely new classes per item.</p>
+				<p>For classes inside these components, use Private classes instead.</p>
+
+				{% CodePreview "scss", "none", false %}
+					.public {
+						// styles go here
+					}
+
+					.link-block {
+
+					}
+
+					.link-icon-only {
+
+					}
+
+					.cta {
+
+					}
+
+					.text-subtitle {
+
+					}
+				{% endCodePreview %}
+			{% endLCol %}
+			{% LCol %}
+				<h4>Namespaced</h4>
+				<p>Namespaced classes have short identifiers can be used to help quickly identify what it is we're doing with that class.</p>
+				<p>These generally shouldn't be changed per project</p>
+				<p>For classes inside these components, use Private classes instead.</p>
+
+				{% CodePreview "scss", "none", false %}
+					.l-padding {
+						// use the `l-` prefix for styles related to layouts
+					}
+
+					.g-header {
+						// use the `g-` prefix for styles related to global components
+					}
+
+					.hc-page-header {
+						// use the `hc-` prefix for styles related to hero components
+					}
+
+					.cc-content-tile {
+						// use the `cc-` prefix for styles related to content components
+					}
+
+					.js-expand-collapse {
+						// `js-` should never be used for visual styles - only to bind JavaScript to the page
+					}
+				{% endCodePreview %}
+			{% endLCol %}
+		{% endLColumns %}
+
+		{% LColumns 2 %}
+			{% LCol %}
+				<h4>Private</h4>
+				<p>Private classes start with an underscore <code>_</code> are only are referenced inside a Public class. This encourages the creation of components and allows for you to use very generic and simple class names, and thus making the HTML more readable.</p>
+				<p>Where you&rsquo;re finding code being duplicated, you can pull it out and make it it&rsquo;s own component. which is then loaded into the parent and handled separately.</p>
+
+				{% CodePreview "scss", "none", false %}
+					.cc-content-tile {
+						._title {
+							// title styles
+						}
+
+						._image {
+							// image styles
+						}
+
+						.link-title {
+							// DON'T - for positional changes, add a private class to this component, and style that instead.
+							// if you're doing design changes, create a new modifer on the original component instead.
+						}
+					}
+
+					._classname {
+						// DON'T - private classes should only be used inside a component
+					}
+				{% endCodePreview %}
+			{% endLCol %}
+			{% LCol %}
+				<h4>Modifier</h4>
+				<p>Modifier classes are used on the container of a component (i.e. the same level as the Public class) to allow for variations or states of components to be used, simplifying the work for CMS developers as they only need to change classes in the same location in the DOM.</p>
+				<p>These classes should start with terms like <code>is-</code> and <code>has-</code> to make it more readable.</p>
+
+				{% CodePreview "scss", "none", false %}
+					.cc-content-tile {
+						// base styles
+
+						&.has-image {
+							// styles for when there is an image
+						}
+
+						&.is-active,
+						&.is-selected {
+							// styles when the item is selected/active
+						}
+
+						&.has-dark-bg {
+							// has a dark background
+						}
+					}
+
+					.has-icon {
+						// DON'T - modifer classes should only be used inside a component
+					}
+				{% endCodePreview %}
+			{% endLCol %}
+		{% endLColumns %}
+
+		<h2>Folder Structure</h2>
+		<p>The SCSS folder structure is setup to be as simple as possible, located in <code>/src/assets/css</code>.</p>
+
+		<ul>
+			<li><code>_dev</code> - Used for dev.scss. Includes imports for use in the dev site, but not production site</li>
+			<li><code>_includes</code> - Variables, mixins and helper utilities to support a site - anything that should be included into another .scss file should be in here</li>
+			<li><code>base</code> - Base global styles, like rich text, links, buttons and tables.</li>
+			<li><code>components</code> - Core components - split into files, or combined for simple components</li>
+			<li><code>global</code> - Global site elements, like headers, footers</li>
+			<li><code>web-components</code> - Styles for web components - make sure to include the base styles provided by the library (if any)</li>
+			<li><code>_functional.scss</code> - Functional classes (like <code>.clearfix</code>) no real visual style, but improves functionality.</li>
+			<li><code>_layout.scss</code> - The base layout of the templates.</li>
+		</ul>
+
+		<h2>Compilation</h2>
+		<p>The framework uses Parcel JS to compile the assets with as little configuration as possible. The files <code>style.scss</code> and <code>dev.scss</code> will be compiled and moved to the <code>/dist/assets/css/</code> folder to be consumed by Eleventy.</p>
+
+		<h3>The main stylesheet</h3>
+		<p>The main stylesheet (found at <code>/src/assets/css/style.scss</code>) is for all the main site styles, to be exported to production.</p>
+
+		<h3>The development stylesheet</h3>
+		<p>The development stylesheet is used to render styles to be used in the supporting documentation and templates, but not to be exported out to the production website.</p>
+		<p>The stylesheet can be found in <code>/src/assets/css/dev.scss</code>, and all it&rsquo;s imports can be found in the <code>/src/assets/css/_dev</code> folder.</p>
+
+	{% endRichText %}
+{% endblock %}

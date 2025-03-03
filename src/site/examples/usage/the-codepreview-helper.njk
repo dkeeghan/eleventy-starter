@@ -1,0 +1,103 @@
+---
+title: The CodePreview Helper
+eleventyNavigation:
+  key: The CodePreview Helper
+  parent: Usage
+  excerpt: A helper utility tool in Eleventy to help preview and display code snippets and examples to other developers.
+  status: done
+  order: 4
+---
+
+{% extends "layouts/one-column.njk" %}
+
+{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+{% import "utils/svg.njk" as svg %}
+
+{% block above %}
+	{{ breadcrumbs.render() }}
+	{{ pageHeader.render() }}
+{% endblock %}
+
+{% block main %}
+	{% RichText %}
+		<p>To help show off your code to other FEDs or CMS Developers, you can use the CodePreview Paired Shortcode.</p>
+
+		<p>It has the following options:</p>
+
+		<ul>
+			<li><code>language</code> ["njk"] - Sets the language. You can choose from <code>njk</code>, <code>scss</code> and <code>markup</code> (or <code>html</code>)</li>
+			<li><code>isExpanded</code> [true] - Sets the container to be expanded or collapsed by default. Use <code>"none"</code> to disable.</li>
+			<li><code>title</code> ["Code Preview"] - Sets a title for the block. Use <code>false</code> to disable.</li>
+		</ul>
+
+		<h2>Language support</h2>
+
+		<h3>Nunjucks</h3>
+
+		{% LColumns 2 %}
+			{% LCol %}
+				{% CodePreview "njk", "none", "Nunjucks Block" %}
+					{% raw %}
+					{% CodePreview "njk" %}
+						{% raw %}
+						{# .njk code to print out directly #}
+						{% endraw %}
+					{% endCodePreview %}
+					{% endraw %}
+				{% endCodePreview %}
+			{% endLCol %}
+			{% LCol %}
+				{% CodePreview "njk", "none", "Output" %}
+					{% raw %}
+					{# .njk code to print out directly #}
+					{% endraw %}
+				{% endCodePreview %}
+			{% endLCol %}
+		{% endLColumns %}
+
+		<h3>SCSS</h3>
+
+		{% LColumns 2 %}
+			{% LCol %}
+				{% CodePreview "njk", "none", "Nunjucks Block" %}
+					{% raw %}
+					{% CodePreview "scss" %}
+						.classname {
+							font-size: 8em;
+						}
+					{% endCodePreview %}
+					{% endraw %}
+				{% endCodePreview %}
+			{% endLCol %}
+			{% LCol %}
+				{% CodePreview "scss", "none", "Output" %}
+					.classname {
+						font-size: 8em;
+					}
+				{% endCodePreview %}
+			{% endLCol %}
+		{% endLColumns %}
+
+		<h3>HTML</h3>
+
+		{% LColumns 2 %}
+			{% LCol %}
+				{% CodePreview "njk", "none", "Nunjucks Block" %}
+					{% raw %}
+					{% CodePreview "markup" %}
+						{# .njk code which will render and export to HTML - this won't be shown #}
+						<!-- .njk code which will render and export to HTML - this will be shown -->
+					{% endCodePreview %}
+					{% endraw %}
+				{% endCodePreview %}
+			{% endLCol %}
+			{% LCol %}
+				{% CodePreview "markup", "none", "Output" %}
+					{# .njk code which will render and export to HTML - this won't be shown #}
+					<!-- .njk code which will render and export to HTML - this will be shown -->
+				{% endCodePreview %}
+			{% endLCol %}
+		{% endLColumns %}
+	{% endRichText %}
+{% endblock %}

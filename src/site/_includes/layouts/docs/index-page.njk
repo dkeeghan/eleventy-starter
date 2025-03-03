@@ -1,0 +1,27 @@
+---
+title: Home
+eleventyNavigation:
+  key: Home
+---
+
+{% extends "layouts/two-column-right.njk" %}
+
+{% import "components/hero/hc01-page-header.njk" as pageHeader with context %}
+{% import "components/global/gc03-breadcrumbs.njk" as breadcrumbs with context %}
+
+{% import "components/global/gc04-nav-side.njk" as navSide with context %}
+
+{% import "components/_dev/index-nav.njk" as indexNav with context %}
+
+{% block above %}
+	{{ breadcrumbs.render() }}
+	{{ pageHeader.render() }}
+{% endblock %}
+
+{% block left %}
+	{{ navSide.render() }}
+{% endblock %}
+
+{% block main %}
+	{{ indexNav.render() }}
+{% endblock %}
